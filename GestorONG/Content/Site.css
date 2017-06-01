@@ -22,3 +22,38 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/************ Set header styles***********/
+/*Set background color*/
+.navbar-inverse{
+    background-color: #e65858;
+}
+
+/*Set menu items text color*/
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+/*Set styles for user-text header*/
+.user-header {
+    width: 65%;
+    text-align: center;
+    color: #ffffff !important;
+}
+
+/***********  End header styles***********/
+
+/***********  Set footer styles***********/
+/* Set footer container styles */
+.container-fluid.footer {
+    background-color: #e65858;
+    color: #ffffff;
+}
+
+/* Set styles for logo on the righ*/
+.logo-footer .img-logo {
+    float: right;
+    margin-right: 10%;
+}
+
+/***********  End footer styles***********/
