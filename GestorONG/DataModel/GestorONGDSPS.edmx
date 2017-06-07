@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="gestor_ongd_sps_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="gestor_ongd_sps_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="perfiles">
           <Key>
             <PropertyRef Name="id" />
@@ -64,12 +64,45 @@
         </EntityType>
         <EntityType Name="voluntarios">
           <Key>
-            <PropertyRef Name="idCliente" />
+            <PropertyRef Name="idVoluntario" />
           </Key>
-          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="idVoluntario" Type="int" Nullable="false" />
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
           <Property Name="sede" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="voluntario">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Sede" />
+            <PropertyRef Name="Perfiles" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellidos" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="direccionPostal" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="provincia" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono1" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="telefono2" Type="nvarchar" MaxLength="15" />
+          <Property Name="email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="datetime" />
+          <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="Sede" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
         </EntityType>
         <Association Name="FK_personas-perfiles_perfiles">
           <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
@@ -95,17 +128,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Voluntarios_Personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="*" />
+        <Association Name="FK_voluntarios_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="1" />
+          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="personas">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="voluntarios">
-              <PropertyRef Name="idPersona" />
+              <PropertyRef Name="idVoluntario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -121,37 +152,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="gestor_ongd_sps_prodModelStoreContainer">
           <EntitySet Name="perfiles" EntityType="Self.perfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
@@ -159,6 +159,25 @@
           <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="voluntarios" EntityType="Self.voluntarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voluntario" EntityType="Self.voluntario" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [voluntario].[id] AS [id], 
+    [voluntario].[nombre] AS [nombre], 
+    [voluntario].[apellidos] AS [apellidos], 
+    [voluntario].[direccionPostal] AS [direccionPostal], 
+    [voluntario].[codigoPostal] AS [codigoPostal], 
+    [voluntario].[localidad] AS [localidad], 
+    [voluntario].[provincia] AS [provincia], 
+    [voluntario].[pais] AS [pais], 
+    [voluntario].[telefono1] AS [telefono1], 
+    [voluntario].[telefono2] AS [telefono2], 
+    [voluntario].[email] AS [email], 
+    [voluntario].[fechaNacimiento] AS [fechaNacimiento], 
+    [voluntario].[fechaAlta] AS [fechaAlta], 
+    [voluntario].[Sede] AS [Sede], 
+    [voluntario].[Perfiles] AS [Perfiles]
+    FROM [dbo].[voluntario] AS [voluntario]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_personas-perfiles_perfiles" Association="Self.FK_personas-perfiles_perfiles">
             <End Role="perfiles" EntitySet="perfiles" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
@@ -167,7 +186,7 @@
             <End Role="personas" EntitySet="personas" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Voluntarios_Personas" Association="Self.FK_Voluntarios_Personas">
+          <AssociationSet Name="FK_voluntarios_personas" Association="Self.FK_voluntarios_personas">
             <End Role="personas" EntitySet="personas" />
             <End Role="voluntarios" EntitySet="voluntarios" />
           </AssociationSet>
@@ -176,7 +195,8 @@
             <End Role="voluntarios" EntitySet="voluntarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gestor_ongd_sps_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -205,6 +225,7 @@
           <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
           <NavigationProperty Name="personas_perfiles" Relationship="Self.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
+          <NavigationProperty Name="voluntarios" Relationship="Self.FK_voluntarios_personas" FromRole="personas" ToRole="voluntarios" />
         </EntityType>
         <EntityType Name="personas_perfiles">
           <Key>
@@ -242,10 +263,47 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="voluntarios" BaseType="gestor_ongd_sps_prodModel.personas">
+        <EntityType Name="voluntarios">
+          <Key>
+            <PropertyRef Name="idVoluntario" />
+          </Key>
+          <Property Name="idVoluntario" Type="Int32" Nullable="false" />
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="sede" Type="Int32" />
+          <NavigationProperty Name="personas" Relationship="Self.FK_voluntarios_personas" FromRole="voluntarios" ToRole="personas" />
           <NavigationProperty Name="sede_delegacion" Relationship="Self.FK_Voluntarios_Sedes" FromRole="voluntarios" ToRole="sede_delegacion" />
+        </EntityType>
+        <EntityType Name="voluntario">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Sede" />
+            <PropertyRef Name="Perfiles" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="direccionPostal" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="codigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="provincia" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pais" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefono1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sede" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Perfiles" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="FK_personas_perfiles_perfiles">
           <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
@@ -271,6 +329,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_voluntarios_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="1" />
+          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="voluntarios">
+              <PropertyRef Name="idVoluntario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Voluntarios_Sedes">
           <End Role="sede_delegacion" Type="Self.sede_delegacion" Multiplicity="0..1" />
           <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="*" />
@@ -283,12 +353,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="gestor_ongd_sps_prodEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="perfiles" EntityType="Self.perfiles" />
           <EntitySet Name="personas" EntityType="Self.personas" />
           <EntitySet Name="personas_perfiles" EntityType="Self.personas_perfiles" />
           <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="voluntarios" EntityType="Self.voluntarios" />
+          <EntitySet Name="voluntario" EntityType="Self.voluntario" />
           <AssociationSet Name="FK_personas_perfiles_perfiles" Association="Self.FK_personas_perfiles_perfiles">
             <End Role="perfiles" EntitySet="perfiles" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
@@ -297,58 +369,21 @@
             <End Role="personas" EntitySet="personas" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
           </AssociationSet>
+          <AssociationSet Name="FK_voluntarios_personas" Association="Self.FK_voluntarios_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="voluntarios" EntitySet="voluntarios" />
+          </AssociationSet>
           <AssociationSet Name="FK_Voluntarios_Sedes" Association="Self.FK_Voluntarios_Sedes">
             <End Role="sede_delegacion" EntitySet="sede_delegacion" />
-            <End Role="voluntarios" EntitySet="personas" />
+            <End Role="voluntarios" EntitySet="voluntarios" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(gestor_ongd_sps_prodModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(gestor_ongd_sps_prodModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="gestor_ongd_sps_prodModelStoreContainer" CdmEntityContainer="gestor_ongd_sps_prodEntities3">
+        <EntityContainerMapping StorageEntityContainer="gestor_ongd_sps_prodModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="perfiles">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.perfiles">
               <MappingFragment StoreEntitySet="perfiles">
@@ -358,27 +393,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="personas">
-            <EntityTypeMapping TypeName="IsTypeOf(gestor_ongd_sps_prodModel.personas)">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.personas">
               <MappingFragment StoreEntitySet="personas">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
-                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
-                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(gestor_ongd_sps_prodModel.voluntarios)">
-              <MappingFragment StoreEntitySet="voluntarios">
-                <ScalarProperty Name="id" ColumnName="idCliente" />
-                <ScalarProperty Name="sede" ColumnName="sede" />
-                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -418,30 +446,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="gestor_ongd_sps_prodModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="gestor_ongd_sps_prodModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="gestor_ongd_sps_prodModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="gestor_ongd_sps_prodModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="gestor_ongd_sps_prodModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="gestor_ongd_sps_prodModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="gestor_ongd_sps_prodModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="gestor_ongd_sps_prodModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="gestor_ongd_sps_prodModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="voluntarios">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.voluntarios">
+              <MappingFragment StoreEntitySet="voluntarios">
+                <ScalarProperty Name="idVoluntario" ColumnName="idVoluntario" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="sede" ColumnName="sede" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voluntario">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.voluntario">
+              <MappingFragment StoreEntitySet="voluntario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="Sede" ColumnName="Sede" />
+                <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

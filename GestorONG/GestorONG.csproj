@@ -131,64 +131,61 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DataModel\ModelGestorONGDSPS.Context.cs">
+    <Compile Include="DAL\GestorONGDContext.cs" />
+    <Compile Include="DAL\GestorONGDInitializer.cs" />
+    <Compile Include="DataModel\GestorONGDSPS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestorONGDSPS.Context.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ModelGestorONGDSPS.cs">
+    <Compile Include="DataModel\GestorONGDSPS.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ModelGestorONGDSPS.Designer.cs">
+    <Compile Include="DataModel\GestorONGDSPS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGestorONGDSPS.edmx</DependentUpon>
+      <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataModel\perfiles.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\personas.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\personas_perfiles.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\sede_delegacion.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\sysdiagrams.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\voluntario.cs">
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\voluntarios.cs">
-      <DependentUpon>ModelGestorONGDSPS.tt</DependentUpon>
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Persona.cs" />
-    <Compile Include="Models\Voluntario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DataModel\ModelGestorONGDSPS.Context.tt">
+    <Content Include="DataModel\GestorONGDSPS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGestorONGDSPS.edmx</DependentUpon>
-      <LastGenOutput>ModelGestorONGDSPS.Context.cs</LastGenOutput>
+      <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
+      <LastGenOutput>GestorONGDSPS.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\ModelGestorONGDSPS.tt">
+    <Content Include="DataModel\GestorONGDSPS.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGestorONGDSPS.edmx</DependentUpon>
-      <LastGenOutput>ModelGestorONGDSPS.cs</LastGenOutput>
+      <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
+      <LastGenOutput>GestorONGDSPS.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -196,12 +193,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DataModel\ModelGestorONGDSPS.edmx">
+    <EntityDeploy Include="DataModel\GestorONGDSPS.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelGestorONGDSPS.Designer.cs</LastGenOutput>
+      <LastGenOutput>GestorONGDSPS.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DataModel\ModelGestorONGDSPS.edmx.diagram">
-      <DependentUpon>ModelGestorONGDSPS.edmx</DependentUpon>
+    <Content Include="DataModel\GestorONGDSPS.edmx.diagram">
+      <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

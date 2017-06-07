@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5417cbcd57e54fea9a9227369bd31ea0" Name="Diagram1">
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.perfiles" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.personas" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.personas_perfiles" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.sede_delegacion" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.voluntarios" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.voluntario" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" ManuallyRouted="false" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" ManuallyRouted="false" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_voluntarios_personas" ManuallyRouted="false" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
