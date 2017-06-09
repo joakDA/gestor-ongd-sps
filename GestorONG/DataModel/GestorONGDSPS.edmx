@@ -128,18 +128,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_voluntarios_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1" />
-          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="personas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="voluntarios">
-              <PropertyRef Name="idVoluntario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Voluntarios_Sedes">
           <End Role="sede_delegacion" Type="Self.sede_delegacion" Multiplicity="0..1" />
           <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="*" />
@@ -186,10 +174,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="personas" EntitySet="personas" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
           </AssociationSet>
-          <AssociationSet Name="FK_voluntarios_personas" Association="Self.FK_voluntarios_personas">
-            <End Role="personas" EntitySet="personas" />
-            <End Role="voluntarios" EntitySet="voluntarios" />
-          </AssociationSet>
           <AssociationSet Name="FK_Voluntarios_Sedes" Association="Self.FK_Voluntarios_Sedes">
             <End Role="sede_delegacion" EntitySet="sede_delegacion" />
             <End Role="voluntarios" EntitySet="voluntarios" />
@@ -199,32 +183,51 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gestor_ongd_sps_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="gestor_ongd_sps_prodEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="perfiles" EntityType="gestor_ongd_sps_prodModel.perfiles" />
+          <EntitySet Name="personas" EntityType="gestor_ongd_sps_prodModel.personas" />
+          <EntitySet Name="personas_perfiles" EntityType="gestor_ongd_sps_prodModel.personas_perfiles" />
+          <EntitySet Name="sede_delegacion" EntityType="gestor_ongd_sps_prodModel.sede_delegacion" />
+          <EntitySet Name="sysdiagrams" EntityType="gestor_ongd_sps_prodModel.sysdiagrams" />
+          <EntitySet Name="voluntario" EntityType="gestor_ongd_sps_prodModel.voluntario" />
+          <AssociationSet Name="FK_personas_perfiles_perfiles" Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles">
+            <End Role="perfiles" EntitySet="perfiles" />
+            <End Role="personas_perfiles" EntitySet="personas_perfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_personas_perfiles_personas" Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="personas_perfiles" EntitySet="personas_perfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voluntarios_Sedes" Association="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes">
+            <End Role="sede_delegacion" EntitySet="sede_delegacion" />
+            <End Role="voluntarios" EntitySet="personas" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="perfiles">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="personas_perfiles" Relationship="Self.FK_personas_perfiles_perfiles" FromRole="perfiles" ToRole="personas_perfiles" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" FromRole="perfiles" ToRole="personas_perfiles" />
         </EntityType>
         <EntityType Name="personas">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="direccionPostal" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="codigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="localidad" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="provincia" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pais" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="telefono1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direccionPostal" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="personas_perfiles" Relationship="Self.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
-          <NavigationProperty Name="voluntarios" Relationship="Self.FK_voluntarios_personas" FromRole="personas" ToRole="voluntarios" />
+          <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
         </EntityType>
         <EntityType Name="personas_perfiles">
           <Key>
@@ -233,44 +236,39 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPersona" Type="Int32" Nullable="false" />
           <Property Name="idPerfil" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="perfiles" Relationship="Self.FK_personas_perfiles_perfiles" FromRole="personas_perfiles" ToRole="perfiles" />
-          <NavigationProperty Name="personas" Relationship="Self.FK_personas_perfiles_personas" FromRole="personas_perfiles" ToRole="personas" />
+          <NavigationProperty Name="perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" FromRole="personas_perfiles" ToRole="perfiles" />
+          <NavigationProperty Name="personas" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas_perfiles" ToRole="personas" />
         </EntityType>
         <EntityType Name="sede_delegacion">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="codigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="localidad" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="provincia" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pais" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="personaContacto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="emailContacto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="telefonoContacto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="voluntarios" Relationship="Self.FK_Voluntarios_Sedes" FromRole="sede_delegacion" ToRole="voluntarios" />
+          <NavigationProperty Name="voluntarios" Relationship="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" FromRole="sede_delegacion" ToRole="voluntarios" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="voluntarios">
-          <Key>
-            <PropertyRef Name="idVoluntario" />
-          </Key>
-          <Property Name="idVoluntario" Type="Int32" Nullable="false" />
+        <EntityType Name="voluntarios" BaseType="gestor_ongd_sps_prodModel.personas">
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="sede" Type="Int32" />
-          <NavigationProperty Name="personas" Relationship="Self.FK_voluntarios_personas" FromRole="voluntarios" ToRole="personas" />
-          <NavigationProperty Name="sede_delegacion" Relationship="Self.FK_Voluntarios_Sedes" FromRole="voluntarios" ToRole="sede_delegacion" />
+          <NavigationProperty Name="sede_delegacion" Relationship="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" FromRole="voluntarios" ToRole="sede_delegacion" />
         </EntityType>
         <EntityType Name="voluntario">
           <Key>
@@ -289,24 +287,24 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <PropertyRef Name="Perfiles" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="direccionPostal" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="codigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="localidad" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="provincia" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pais" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="telefono1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direccionPostal" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Sede" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Perfiles" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sede" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_personas_perfiles_perfiles">
-          <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
-          <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
+          <End Type="gestor_ongd_sps_prodModel.perfiles" Role="perfiles" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.personas_perfiles" Role="personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="perfiles">
               <PropertyRef Name="id" />
@@ -317,8 +315,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_personas_perfiles_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1" />
-          <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
+          <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.personas_perfiles" Role="personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="personas">
               <PropertyRef Name="id" />
@@ -328,21 +326,9 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_voluntarios_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1" />
-          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="personas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="voluntarios">
-              <PropertyRef Name="idVoluntario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Voluntarios_Sedes">
-          <End Role="sede_delegacion" Type="Self.sede_delegacion" Multiplicity="0..1" />
-          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="*" />
+          <End Type="gestor_ongd_sps_prodModel.sede_delegacion" Role="sede_delegacion" Multiplicity="0..1" />
+          <End Type="gestor_ongd_sps_prodModel.voluntarios" Role="voluntarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sede_delegacion">
               <PropertyRef Name="id" />
@@ -352,126 +338,99 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="perfiles" EntityType="Self.perfiles" />
-          <EntitySet Name="personas" EntityType="Self.personas" />
-          <EntitySet Name="personas_perfiles" EntityType="Self.personas_perfiles" />
-          <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="voluntarios" EntityType="Self.voluntarios" />
-          <EntitySet Name="voluntario" EntityType="Self.voluntario" />
-          <AssociationSet Name="FK_personas_perfiles_perfiles" Association="Self.FK_personas_perfiles_perfiles">
-            <End Role="perfiles" EntitySet="perfiles" />
-            <End Role="personas_perfiles" EntitySet="personas_perfiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_personas_perfiles_personas" Association="Self.FK_personas_perfiles_personas">
-            <End Role="personas" EntitySet="personas" />
-            <End Role="personas_perfiles" EntitySet="personas_perfiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_voluntarios_personas" Association="Self.FK_voluntarios_personas">
-            <End Role="personas" EntitySet="personas" />
-            <End Role="voluntarios" EntitySet="voluntarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Voluntarios_Sedes" Association="Self.FK_Voluntarios_Sedes">
-            <End Role="sede_delegacion" EntitySet="sede_delegacion" />
-            <End Role="voluntarios" EntitySet="voluntarios" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="gestor_ongd_sps_prodModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="gestor_ongd_sps_prodModelStoreContainer" CdmEntityContainer="gestor_ongd_sps_prodEntities">
           <EntitySetMapping Name="perfiles">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.perfiles">
               <MappingFragment StoreEntitySet="perfiles">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="personas">
-            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.personas">
+            <EntityTypeMapping TypeName="IsTypeOf(gestor_ongd_sps_prodModel.personas)">
               <MappingFragment StoreEntitySet="personas">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
-                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
-                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
-                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(gestor_ongd_sps_prodModel.voluntarios)">
+              <MappingFragment StoreEntitySet="voluntarios">
+                <ScalarProperty Name="id" ColumnName="idVoluntario" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="sede" ColumnName="sede" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="personas_perfiles">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.personas_perfiles">
               <MappingFragment StoreEntitySet="personas_perfiles">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
                 <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sede_delegacion">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.sede_delegacion">
               <MappingFragment StoreEntitySet="sede_delegacion">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="personaContacto" ColumnName="personaContacto" />
-                <ScalarProperty Name="emailContacto" ColumnName="emailContacto" />
                 <ScalarProperty Name="telefonoContacto" ColumnName="telefonoContacto" />
+                <ScalarProperty Name="emailContacto" ColumnName="emailContacto" />
+                <ScalarProperty Name="personaContacto" ColumnName="personaContacto" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="voluntarios">
-            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.voluntarios">
-              <MappingFragment StoreEntitySet="voluntarios">
-                <ScalarProperty Name="idVoluntario" ColumnName="idVoluntario" />
-                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
-                <ScalarProperty Name="sede" ColumnName="sede" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="voluntario">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.voluntario">
               <MappingFragment StoreEntitySet="voluntario">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
-                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
-                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
-                <ScalarProperty Name="Sede" ColumnName="Sede" />
                 <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
+                <ScalarProperty Name="Sede" ColumnName="Sede" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -11,7 +11,7 @@ namespace GestorONG.DAL
     /// Clase para inicializar las tablas de la base de datos con datos iniciales. Hereda de Entity Framework para que si el modelo cambia, se elimine la base de datos y se vuelva a crear.
     /// Cuando el sistema esté en producción, se añadirá un atributo en el Web.config para que ignore este inicializador.
     /// </summary>
-    public class GestorONGDInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<GestorONGDContext>
+    public class GestorONGDInitializer : IDatabaseInitializer<GestorONGDContext>
     {
 
         #region PROTECTED_MEMBER_METHODS
@@ -22,7 +22,7 @@ namespace GestorONG.DAL
         /// For each entity type, the code creates a collection of new entities, adds them to the appropriate DbSet property, and then saves the changes to the database.
         /// </summary>
         /// <param name="context"></param>
-        protected override void Seed(GestorONGDContext context)
+        public void InitializeDatabase(GestorONGDContext context)
         {
             //Sedes-Delegaciones
             var sede = new List<sede_delegacion>
@@ -45,7 +45,7 @@ namespace GestorONG.DAL
                 pais="España",telefono1="123456789", email="example@example.com", fechaNacimiento=DateTime.Parse("1976-05-10"), fechaAlta=DateTime.Today, sede=2}
             };
             //Se recorre la lista y se añade cada elemento a la base de datos
-            voluntario.ForEach(s => context.voluntario.Add(s));
+            voluntario.ForEach(s => context.voluntarios.Add(s));
             context.SaveChanges();
 
             //Perfiles

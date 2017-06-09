@@ -15,7 +15,7 @@ namespace GestorONG.DAL
         /// <summary>
         /// Constructor por defecto. Se le pasa el connection string name para conectarse a la base de datos definido en el archivo Web.config
         /// </summary>
-        public GestorONGDContext() : base(ConfigurationManager.ConnectionStrings["gestor_ongd_sps_prodEntities3"].ConnectionString)
+        public GestorONGDContext() : base(ConfigurationManager.ConnectionStrings["gestor_ongd_sps_prodEntities"].ConnectionString)
         {
         }
 
@@ -39,7 +39,7 @@ namespace GestorONG.DAL
         /// <summary>
         /// Database set para obtener / introducir datos de los voluntarios en la base de datos
         /// </summary>
-        public DbSet<voluntarios> voluntario { get; set; }
+        public DbSet<voluntarios> voluntarios { get; set; }
 
         /// <summary>
         /// Database set para obtener / introducir datos de las personas en la base de datos
@@ -61,9 +61,10 @@ namespace GestorONG.DAL
         /// </summary>
         public DbSet<personas_perfiles> persona_perfil { get; set; }
 
+
+
         #endregion
 
-
-
+        public System.Data.Entity.DbSet<GestorONG.DataModel.voluntario> voluntario { get; set; }
     }
 }
