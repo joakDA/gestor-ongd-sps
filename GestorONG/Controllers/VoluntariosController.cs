@@ -62,8 +62,25 @@ namespace GestorONG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.voluntario.Add(voluntario);
+                //Get id of sede_name
+                var sedes = db.sedes_delegaciones.SingleOrDefault(i => i.nombre == voluntario.Sede);
+
+                //Convert date
+                var fecha = Convert.ToDateTime(voluntario.fechaNacimiento);
+
+                //Profile id is 1 for Voluntarios
+                //Transform voluntario class in voluntarios class to allow insert, updating, deleting
+                //Insert a new volunteer through voluntarios table
+                var voluntariosNuevo = new voluntarios(0, voluntario.nombre, voluntario.apellidos, voluntario.direccionPostal, voluntario.codigoPostal, voluntario.localidad, voluntario.provincia, voluntario.pais,
+                    voluntario.telefono1, voluntario.telefono2, voluntario.email, fecha, voluntario.fechaAlta, sedes.id);
+                db.voluntarios.Add(voluntariosNuevo);
                 db.SaveChanges();
+
+                //Insert the relationship many to many in personas_perfiles
+                var perPerfilNew = new personas_perfiles(0, voluntariosNuevo.id, 1);
+                db.persona_perfil.Add(perPerfilNew);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
