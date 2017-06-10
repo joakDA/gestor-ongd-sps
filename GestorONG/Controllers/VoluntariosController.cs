@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GestorONG.DAL;
 using GestorONG.DataModel;
+using GestorONG.ViewModel;
 
 namespace GestorONG.Controllers
 {
@@ -50,7 +51,16 @@ namespace GestorONG.Controllers
         // GET: Voluntarios/Create
         public ActionResult Create()
         {
-            return View();
+            // Preparo la vista con los dropdown
+            var model = new VoluntariosViewModel();
+
+            model.vol = new voluntario();
+            model.delegacion = db.sedes_delegaciones.ToList().Select(x => new SelectListItem
+            {
+                Value = x.id.ToString(),
+                Text = x.nombre
+            });
+            return View(model);
         }
 
         // POST: Voluntarios/Create
