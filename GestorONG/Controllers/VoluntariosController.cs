@@ -21,6 +21,17 @@ namespace GestorONG.Controllers
             return View(db.voluntario.ToList());
         }
 
+        // GET: Voluntarios/listadoVoluntarios
+        [HttpGet]
+        public JsonResult listadoVoluntarios()
+        {
+            var jsonData = new
+            {
+                data = from vol in db.voluntario.ToList() select vol
+            };
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Voluntarios/Details/5
         public ActionResult Details(int? id)
         {

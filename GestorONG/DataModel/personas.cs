@@ -6,7 +6,7 @@ namespace GestorONG.DataModel
     /// <summary>
     /// Clase Persona conteniendo los atributos comunes de los Voluntarios y Colaboradores. Heredarán de esta clase, la clase Voluntario y Colaborador.
     /// </summary>
-    public abstract class personas
+    public class personas
     {
         #region PUBLIC_MEMBER_METHODS
 

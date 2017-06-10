@@ -26,6 +26,11 @@ namespace GestorONG
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            // Se inclue JQuery Datatables from CDN
+
+            bundles.Add( new ScriptBundle("~/bundles/jqueryDataTables").Include("~/Scripts/DataTables/jquery.dataTables.min.js"));
+
+            bundles.Add( new StyleBundle("~/bundles/jqueryDataTablesCSS").Include("~/Content/DataTables/css/jquery.dataTables.min.css"));
         }
     }
 }
