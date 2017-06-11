@@ -11,6 +11,10 @@ namespace GestorONG.DataModel
         #region PUBLIC_MEMBER_VARIABLES
 
         /// <summary>
+        /// Id del voluntario. Foreign Key a la tabla personas
+        /// </summary>
+        public int idVoluntario { get; set; }
+        /// <summary>
         /// Fecha de alta del voluntario en la base de datos
         /// </summary>
         public System.DateTime fechaAlta { get; set; }

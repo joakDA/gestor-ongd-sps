@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using GestorONG.DAL;
 using GestorONG.DataModel;
 using GestorONG.ViewModel;
+using System.Data.Entity.Core.Objects;
 
 namespace GestorONG.Controllers
 {
@@ -110,6 +111,13 @@ namespace GestorONG.Controllers
             {
                 return HttpNotFound();
             }
+            var delegaciones = db.sedes_delegaciones.ToList().Select(x => new SelectListItem
+            {
+                Text = x.nombre,
+                Value = x.nombre
+            });
+            ViewBag.Delegaciones = delegaciones;
+
             return View(voluntario);
         }
 
@@ -122,8 +130,20 @@ namespace GestorONG.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(voluntario).State = EntityState.Modified;
+                // Change default behaviour to allow modifiy entity by entity
+                //Get id of sede_name
+                var sedes = db.sedes_delegaciones.SingleOrDefault(i => i.nombre == voluntario.Sede);
+
+                //Convert date
+                var fecha = Convert.ToDateTime(voluntario.fechaNacimiento);
+
+                //Transform voluntario class in voluntarios class to allow insert, updating, deleting
+                //Insert a new volunteer through voluntarios table
+                var voluntariosActualizado = new voluntarios(voluntario.id,voluntario.nombre,voluntario.apellidos,voluntario.direccionPostal,voluntario.codigoPostal,voluntario.localidad,
+                    voluntario.provincia,voluntario.pais,voluntario.telefono1,voluntario.telefono2,voluntario.email,fecha,voluntario.fechaAlta,sedes.id);
+                db.Entry(voluntariosActualizado).State = EntityState.Modified;
                 db.SaveChanges();
+                //It is no needed to update personas_perfiles because now, we do not allow to modify the profile
                 return RedirectToAction("Index");
             }
             return View(voluntario);
@@ -136,6 +156,7 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             voluntario voluntario = db.voluntario.SingleOrDefault(m => m.id == id);
             if (voluntario == null)
             {
@@ -150,8 +171,25 @@ namespace GestorONG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Para vistas usar Single or default
-            voluntario voluntario = db.voluntario.SingleOrDefault(m => m.id == id);
-            db.voluntario.Remove(voluntario);
+            // Get voluntarios item
+            voluntarios voluntario = db.voluntarios.SingleOrDefault(m => m.id == id);
+            voluntario.telefono2 = "basura";
+            voluntario.idVoluntario = id;
+            db.voluntarios.Remove(voluntario);
+            db.SaveChanges();
+            /*try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Core.OptimisticConcurrencyException)
+            {
+                db.Refresh(RefreshMode.ClientWins, db.voluntarios);
+                db.SaveChanges();
+            }*/
+
+            //Also needed to delete from personas_perfiles
+            personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id);
+            db.persona_perfil.Remove(per);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
