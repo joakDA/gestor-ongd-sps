@@ -13,6 +13,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#listado-voluntarios').DataTable({
+                "pageLength": 10,
+                "pagingType": "full_numbers",
                 "language": {
                     "lengthMenu": "Mostrando _MENU_ elementos por página",
                     "zeroRecords": "No se han encontrado resultados - lo lamentamos",
@@ -22,7 +24,9 @@
                     "search": "Buscar:",
                     "paginate": {
                         "next": "Siguiente",
-                        "previous": "Anterior"
+                        "previous": "Anterior",
+                        "first": "Primero",
+                        "last": "Último"
                     }
                 },
                 "columnDefs": [
@@ -45,6 +49,7 @@
               }
                 ]
             });
+            $('#listado-voluntarios_length').val(10);
         });
     </script>
 }

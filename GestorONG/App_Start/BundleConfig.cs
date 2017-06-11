@@ -26,11 +26,16 @@ namespace GestorONG
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            // Se inclue JQuery Datatables from CDN
+            // Se incluye JQuery Datatables from CDN
 
             bundles.Add( new ScriptBundle("~/bundles/jqueryDataTables").Include("~/Scripts/DataTables/jquery.dataTables.min.js"));
 
             bundles.Add( new StyleBundle("~/bundles/jqueryDataTablesCSS").Include("~/Content/DataTables/css/jquery.dataTables.min.css"));
+
+            //Se incluye JQuery UI for datepickers
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include("~/Scripts/jquery-ui-1.12.1.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/jqueryUICSS").Include("~/Content/themes/base/jquery-ui.min.css"));
         }
     }
 }

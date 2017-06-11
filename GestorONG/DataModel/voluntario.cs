@@ -39,11 +39,11 @@ namespace GestorONG.DataModel
         public string email { get; set; }
         [DisplayName("Fecha Nacimiento")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
         [DisplayName("Fecha Alta")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaAlta { get; set; }
         public string Sede { get; set; }
         public string Perfiles { get; set; }

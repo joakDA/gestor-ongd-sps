@@ -52,15 +52,15 @@ namespace GestorONG.Controllers
         public ActionResult Create()
         {
             // Preparo la vista con los dropdown
-            var model = new VoluntariosViewModel();
 
-            model.vol = new voluntario();
-            model.delegacion = db.sedes_delegaciones.ToList().Select(x => new SelectListItem
+            var delegaciones = db.sedes_delegaciones.ToList().Select(x => new SelectListItem
             {
-                Value = x.id.ToString(),
-                Text = x.nombre
+                Text = x.nombre,
+                Value = x.nombre
             });
-            return View(model);
+            ViewBag.Delegaciones = delegaciones;
+            
+            return View();
         }
 
         // POST: Voluntarios/Create
@@ -68,21 +68,22 @@ namespace GestorONG.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,apellidos,direccionPostal,codigoPostal,localidad,provincia,pais,telefono1,telefono2,email,fechaNacimiento,fechaAlta,Sede,Perfiles")] voluntario voluntario)
+        public ActionResult Create([Bind(Include = "id,nombre,apellidos,direccionPostal,codigoPostal,localidad,provincia,pais,telefono1,telefono2,email,fechaNacimiento,fechaAlta,Sede,Perfiles")] voluntario model)
         {
             if (ModelState.IsValid)
             {
+
                 //Get id of sede_name
-                var sedes = db.sedes_delegaciones.SingleOrDefault(i => i.nombre == voluntario.Sede);
+                var sedes = db.sedes_delegaciones.SingleOrDefault(i => i.nombre == model.Sede);
 
                 //Convert date
-                var fecha = Convert.ToDateTime(voluntario.fechaNacimiento);
+                var fecha = Convert.ToDateTime(model.fechaNacimiento);
 
                 //Profile id is 1 for Voluntarios
                 //Transform voluntario class in voluntarios class to allow insert, updating, deleting
                 //Insert a new volunteer through voluntarios table
-                var voluntariosNuevo = new voluntarios(0, voluntario.nombre, voluntario.apellidos, voluntario.direccionPostal, voluntario.codigoPostal, voluntario.localidad, voluntario.provincia, voluntario.pais,
-                    voluntario.telefono1, voluntario.telefono2, voluntario.email, fecha, voluntario.fechaAlta, sedes.id);
+                var voluntariosNuevo = new voluntarios(0, model.nombre, model.apellidos, model.direccionPostal, model.codigoPostal, model.localidad, model.provincia, model.pais,
+                    model.telefono1, model.telefono2, model.email, fecha, model.fechaAlta, sedes.id);
                 db.voluntarios.Add(voluntariosNuevo);
                 db.SaveChanges();
 
@@ -94,7 +95,7 @@ namespace GestorONG.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(voluntario);
+            return View(model);
         }
 
         // GET: Voluntarios/Edit/5

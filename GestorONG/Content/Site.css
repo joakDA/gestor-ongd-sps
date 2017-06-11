@@ -48,12 +48,20 @@ textarea {
 .container-fluid.footer {
     background-color: #e65858;
     color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 /* Set styles for logo on the righ*/
 .logo-footer .img-logo {
     float: right;
     margin-right: 10%;
+}
+
+.footer a{
+    color: #ffffff;
 }
 
 /***********  End footer styles***********/
