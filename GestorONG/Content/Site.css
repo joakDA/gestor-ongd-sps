@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+h1,h2,h3,h4,h5,h6{
+    color: #e65858;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -81,3 +85,13 @@ input, select, textarea {
 }
 
 /**********     End body content*/
+
+/*********      Index styles *********/
+
+.img-responsive.imagen-menu {
+    max-height: 200px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+/*********       End Index styles*******/
