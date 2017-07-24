@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\VoluntariosController.cs" />
     <Compile Include="DAL\GestorONGDContext.cs" />
     <Compile Include="DAL\GestorONGDInitializer.cs" />
@@ -488,6 +489,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -506,7 +508,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -525,6 +529,11 @@
     <Content Include="Views\Voluntarios\Details.cshtml" />
     <Content Include="Views\Voluntarios\Edit.cshtml" />
     <Content Include="Views\Voluntarios\Index.cshtml" />
+    <Content Include="Views\Sedes\Create.cshtml" />
+    <Content Include="Views\Sedes\Delete.cshtml" />
+    <Content Include="Views\Sedes\Details.cshtml" />
+    <Content Include="Views\Sedes\Edit.cshtml" />
+    <Content Include="Views\Sedes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -538,6 +547,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

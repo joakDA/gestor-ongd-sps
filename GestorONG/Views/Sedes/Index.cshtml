@@ -1,10 +1,10 @@
-﻿@model IEnumerable<GestorONG.DataModel.voluntario>
+﻿@model IEnumerable<GestorONG.DataModel.sede_delegacion>
 
 @{
-    ViewBag.Title = "Listado de Voluntarios";
+    ViewBag.Title = "Listado de Sedes y Delegaciones";
 }
 
-<h1 class="titulo-pagina text-center">Listado de Voluntarios</h1>
+<h1 class="titulo-pagina text-center">Listado de Sedes y Delegaciones</h1>
 
 <!--  FORMAT TABLE WITH JqueryDatatables-->
 @section Scripts{
@@ -12,7 +12,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#listado-voluntarios').DataTable({
+            $('#listado-sedes').DataTable({
                 "pageLength": 10,
                 "pagingType": "full_numbers",
                 "language": {
@@ -31,42 +31,32 @@
                 },
                 "columnDefs": [
             {
-                "targets": [8],
+                "targets": [1],
                 "visible": false,
                 "searchable": false
             },
             {
-                "targets": [10],
+                "targets": [2],
                 "visible": false
             },
-             {
-                 "targets": [11],
-                 "visible": false
-             },
-              {
-                  "targets": [13],
-                  "visible": false
-              }
                 ]
             });
-            $('#listado-voluntarios_length').val(10);
+            $('listado-sedes_length').val(10);
         });
     </script>
 }
+
 <p>
-    @Html.ActionLink("Nuevo Voluntario", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
+    @Html.ActionLink("Nueva Sede", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
 </p>
-<table id="listado-voluntarios" class="table table-responsive display" data-page-length='10'>
+<table id="listado-sedes" class="table table-responsive display" data-page-length='10'>
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.direccionPostal)
+                @Html.DisplayNameFor(model => model.direccion)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.codigoPostal)
@@ -81,28 +71,17 @@
                 @Html.DisplayNameFor(model => model.pais)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.telefono1)
+                @Html.DisplayNameFor(model => model.personaContacto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.telefono2)
+                @Html.DisplayNameFor(model => model.emailContacto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaNacimiento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaAlta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sede)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Perfiles)
+                @Html.DisplayNameFor(model => model.telefonoContacto)
             </th>
             <th>Acciones</th>
-</thead>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
@@ -111,10 +90,7 @@
                     @Html.DisplayFor(modelItem => item.nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.apellidos)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.direccionPostal)
+                    @Html.DisplayFor(modelItem => item.direccion)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.codigoPostal)
@@ -129,29 +105,17 @@
                     @Html.DisplayFor(modelItem => item.pais)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.telefono1)
+                    @Html.DisplayFor(modelItem => item.personaContacto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.telefono2)
+                    @Html.DisplayFor(modelItem => item.emailContacto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaNacimiento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaAlta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sede)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Perfiles)
+                    @Html.DisplayFor(modelItem => item.telefonoContacto)
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "glyphicon glyphicon-edit" })
-                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" }) 
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" })
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "glyphicon glyphicon-trash" })
                 </td>
             </tr>

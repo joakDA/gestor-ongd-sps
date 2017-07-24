@@ -1,0 +1,90 @@
+﻿@model GestorONG.DataModel.sede_delegacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sede_delegacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codigoPostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codigoPostal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.localidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.localidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.personaContacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.personaContacto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailContacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailContacto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefonoContacto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefonoContacto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

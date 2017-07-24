@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GestorONG.DataModel.gestor_ongd_sps_prodEntities">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAQgAEAAABAAAAAAAEAAgAAA=</HashCode>
+      <FileName>DataModel\GestorONGDSPS.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.perfiles">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>DataModel\perfiles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.personas">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAQAAACkAAAIAAiAAAAAAAAAAAAAABAAAgY=</HashCode>
+      <FileName>DataModel\personas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.personas_perfiles">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAiAgA=</HashCode>
+      <FileName>DataModel\personas_perfiles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.sede_delegacion">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAIACEQAAIAAAIAAAAAAAAAoAAAAAAAgQ=</HashCode>
+      <FileName>DataModel\sede_delegacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.sysdiagrams">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIAAAAAAAAAAAAAAAQAAAFAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataModel\sysdiagrams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.voluntario">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQQAAACkACAIAACAAAEAAAAAAAAAABAAAgY=</HashCode>
+      <FileName>DataModel\voluntario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GestorONG.DataModel.voluntarios">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAQAAIAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>DataModel\voluntarios.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
