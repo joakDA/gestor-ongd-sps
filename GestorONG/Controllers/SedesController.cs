@@ -53,7 +53,7 @@ namespace GestorONG.Controllers
             {
                 db.sedes_delegaciones.Add(sede_delegacion);
                 db.SaveChanges();
-                TempData["Acierto"] = "La sede ha sido añadida correctamente al sistema";
+                TempData["Acierto"] = "La sede " + sede_delegacion.nombre + " ha sido añadida correctamente al sistema.";
                 return RedirectToAction("Index");
             }
 
@@ -86,6 +86,7 @@ namespace GestorONG.Controllers
             {
                 db.Entry(sede_delegacion).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Acierto"] = "La sede " + sede_delegacion.nombre + " ha sido editada correctamente.";
                 return RedirectToAction("Index");
             }
             return View(sede_delegacion);
@@ -114,6 +115,7 @@ namespace GestorONG.Controllers
             sede_delegacion sede_delegacion = db.sedes_delegaciones.Find(id);
             db.sedes_delegaciones.Remove(sede_delegacion);
             db.SaveChanges();
+            TempData["Acierto"] = "La sede " + sede_delegacion.nombre + " ha sido eliminada del sistema correctamente.";
             return RedirectToAction("Index");
         }
 

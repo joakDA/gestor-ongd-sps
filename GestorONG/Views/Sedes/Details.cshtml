@@ -1,90 +1,126 @@
 ﻿@model GestorONG.DataModel.sede_delegacion
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de una Sede";
 }
 
-<h2>Details</h2>
+<h1 class="titulo-pagina text-center">Detalles de la Sede/Delegación @Html.DisplayFor(model => model.nombre)</h1>
 
 <div>
-    <h4>sede_delegacion</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.nombre)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.nombre)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.direccion)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.direccion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.direccion)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.codigoPostal)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.direccion)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.codigoPostal)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.localidad)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.codigoPostal)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.localidad)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.provincia)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.codigoPostal)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.provincia)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.pais)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.localidad)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.pais)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.personaContacto)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.localidad)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.personaContacto)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.emailContacto)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.emailContacto)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.telefonoContacto)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pais)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.personaContacto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.personaContacto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.emailContacto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.emailContacto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefonoContacto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefonoContacto)
-        </dd>
-
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.telefonoContacto)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row botones-inferiores">
+    <div class="col-xs-12 text-center">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-danger" })
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
