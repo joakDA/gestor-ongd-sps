@@ -53,6 +53,7 @@ namespace GestorONG.Controllers
             {
                 db.sedes_delegaciones.Add(sede_delegacion);
                 db.SaveChanges();
+                TempData["Acierto"] = "La sede ha sido añadida correctamente al sistema";
                 return RedirectToAction("Index");
             }
 

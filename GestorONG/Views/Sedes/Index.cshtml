@@ -2,6 +2,13 @@
 
 @{
     ViewBag.Title = "Listado de Sedes y Delegaciones";
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p class="text-center"><i class="glyphicon-check"></i> @TempData["Message"]</p>
+        </div>
+    }
 }
 
 <h1 class="titulo-pagina text-center">Listado de Sedes y Delegaciones</h1>

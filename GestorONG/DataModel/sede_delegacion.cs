@@ -3,6 +3,7 @@ namespace GestorONG.DataModel
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     
     /// <summary>
     /// Clase para almacenar los datos de una sede/delegación
@@ -60,54 +61,69 @@ namespace GestorONG.DataModel
         /// Nombre de la delegación
         /// </summary>
         [DisplayName("Nombre")]
+        [Required]
+        [StringLength(100)]
         public string nombre { get; set; }
 
         /// <summary>
         /// Dirección postal de la delegación
         /// </summary>
         [DisplayName("Direccion")]
+        [Required]
+        [StringLength(150)]
         public string direccion { get; set; }
 
         /// <summary>
         /// Código postal de la delegación
         /// </summary>
         [DisplayName("CP")]
+        [Required]
+        [StringLength(5)]
         public string codigoPostal { get; set; }
 
         /// <summary>
         /// Localidad dónde está ubicada la sede o delegación
         /// </summary>
         [DisplayName("Localidad")]
+        [Required]
+        [StringLength(75)]
         public string localidad { get; set; }
 
         /// <summary>
         /// Provincia de la localidad de la sede
         /// </summary>
         [DisplayName("Provincia")]
+        [Required]
+        [StringLength(75)]
         public string provincia { get; set; }
 
         /// <summary>
         /// País en el que se encuentra la sede o delegación
         /// </summary>
         [DisplayName("País")]
+        [Required]
+        [StringLength(100)]
         public string pais { get; set; }
 
         /// <summary>
         /// Persona de contacto por la que preguntar de la sede o delegación
         /// </summary>
         [DisplayName("Persona de Contacto")]
+        [StringLength(200)]
         public string personaContacto { get; set; }
 
         /// <summary>
         /// Email de contacto de la sede o delegación para contactar con la persona de contacto
         /// </summary>
         [DisplayName("Email de Contacto")]
+        [StringLength(150)]
         public string emailContacto { get; set; }
 
         /// <summary>
         /// Teléfono de contacto de la sede o delegación para contactar con la persona de contacto
         /// </summary>
         [DisplayName("Teléfono de Contacto")]
+        [StringLength(20)]
         public string telefonoContacto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
