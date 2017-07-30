@@ -129,7 +129,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\colaboradoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\VoluntariosController.cs" />
@@ -551,11 +550,6 @@
     <Content Include="Views\Sedes\Details.cshtml" />
     <Content Include="Views\Sedes\Edit.cshtml" />
     <Content Include="Views\Sedes\Index.cshtml" />
-    <Content Include="Views\colaboradores\Create.cshtml" />
-    <Content Include="Views\colaboradores\Delete.cshtml" />
-    <Content Include="Views\colaboradores\Details.cshtml" />
-    <Content Include="Views\colaboradores\Edit.cshtml" />
-    <Content Include="Views\colaboradores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
