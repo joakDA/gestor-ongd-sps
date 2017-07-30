@@ -134,6 +134,12 @@
     <Compile Include="Controllers\VoluntariosController.cs" />
     <Compile Include="DAL\GestorONGDContext.cs" />
     <Compile Include="DAL\GestorONGDInitializer.cs" />
+    <Compile Include="DataModel\colaboradores.cs">
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\donaciones.cs">
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\GestorONGDSPS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,6 +156,9 @@
       <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataModel\perfiles.cs">
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\periodicidades.cs">
       <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\personas.cs">

@@ -31,5 +31,8 @@ namespace GestorONG.DataModel
         public virtual DbSet<sede_delegacion> sede_delegacion { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<voluntario> voluntario { get; set; }
+        public virtual DbSet<colaboradores> colaboradores { get; set; }
+        public virtual DbSet<donaciones> donaciones { get; set; }
+        public virtual DbSet<periodicidades> periodicidades { get; set; }
     }
 }
