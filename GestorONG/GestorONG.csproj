@@ -34,6 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -131,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SedesController.cs" />
+    <Compile Include="Controllers\VistaColaboradoresController.cs" />
     <Compile Include="Controllers\VoluntariosController.cs" />
     <Compile Include="DAL\GestorONGDContext.cs" />
     <Compile Include="DAL\GestorONGDInitializer.cs" />
@@ -171,6 +174,9 @@
       <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\sysdiagrams.cs">
+      <DependentUpon>GestorONGDSPS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\vistaColaboradores.cs">
       <DependentUpon>GestorONGDSPS.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\voluntario.cs">
@@ -550,6 +556,11 @@
     <Content Include="Views\Sedes\Details.cshtml" />
     <Content Include="Views\Sedes\Edit.cshtml" />
     <Content Include="Views\Sedes\Index.cshtml" />
+    <Content Include="Views\VistaColaboradores\Create.cshtml" />
+    <Content Include="Views\VistaColaboradores\Delete.cshtml" />
+    <Content Include="Views\VistaColaboradores\Details.cshtml" />
+    <Content Include="Views\VistaColaboradores\Edit.cshtml" />
+    <Content Include="Views\VistaColaboradores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

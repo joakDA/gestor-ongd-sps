@@ -22,6 +22,7 @@
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.vistaColaboradores" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

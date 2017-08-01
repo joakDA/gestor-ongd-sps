@@ -29,7 +29,7 @@ namespace GestorONG.DataModel
         /// <param name="fechaAlta">Fecha de alta de la donación.</param>
         /// <param name="idColaborador">Id del colaborador que ha hecho la donación.</param>
         /// <param name="idPeriodicidad">Id de la periodicidad de la donación (mensual, trimestral, ...).</param>
-        public donaciones (int id, double cantidad, DateTime fechaAlta, int idColaborador, int idPeriodicidad)
+        public donaciones (int id, Single cantidad, DateTime fechaAlta, int idColaborador, int idPeriodicidad)
         {
             this.id = id;
             this.cantidad = cantidad;
@@ -46,7 +46,7 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Float que representa la cantidad de la donación.
         /// </summary>
-        public double cantidad { get; set; }
+        public Single cantidad { get; set; }
         /// <summary>
         /// Fecha de alta de la donación.
         /// </summary>

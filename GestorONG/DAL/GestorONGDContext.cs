@@ -102,5 +102,7 @@ namespace GestorONG.DAL
         #endregion
 
         public System.Data.Entity.DbSet<GestorONG.DataModel.colaboradores> personas { get; set; }
+
+        public System.Data.Entity.DbSet<GestorONG.DataModel.vistaColaboradores> vistaColaboradores { get; set; }
     }
 }

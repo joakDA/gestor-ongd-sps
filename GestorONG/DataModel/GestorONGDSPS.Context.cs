@@ -34,5 +34,6 @@ namespace GestorONG.DataModel
         public virtual DbSet<colaboradores> colaboradores { get; set; }
         public virtual DbSet<donaciones> donaciones { get; set; }
         public virtual DbSet<periodicidades> periodicidades { get; set; }
+        public virtual DbSet<vistaColaboradores> vistaColaboradores { get; set; }
     }
 }

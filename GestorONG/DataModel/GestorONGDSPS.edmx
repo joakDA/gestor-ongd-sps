@@ -9,16 +9,16 @@
           <Key>
             <PropertyRef Name="idColaborador" />
           </Key>
-          <Property Name="idColaborador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="idColaborador" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="donaciones">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cantidad" Type="float" Nullable="false" />
+          <Property Name="cantidad" Type="real" />
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
           <Property Name="idColaborador" Type="int" Nullable="false" />
           <Property Name="idPeriodicidad" Type="int" Nullable="false" />
@@ -96,6 +96,46 @@
           <Property Name="sede" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vistaColaboradores">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="CIF_NIF" />
+            <PropertyRef Name="CuentaBancaria" />
+            <PropertyRef Name="Perfiles" />
+            <PropertyRef Name="cantidad" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Periodicidad" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellidos" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="direccionPostal" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="provincia" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono1" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="telefono2" Type="nvarchar" MaxLength="15" />
+          <Property Name="email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="datetime" />
+          <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="cantidad" Type="float" Nullable="false" />
+          <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="Periodicidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="voluntario">
           <Key>
@@ -129,8 +169,10 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="Sede" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Colaboradores_Personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1" />
+        <Association Name="FK_colaboradores_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -142,7 +184,9 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_donaciones_colaboradores">
-          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="1" />
+          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="donaciones" Type="Self.donaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="colaboradores">
@@ -227,6 +271,28 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="voluntarios" EntityType="Self.voluntarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vistaColaboradores" EntityType="Self.vistaColaboradores" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vistaColaboradores].[id] AS [id], 
+    [vistaColaboradores].[nombre] AS [nombre], 
+    [vistaColaboradores].[apellidos] AS [apellidos], 
+    [vistaColaboradores].[direccionPostal] AS [direccionPostal], 
+    [vistaColaboradores].[codigoPostal] AS [codigoPostal], 
+    [vistaColaboradores].[localidad] AS [localidad], 
+    [vistaColaboradores].[provincia] AS [provincia], 
+    [vistaColaboradores].[pais] AS [pais], 
+    [vistaColaboradores].[telefono1] AS [telefono1], 
+    [vistaColaboradores].[telefono2] AS [telefono2], 
+    [vistaColaboradores].[email] AS [email], 
+    [vistaColaboradores].[fechaNacimiento] AS [fechaNacimiento], 
+    [vistaColaboradores].[CIF_NIF] AS [CIF_NIF], 
+    [vistaColaboradores].[CuentaBancaria] AS [CuentaBancaria], 
+    [vistaColaboradores].[Perfiles] AS [Perfiles], 
+    [vistaColaboradores].[cantidad] AS [cantidad], 
+    [vistaColaboradores].[fechaAlta] AS [fechaAlta], 
+    [vistaColaboradores].[Periodicidad] AS [Periodicidad]
+    FROM [dbo].[vistaColaboradores] AS [vistaColaboradores]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="voluntario" EntityType="Self.voluntario" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [voluntario].[id] AS [id], 
@@ -246,7 +312,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
     [voluntario].[Sede] AS [Sede]
     FROM [dbo].[voluntario] AS [voluntario]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Colaboradores_Personas" Association="Self.FK_Colaboradores_Personas">
+          <AssociationSet Name="FK_colaboradores_personas" Association="Self.FK_colaboradores_personas">
             <End Role="personas" EntitySet="personas" />
             <End Role="colaboradores" EntitySet="colaboradores" />
           </AssociationSet>
@@ -313,6 +379,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="periodicidades" EntitySet="periodicidades" />
             <End Role="donaciones" EntitySet="donaciones" />
           </AssociationSet>
+          <EntitySet Name="vistaColaboradores" EntityType="gestor_ongd_sps_prodModel.vistaColaboradores" />
         </EntityContainer>
         <EntityType Name="perfiles">
           <Key>
@@ -465,7 +532,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cantidad" Type="Double" Nullable="false" />
+          <Property Name="cantidad" Type="Single" />
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="idColaborador" Type="Int32" Nullable="false" />
           <Property Name="idPeriodicidad" Type="Int32" Nullable="false" />
@@ -482,7 +549,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
         </EntityType>
         <Association Name="FK_Colaboradores_Personas">
           <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="1" />
-          <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="0..1" />
+          <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="personas">
               <PropertyRef Name="id" />
@@ -516,6 +583,44 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="vistaColaboradores">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="CIF_NIF" />
+            <PropertyRef Name="CuentaBancaria" />
+            <PropertyRef Name="Perfiles" />
+            <PropertyRef Name="cantidad" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Periodicidad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direccionPostal" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="cantidad" Type="Double" Nullable="false" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Periodicidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -635,6 +740,30 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <EntitySetMapping Name="periodicidades">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.periodicidades">
               <MappingFragment StoreEntitySet="periodicidades">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vistaColaboradores">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.vistaColaboradores">
+              <MappingFragment StoreEntitySet="vistaColaboradores">
+                <ScalarProperty Name="Periodicidad" ColumnName="Periodicidad" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+                <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
