@@ -36,6 +36,11 @@ namespace GestorONG
             bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include("~/Scripts/jquery-ui-1.12.1.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/jqueryUICSS").Include("~/Content/themes/base/jquery-ui.min.css"));
+
+            //Se incluye Bootstrap Select
+            bundles.Add(new ScriptBundle("~/bundles/boostrapSelectJS").Include("~/Scripts/bootstrap-select.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/boostrapSelectCSS").Include("~/Content/bootstrap-select.min.css"));
         }
     }
 }

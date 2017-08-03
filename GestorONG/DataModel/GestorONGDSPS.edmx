@@ -112,9 +112,9 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores'
             <PropertyRef Name="CIF_NIF" />
             <PropertyRef Name="CuentaBancaria" />
             <PropertyRef Name="Perfiles" />
-            <PropertyRef Name="cantidad" />
             <PropertyRef Name="fechaAlta" />
             <PropertyRef Name="Periodicidad" />
+            <PropertyRef Name="cantidad" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -131,8 +131,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores'
           <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
           <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
-          <Property Name="cantidad" Type="float" Nullable="false" />
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="cantidad" Type="real" Nullable="false" />
           <Property Name="Periodicidad" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
@@ -288,8 +288,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
     [vistaColaboradores].[CIF_NIF] AS [CIF_NIF], 
     [vistaColaboradores].[CuentaBancaria] AS [CuentaBancaria], 
     [vistaColaboradores].[Perfiles] AS [Perfiles], 
-    [vistaColaboradores].[cantidad] AS [cantidad], 
     [vistaColaboradores].[fechaAlta] AS [fechaAlta], 
+    [vistaColaboradores].[cantidad] AS [cantidad], 
     [vistaColaboradores].[Periodicidad] AS [Periodicidad]
     FROM [dbo].[vistaColaboradores] AS [vistaColaboradores]</DefiningQuery>
           </EntitySet>
@@ -617,7 +617,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
           <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
-          <Property Name="cantidad" Type="Double" Nullable="false" />
+          <Property Name="cantidad" Type="Single" Nullable="false" />
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Periodicidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>

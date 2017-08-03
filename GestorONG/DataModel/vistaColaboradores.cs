@@ -113,7 +113,7 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Perfiles que tiene asociada una persona (Voluntario, Colaborador).
         /// </summary>
-        [DisplayName("Cuenta Bancaria")]
+        [DisplayName("Perfiles")]
         [Required]
         public string Perfiles { get; set; }
         /// <summary>

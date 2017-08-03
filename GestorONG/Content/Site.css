@@ -131,6 +131,10 @@ input, select, textarea {
     max-width: 420px;
 }
 
+.filtros-listado {
+    padding-bottom: 1em;
+}
+
 /**********     End body content*/
 
 /*********      Index styles *********/
