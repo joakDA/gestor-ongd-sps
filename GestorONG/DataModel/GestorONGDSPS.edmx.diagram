@@ -16,6 +16,13 @@
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" />
         <InheritanceConnector EntityType="gestor_ongd_sps_prodModel.voluntarios" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.colaboradores" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.donaciones" Width="1.5" PointX="5.25" PointY="12.5" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.periodicidades" Width="1.5" PointX="3" PointY="15.875" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" />
+        <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.vistaColaboradores" Width="1.5" PointX="5.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

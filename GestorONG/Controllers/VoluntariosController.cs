@@ -92,7 +92,7 @@ namespace GestorONG.Controllers
                 var perPerfilNew = new personas_perfiles(0, voluntariosNuevo.id, 1);
                 db.persona_perfil.Add(perPerfilNew);
                 db.SaveChanges();
-
+                TempData["Acierto"] = "El voluntario/a " + model.nombre + " " + model.apellidos + " ha sido añadida correctamente al sistema.";
                 return RedirectToAction("Index");
             }
 
@@ -142,8 +142,9 @@ namespace GestorONG.Controllers
                 var voluntariosActualizado = new voluntarios(voluntario.id,voluntario.nombre,voluntario.apellidos,voluntario.direccionPostal,voluntario.codigoPostal,voluntario.localidad,
                     voluntario.provincia,voluntario.pais,voluntario.telefono1,voluntario.telefono2,voluntario.email,fecha,voluntario.fechaAlta,sedes.id);
                 db.Entry(voluntariosActualizado).State = EntityState.Modified;
-                db.SaveChanges();
+               db.SaveChanges();
                 //It is no needed to update personas_perfiles because now, we do not allow to modify the profile
+                TempData["Acierto"] = "El voluntario/a " + voluntario.nombre + " " + voluntario.apellidos + " ha sido editado correctamente.";
                 return RedirectToAction("Index");
             }
             return View(voluntario);
@@ -191,6 +192,9 @@ namespace GestorONG.Controllers
             personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id);
             db.persona_perfil.Remove(per);
             db.SaveChanges();
+
+            TempData["Acierto"] = "El voluntario/a " + voluntario.nombre + " " + voluntario.apellidos + " ha sido eliminada del sistema correctamente.";
+
             return RedirectToAction("Index");
         }
 

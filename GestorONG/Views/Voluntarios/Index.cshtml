@@ -2,6 +2,13 @@
 
 @{
     ViewBag.Title = "Listado de Voluntarios";
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p class="text-center"><span class="glyphicon glyphicon-ok"></span> @TempData["Acierto"]</p>
+        </div>
+    }
 }
 
 <h1 class="titulo-pagina text-center">Listado de Voluntarios</h1>

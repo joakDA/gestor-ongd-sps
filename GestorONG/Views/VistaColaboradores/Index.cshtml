@@ -1,0 +1,234 @@
+﻿@model IEnumerable<GestorONG.DataModel.vistaColaboradores>
+
+@{
+    ViewBag.Title = "Listado de Colaboradores";
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p class="text-center"><span class="glyphicon glyphicon-ok"></span> @TempData["Acierto"]</p>
+        </div>
+    }
+}
+
+<h1 class="titulo-pagina text-center">Listado de Colaboradores</h1>
+
+<!--  FORMAT TABLE WITH JqueryDatatables-->
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#listado-colaboradores').DataTable({
+                "pageLength": 10,
+                "pagingType": "full_numbers",
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ elementos por página",
+                    "zeroRecords": "No se han encontrado resultados - lo lamentamos",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay resultados",
+                    "infoFiltered": "(total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                        "first": "Primero",
+                        "last": "Último"
+                    }
+                },
+                "columnDefs": [
+            {
+                "targets": [2],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [3],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [4],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [5],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [8],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [10],
+                "visible": false,
+                "searchable": false
+            }]
+            });
+            $('#listado-colaboradores_length').val(10);
+        });
+    </script>
+
+    <!--FILTER PAISES JQUERY-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Paises").change(function (evt) {
+                $("#SelectedPais").val($("Paises").val());
+                evt.preventDefault();
+                $("form").submit();
+                /*$.each($("#Paises option"), function () {
+                    $.post("/Colaboradores/Index/", $("#listado-colaboradores").serialize(), function(data){
+                        //Hacer algo
+                    })
+                })*/
+            });
+        });
+    </script>
+}
+
+<p>
+    @Html.ActionLink("Nuevo Colaborador", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
+</p>
+
+@using (Html.BeginForm("Index", "Colaboradores", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="filtros-listado container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="titulo-filtros">Si lo deseas, puedes filtrar por los siguientes campos</p>
+            </div>
+        </div>
+        <div class="row fila-filtros">
+            <div class="col-md-3">
+                <!--Corregir-->
+                @Html.DropDownList("Paises", new SelectList(Model, "pais","pais", "pais", new { @multiple = "multiple", @class = "selectpicker" }))
+            </div>
+        </div>
+    </div>
+    <table id="listado-colaboradores" class="table table-responsive display" data-page-length='10'>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.apellidos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.direccionPostal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.codigoPostal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.localidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.provincia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.pais)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.telefono1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.telefono2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fechaNacimiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CIF_NIF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CuentaBancaria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Perfiles)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fechaAlta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Periodicidad)
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.apellidos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.direccionPostal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigoPostal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.localidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.provincia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telefono1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telefono2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaNacimiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CIF_NIF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CuentaBancaria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Perfiles)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaAlta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Periodicidad)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "glyphicon glyphicon-edit" })
+                        @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "glyphicon glyphicon-trash" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

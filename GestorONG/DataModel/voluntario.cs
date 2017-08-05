@@ -18,24 +18,43 @@ namespace GestorONG.DataModel
     {
         public int id { get; set; }
         [DisplayName("Nombre")]
+        [Required]
+        [StringLength(100)]
         public string nombre { get; set; }
         [DisplayName("Apellidos")]
+        [Required]
+        [StringLength(100)]
         public string apellidos { get; set; }
         [DisplayName("Dirección")]
+        [Required]
+        [StringLength(150)]
         public string direccionPostal { get; set; }
         [DisplayName("CP")]
+        [Required]
+        [StringLength(5)]
         public string codigoPostal { get; set; }
         [DisplayName("Localidad")]
+        [Required]
+        [StringLength(75)]
         public string localidad { get; set; }
         [DisplayName("Provincia")]
+        [Required]
+        [StringLength(75)]
         public string provincia { get; set; }
         [DisplayName("País")]
+        [Required]
+        [StringLength(100)]
         public string pais { get; set; }
         [DisplayName("Teléfono")]
+        [Required]
+        [StringLength(15)]
         public string telefono1 { get; set; }
         [DisplayName("Teléfono 2")]
+        [StringLength(15)]
         public string telefono2 { get; set; }
         [DisplayName("E-mail")]
+        [Required]
+        [StringLength(150)]
         public string email { get; set; }
         [DisplayName("Fecha Nacimiento")]
         [DataType(DataType.Date)]

@@ -5,12 +5,37 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="gestor_ongd_sps_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="colaboradores">
+          <Key>
+            <PropertyRef Name="idColaborador" />
+          </Key>
+          <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="idColaborador" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="donaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantidad" Type="real" />
+          <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="idColaborador" Type="int" Nullable="false" />
+          <Property Name="idPeriodicidad" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="perfiles">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="75" Nullable="false" />
+        </EntityType>
+        <EntityType Name="periodicidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="personas">
           <Key>
@@ -34,8 +59,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idPersona" Type="int" Nullable="false" />
-          <Property Name="idPerfil" Type="int" Nullable="false" />
+          <Property Name="idPersona" Type="int" />
+          <Property Name="idPerfil" Type="int" />
         </EntityType>
         <EntityType Name="sede_delegacion">
           <Key>
@@ -50,7 +75,7 @@
           <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="personaContacto" Type="nvarchar" MaxLength="200" />
           <Property Name="emailContacto" Type="nvarchar" MaxLength="150" />
-          <Property Name="telefonoContacto" Type="nvarchar" MaxLength="15" />
+          <Property Name="telefonoContacto" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -71,6 +96,46 @@
           <Property Name="sede" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vistaColaboradores">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="CIF_NIF" />
+            <PropertyRef Name="CuentaBancaria" />
+            <PropertyRef Name="Perfiles" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Periodicidad" />
+            <PropertyRef Name="cantidad" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellidos" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="direccionPostal" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="provincia" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefono1" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="telefono2" Type="nvarchar" MaxLength="15" />
+          <Property Name="email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="datetime" />
+          <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="fechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="cantidad" Type="real" Nullable="false" />
+          <Property Name="Periodicidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="voluntario">
           <Key>
@@ -85,8 +150,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <PropertyRef Name="telefono1" />
             <PropertyRef Name="email" />
             <PropertyRef Name="fechaAlta" />
-            <PropertyRef Name="Sede" />
             <PropertyRef Name="Perfiles" />
+            <PropertyRef Name="Sede" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -101,11 +166,51 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="email" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="fechaNacimiento" Type="datetime" />
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
-          <Property Name="Sede" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="Sede" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="FK_colaboradores_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaboradores">
+              <PropertyRef Name="idColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donaciones_colaboradores">
+          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="donaciones" Type="Self.donaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colaboradores">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="donaciones">
+              <PropertyRef Name="idColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donaciones_periodicidad">
+          <End Role="periodicidades" Type="Self.periodicidades" Multiplicity="1" />
+          <End Role="donaciones" Type="Self.donaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="periodicidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donaciones">
+              <PropertyRef Name="idPeriodicidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_personas-perfiles_perfiles">
-          <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
+          <End Role="perfiles" Type="Self.perfiles" Multiplicity="0..1" />
           <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="perfiles">
@@ -117,7 +222,9 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_personas-perfiles_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1" />
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -125,6 +232,20 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Principal>
             <Dependent Role="personas_perfiles">
               <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_voluntarios_personas">
+          <End Role="personas" Type="Self.personas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="voluntarios">
+              <PropertyRef Name="idVoluntario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -141,12 +262,37 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="gestor_ongd_sps_prodModelStoreContainer">
+          <EntitySet Name="colaboradores" EntityType="Self.colaboradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donaciones" EntityType="Self.donaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="perfiles" EntityType="Self.perfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="periodicidades" EntityType="Self.periodicidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas_perfiles" EntityType="Self.personas_perfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="voluntarios" EntityType="Self.voluntarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vistaColaboradores" EntityType="Self.vistaColaboradores" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vistaColaboradores].[id] AS [id], 
+    [vistaColaboradores].[nombre] AS [nombre], 
+    [vistaColaboradores].[apellidos] AS [apellidos], 
+    [vistaColaboradores].[direccionPostal] AS [direccionPostal], 
+    [vistaColaboradores].[codigoPostal] AS [codigoPostal], 
+    [vistaColaboradores].[localidad] AS [localidad], 
+    [vistaColaboradores].[provincia] AS [provincia], 
+    [vistaColaboradores].[pais] AS [pais], 
+    [vistaColaboradores].[telefono1] AS [telefono1], 
+    [vistaColaboradores].[telefono2] AS [telefono2], 
+    [vistaColaboradores].[email] AS [email], 
+    [vistaColaboradores].[fechaNacimiento] AS [fechaNacimiento], 
+    [vistaColaboradores].[CIF_NIF] AS [CIF_NIF], 
+    [vistaColaboradores].[CuentaBancaria] AS [CuentaBancaria], 
+    [vistaColaboradores].[Perfiles] AS [Perfiles], 
+    [vistaColaboradores].[fechaAlta] AS [fechaAlta], 
+    [vistaColaboradores].[cantidad] AS [cantidad], 
+    [vistaColaboradores].[Periodicidad] AS [Periodicidad]
+    FROM [dbo].[vistaColaboradores] AS [vistaColaboradores]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="voluntario" EntityType="Self.voluntario" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [voluntario].[id] AS [id], 
@@ -162,10 +308,22 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
     [voluntario].[email] AS [email], 
     [voluntario].[fechaNacimiento] AS [fechaNacimiento], 
     [voluntario].[fechaAlta] AS [fechaAlta], 
-    [voluntario].[Sede] AS [Sede], 
-    [voluntario].[Perfiles] AS [Perfiles]
+    [voluntario].[Perfiles] AS [Perfiles], 
+    [voluntario].[Sede] AS [Sede]
     FROM [dbo].[voluntario] AS [voluntario]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_colaboradores_personas" Association="Self.FK_colaboradores_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="colaboradores" EntitySet="colaboradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donaciones_colaboradores" Association="Self.FK_donaciones_colaboradores">
+            <End Role="colaboradores" EntitySet="colaboradores" />
+            <End Role="donaciones" EntitySet="donaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donaciones_periodicidad" Association="Self.FK_donaciones_periodicidad">
+            <End Role="periodicidades" EntitySet="periodicidades" />
+            <End Role="donaciones" EntitySet="donaciones" />
+          </AssociationSet>
           <AssociationSet Name="FK_personas-perfiles_perfiles" Association="Self.FK_personas-perfiles_perfiles">
             <End Role="perfiles" EntitySet="perfiles" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
@@ -173,6 +331,10 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <AssociationSet Name="FK_personas-perfiles_personas" Association="Self.FK_personas-perfiles_personas">
             <End Role="personas" EntitySet="personas" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_voluntarios_personas" Association="Self.FK_voluntarios_personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="voluntarios" EntitySet="voluntarios" />
           </AssociationSet>
           <AssociationSet Name="FK_Voluntarios_Sedes" Association="Self.FK_Voluntarios_Sedes">
             <End Role="sede_delegacion" EntitySet="sede_delegacion" />
@@ -202,6 +364,22 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="sede_delegacion" EntitySet="sede_delegacion" />
             <End Role="voluntarios" EntitySet="personas" />
           </AssociationSet>
+          <EntitySet Name="colaboradores" EntityType="gestor_ongd_sps_prodModel.colaboradores" />
+          <EntitySet Name="donaciones" EntityType="gestor_ongd_sps_prodModel.donaciones" />
+          <EntitySet Name="periodicidades" EntityType="gestor_ongd_sps_prodModel.periodicidades" />
+          <AssociationSet Name="FK_Colaboradores_Personas" Association="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="colaboradores" EntitySet="colaboradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donaciones_colaboradores" Association="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores">
+            <End Role="colaboradores" EntitySet="colaboradores" />
+            <End Role="donaciones" EntitySet="donaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donaciones_periodicidad" Association="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad">
+            <End Role="periodicidades" EntitySet="periodicidades" />
+            <End Role="donaciones" EntitySet="donaciones" />
+          </AssociationSet>
+          <EntitySet Name="vistaColaboradores" EntityType="gestor_ongd_sps_prodModel.vistaColaboradores" />
         </EntityContainer>
         <EntityType Name="perfiles">
           <Key>
@@ -228,14 +406,15 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
           <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
+          <NavigationProperty Name="colaboradores" Relationship="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" FromRole="personas" ToRole="colaboradores" />
         </EntityType>
         <EntityType Name="personas_perfiles">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPersona" Type="Int32" Nullable="false" />
-          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+          <Property Name="idPersona" Type="Int32" />
+          <Property Name="idPerfil" Type="Int32" />
           <NavigationProperty Name="perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" FromRole="personas_perfiles" ToRole="perfiles" />
           <NavigationProperty Name="personas" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas_perfiles" ToRole="personas" />
         </EntityType>
@@ -252,7 +431,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="personaContacto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="emailContacto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="telefonoContacto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="telefonoContacto" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="voluntarios" Relationship="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" FromRole="sede_delegacion" ToRole="voluntarios" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -303,7 +482,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_personas_perfiles_perfiles">
-          <End Type="gestor_ongd_sps_prodModel.perfiles" Role="perfiles" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.perfiles" Role="perfiles" Multiplicity="0..1" />
           <End Type="gestor_ongd_sps_prodModel.personas_perfiles" Role="personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="perfiles">
@@ -315,7 +494,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_personas_perfiles_personas">
-          <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="0..1" />
           <End Type="gestor_ongd_sps_prodModel.personas_perfiles" Role="personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -338,6 +517,110 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="colaboradores">
+          <Key>
+            <PropertyRef Name="idColaborador" />
+          </Key>
+          <Property Name="idColaborador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="personas" Relationship="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" FromRole="colaboradores" ToRole="personas" />
+          <NavigationProperty Name="donaciones" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" FromRole="colaboradores" ToRole="donaciones" />
+        </EntityType>
+        <EntityType Name="donaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantidad" Type="Single" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idColaborador" Type="Int32" Nullable="false" />
+          <Property Name="idPeriodicidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="colaboradores" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" FromRole="donaciones" ToRole="colaboradores" />
+          <NavigationProperty Name="periodicidades" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad" FromRole="donaciones" ToRole="periodicidades" />
+        </EntityType>
+        <EntityType Name="periodicidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="donaciones" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad" FromRole="periodicidades" ToRole="donaciones" />
+        </EntityType>
+        <Association Name="FK_Colaboradores_Personas">
+          <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaboradores">
+              <PropertyRef Name="idColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donaciones_colaboradores">
+          <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.donaciones" Role="donaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colaboradores">
+              <PropertyRef Name="idColaborador" />
+            </Principal>
+            <Dependent Role="donaciones">
+              <PropertyRef Name="idColaborador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donaciones_periodicidad">
+          <End Type="gestor_ongd_sps_prodModel.periodicidades" Role="periodicidades" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.donaciones" Role="donaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="periodicidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="donaciones">
+              <PropertyRef Name="idPeriodicidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vistaColaboradores">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidos" />
+            <PropertyRef Name="direccionPostal" />
+            <PropertyRef Name="codigoPostal" />
+            <PropertyRef Name="localidad" />
+            <PropertyRef Name="provincia" />
+            <PropertyRef Name="pais" />
+            <PropertyRef Name="telefono1" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="CIF_NIF" />
+            <PropertyRef Name="CuentaBancaria" />
+            <PropertyRef Name="Perfiles" />
+            <PropertyRef Name="cantidad" />
+            <PropertyRef Name="fechaAlta" />
+            <PropertyRef Name="Periodicidad" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direccionPostal" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="cantidad" Type="Single" Nullable="false" />
+          <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Periodicidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -419,6 +702,58 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
                 <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
                 <ScalarProperty Name="Sede" ColumnName="Sede" />
                 <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="telefono1" ColumnName="telefono1" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="colaboradores">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.colaboradores">
+              <MappingFragment StoreEntitySet="colaboradores">
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+                <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />
+                <ScalarProperty Name="idColaborador" ColumnName="idColaborador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donaciones">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.donaciones">
+              <MappingFragment StoreEntitySet="donaciones">
+                <ScalarProperty Name="idPeriodicidad" ColumnName="idPeriodicidad" />
+                <ScalarProperty Name="idColaborador" ColumnName="idColaborador" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="periodicidades">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.periodicidades">
+              <MappingFragment StoreEntitySet="periodicidades">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vistaColaboradores">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.vistaColaboradores">
+              <MappingFragment StoreEntitySet="vistaColaboradores">
+                <ScalarProperty Name="Periodicidad" ColumnName="Periodicidad" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
+                <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />
                 <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="telefono2" ColumnName="telefono2" />

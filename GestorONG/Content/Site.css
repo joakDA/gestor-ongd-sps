@@ -1,16 +1,55 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
 }
 
 h1,h2,h3,h4,h5,h6{
     color: #e65858;
+    text-align: center;
 }
+
+/*Font-size-relative*/
+h1{
+    font-size: 2.5em;
+}
+
+h2{
+    font-size: 2.3em
+}
+
+h3{
+    font-size: 2.1em;
+}
+
+h4{
+    font-size: 1.9em;
+}
+
+h5{
+    font-size: 1.7em;
+}
+
+h6{
+    font-size: 1.5em;
+}
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.body-content {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -142px; 
+}
+.body-content:after {
+  content: "";
+  display: block;
+}
+footer, .body-content:after {
+  height: 142px; 
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,11 +60,11 @@ h1,h2,h3,h4,h5,h6{
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 /************ Set header styles***********/
 /*Set background color*/
@@ -40,29 +79,31 @@ textarea {
 
 /*Set styles for user-text header*/
 .user-header {
-    width: 65%;
-    text-align: center;
     color: #ffffff !important;
+    width: 100%;
+    display: block;
 }
+
+header img {
+    margin: 0 auto;
+}
+
 
 /***********  End header styles***********/
 
 /***********  Set footer styles***********/
+
 /* Set footer container styles */
 .container-fluid.footer {
     background-color: #e65858;
     color: #ffffff;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 /* Set styles for logo on the righ*/
 .logo-footer .img-logo {
-    float: right;
-    margin-right: 10%;
+    margin: 0 auto;
 }
+
 
 .footer a{
     color: #ffffff;
@@ -73,7 +114,13 @@ textarea {
 /***********  body-content *************/
 
 .relleno-superior{
-    padding-top: 50px;
+    padding-top: 4em;
+}
+
+@media (max-width: 767px){
+    .relleno-superior{
+        padding-top: 8em;
+    }
 }
 
 th, td {
@@ -82,6 +129,10 @@ th, td {
 
 input, select, textarea {
     max-width: 420px;
+}
+
+.filtros-listado {
+    padding-bottom: 1em;
 }
 
 /**********     End body content*/
