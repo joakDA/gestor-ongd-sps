@@ -26,11 +26,14 @@ namespace GestorONG.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string pais)
+        /*public ActionResult Index(string Paises)
         {
+            //Se pasa el listado de paises en el ViewBag para poder introducir un listado de filtros.
+            var paises = new SelectList(db.vistaColaboradores.Select(p => p.pais).Distinct().ToList());
+            ViewBag.Paises = paises;
             //Now check model.FirstName 
-            return View(db.vistaColaboradores.Where(p => p.pais == pais).ToList());
-        }
+            return View(db.vistaColaboradores.Where(p => p.pais == Paises).ToList());
+        }*/
 
         // GET: VistaColaboradores/Details/5
         public ActionResult Details(int? id)
