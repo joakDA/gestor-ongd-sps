@@ -71,7 +71,7 @@
                 "initComplete": function () {
                     this.api().columns().every(function () {
                         var column = this;
-                        var select = $('<select><option value=""></option></select>')
+                        var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
                         .appendTo($(column.footer()).empty())
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
@@ -207,6 +207,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Periodicidad)
                 </th>
+                <th>Acciones</th>
             </tr>
         </tfoot>
         <tbody>
