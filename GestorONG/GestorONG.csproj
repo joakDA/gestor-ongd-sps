@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
@@ -408,6 +408,7 @@
       <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
       <LastGenOutput>GestorONGDSPS.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="DataModel\GestorONGDSPS.edmx.sql" />
     <Content Include="DataModel\GestorONGDSPS.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GestorONGDSPS.edmx</DependentUpon>
@@ -518,6 +519,7 @@
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Scripts\bootstrap-select.js.map" />
     <Content Include="Content\bootstrap-select.css.map" />
+    <None Include="Properties\PublishProfiles\gestorsps - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />

@@ -1,7 +1,7 @@
 USE [gestor_ongd_sps_prod]
 GO
 
-/****** Object:  View [dbo].[vistaColaboradores]    Script Date: 30/07/2017 20:45:19 ******/
+/****** Object:  View [dbo].[vistaColaboradores]    Script Date: 15/08/2017 11:41:12 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,7 @@ CREATE VIEW [dbo].[vistaColaboradores]
 AS
 SELECT        dbo.personas.id, dbo.personas.nombre, dbo.personas.apellidos, dbo.personas.direccionPostal, dbo.personas.codigoPostal, dbo.personas.localidad, dbo.personas.provincia, dbo.personas.pais, 
                          dbo.personas.telefono1, dbo.personas.telefono2, dbo.personas.email, dbo.personas.fechaNacimiento, dbo.colaboradores.CIF_NIF, dbo.colaboradores.CuentaBancaria, dbo.perfiles.nombre AS Perfiles, 
-                         dbo.donaciones.cantidad, dbo.donaciones.fechaAlta, dbo.periodicidades.nombre AS Periodicidad
+                         dbo.donaciones.fechaAlta, dbo.donaciones.cantidad, dbo.periodicidades.nombre AS Periodicidad
 FROM            dbo.colaboradores INNER JOIN
                          dbo.personas ON dbo.colaboradores.idColaborador = dbo.personas.id INNER JOIN
                          dbo.personas_perfiles ON dbo.personas.id = dbo.personas_perfiles.idPersona INNER JOIN
@@ -20,6 +20,7 @@ FROM            dbo.colaboradores INNER JOIN
                          dbo.donaciones ON dbo.colaboradores.idColaborador = dbo.donaciones.idColaborador INNER JOIN
                          dbo.periodicidades ON dbo.donaciones.idPeriodicidad = dbo.periodicidades.id
 WHERE        (dbo.perfiles.nombre = N'Colaborador')
+
 GO
 
 EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]

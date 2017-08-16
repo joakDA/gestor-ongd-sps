@@ -1,7 +1,7 @@
 USE [gestor_ongd_sps_prod]
 GO
 
-/****** Object:  View [dbo].[voluntario]    Script Date: 09/06/2017 18:53:00 ******/
+/****** Object:  View [dbo].[voluntario]    Script Date: 15/08/2017 11:40:22 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,16 +9,17 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE VIEW [dbo].[voluntario]
+WITH  VIEW_METADATA
 AS
-SELECT        TOP (100) PERCENT dbo.personas.id, dbo.personas.nombre, dbo.personas.apellidos, dbo.personas.direccionPostal, dbo.personas.codigoPostal, dbo.personas.localidad, dbo.personas.provincia, 
-                         dbo.personas.pais, dbo.personas.telefono1, dbo.personas.telefono2, dbo.personas.email, dbo.personas.fechaNacimiento, dbo.voluntarios.fechaAlta, dbo.sede_delegacion.nombre AS Sede, 
-                         dbo.perfiles.nombre AS Perfiles
+SELECT        dbo.personas.id, dbo.personas.nombre, dbo.personas.apellidos, dbo.personas.direccionPostal, dbo.personas.codigoPostal, dbo.personas.localidad, dbo.personas.provincia, dbo.personas.pais, 
+                         dbo.personas.telefono1, dbo.personas.telefono2, dbo.personas.email, dbo.personas.fechaNacimiento, dbo.voluntarios.fechaAlta, dbo.perfiles.nombre AS Perfiles, dbo.sede_delegacion.nombre AS Sede
 FROM            dbo.perfiles INNER JOIN
-                         dbo.personas ON dbo.perfiles.id = dbo.personas.id INNER JOIN
-                         dbo.personas_perfiles ON dbo.perfiles.id = dbo.personas_perfiles.idPerfil AND dbo.personas.id = dbo.personas_perfiles.idPersona INNER JOIN
-                         dbo.sede_delegacion ON dbo.perfiles.id = dbo.sede_delegacion.id INNER JOIN
-                         dbo.voluntarios ON dbo.personas.id = dbo.voluntarios.idVoluntario AND dbo.sede_delegacion.id = dbo.voluntarios.sede
-ORDER BY dbo.personas.nombre, dbo.personas.apellidos
+                         dbo.personas INNER JOIN
+                         dbo.personas_perfiles ON dbo.personas.id = dbo.personas_perfiles.idPersona ON dbo.perfiles.id = dbo.personas_perfiles.idPerfil INNER JOIN
+                         dbo.voluntarios ON dbo.personas.id = dbo.voluntarios.idVoluntario INNER JOIN
+                         dbo.sede_delegacion ON dbo.voluntarios.sede = dbo.sede_delegacion.id
+WHERE        (dbo.perfiles.nombre = N'Voluntario')
+WITH CHECK OPTION
 
 GO
 
@@ -103,16 +104,6 @@ Begin DesignProperties =
             DisplayFlags = 280
             TopColumn = 0
          End
-         Begin Table = "personas"
-            Begin Extent = 
-               Top = 6
-               Left = 246
-               Bottom = 136
-               Right = 426
-            End
-            DisplayFlags = 280
-            TopColumn = 8
-         End
          Begin Table = "personas_perfiles"
             Begin Extent = 
                Top = 6
@@ -120,15 +111,25 @@ Begin DesignProperties =
                Bottom = 119
                Right = 634
             End
-            DisplayFlags = 280
+            DisplayFlags = 344
             TopColumn = 0
          End
          Begin Table = "sede_delegacion"
             Begin Extent = 
-               Top = 6
-               Left = 672
-               Bottom = 136
-               Right = 854
+               Top = 124
+               Left = 599
+               Bottom = 254
+               Right = 781
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "personas"
+            Begin Extent = 
+               Top = 101
+               Left = 295
+               Bottom = 231
+               Right = 475
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -137,7 +138,7 @@ Begin DesignProperties =
             Begin Extent = 
                Top = 6
                Left = 892
-               Bottom = 119
+               Bottom = 136
                Right = 1062
             End
             DisplayFlags = 280
@@ -149,6 +150,27 @@ Begin DesignProperties =
    End
    Begin DataPane = 
       Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 16
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Widt' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'voluntario'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane2', @value=N'h = 1500
+         Width = 2670
+         Width = 1500
       End
    End
    Begin CriteriaPane = 
@@ -164,10 +186,7 @@ Begin DesignProperties =
          GroupBy = 1350
          Filter = 1350
          Or = 855
-         Or = 1350' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'voluntario'
-GO
-
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane2', @value=N'
+         Or = 1350
          Or = 1350
       End
    End
