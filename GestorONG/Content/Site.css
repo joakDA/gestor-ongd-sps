@@ -139,6 +139,10 @@ input, select, textarea {
     width: 100% !important;
 }
 
+.btn-group.bootstrap-select.form-control.col-xs-12.col-md-8 {
+    max-width: 65%;
+}
+
 /******* STEP BY STEP FORM STYLES (COLABORADORES) *******/
 .stepwizard-step p {
     margin-top: 10px;

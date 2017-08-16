@@ -63,11 +63,17 @@ namespace GestorONG.DAL
         /// </summary>
         public DbSet<personas_perfiles> persona_perfil { get; set; }
 
+        public System.Data.Entity.DbSet<GestorONG.DataModel.colaboradores> colaboradores { get; set; }
 
+        public System.Data.Entity.DbSet<GestorONG.DataModel.vistaColaboradores> vistaColaboradores { get; set; }
 
-        #endregion
+        public DbSet<periodicidades> periodicidades { get; set; }
+
+        public DbSet<donaciones> donaciones { get; set; }
 
         public System.Data.Entity.DbSet<GestorONG.DataModel.voluntario> voluntario { get; set; }
+
+        #endregion
 
         #region
 
@@ -101,8 +107,6 @@ namespace GestorONG.DAL
 
         #endregion
 
-        public System.Data.Entity.DbSet<GestorONG.DataModel.colaboradores> personas { get; set; }
-
-        public System.Data.Entity.DbSet<GestorONG.DataModel.vistaColaboradores> vistaColaboradores { get; set; }
+        
     }
 }
