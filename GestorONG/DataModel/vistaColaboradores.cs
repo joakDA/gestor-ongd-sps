@@ -113,8 +113,7 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Perfiles que tiene asociada una persona (Voluntario, Colaborador).
         /// </summary>
-        [DisplayName("Perfiles")]
-        [Required]
+
         public string Perfiles { get; set; }
         /// <summary>
         /// Cantidad total (en €) de dinero que dona a la organización.
@@ -125,8 +124,7 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Fecha en que inició la colaboración mediante donativos con la organización.
         /// </summary>
-        [Required]
-        [DisplayName("Fecha Nacimiento")]
+        [DisplayName("Fecha Alta")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaAlta { get; set; }
