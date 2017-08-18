@@ -9,9 +9,9 @@
           <Key>
             <PropertyRef Name="idColaborador" />
           </Key>
+          <Property Name="idColaborador" Type="int" Nullable="false" />
           <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
-          <Property Name="idColaborador" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="donaciones">
           <Key>
@@ -114,7 +114,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores'
             <PropertyRef Name="Perfiles" />
             <PropertyRef Name="fechaAlta" />
             <PropertyRef Name="Periodicidad" />
-            <PropertyRef Name="cantidad" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -132,7 +131,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.vistaColaboradores'
           <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
           <Property Name="Perfiles" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
-          <Property Name="cantidad" Type="real" Nullable="false" />
+          <Property Name="cantidad" Type="real" />
           <Property Name="Periodicidad" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
@@ -364,15 +363,10 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="sede_delegacion" EntitySet="sede_delegacion" />
             <End Role="voluntarios" EntitySet="personas" />
           </AssociationSet>
-          <EntitySet Name="colaboradores" EntityType="gestor_ongd_sps_prodModel.colaboradores" />
           <EntitySet Name="donaciones" EntityType="gestor_ongd_sps_prodModel.donaciones" />
           <EntitySet Name="periodicidades" EntityType="gestor_ongd_sps_prodModel.periodicidades" />
-          <AssociationSet Name="FK_Colaboradores_Personas" Association="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas">
-            <End Role="personas" EntitySet="personas" />
-            <End Role="colaboradores" EntitySet="colaboradores" />
-          </AssociationSet>
           <AssociationSet Name="FK_donaciones_colaboradores" Association="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores">
-            <End Role="colaboradores" EntitySet="colaboradores" />
+            <End Role="colaboradores" EntitySet="personas" />
             <End Role="donaciones" EntitySet="donaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_donaciones_periodicidad" Association="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad">
@@ -406,7 +400,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
           <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
-          <NavigationProperty Name="colaboradores" Relationship="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" FromRole="personas" ToRole="colaboradores" />
         </EntityType>
         <EntityType Name="personas_perfiles">
           <Key>
@@ -517,14 +510,9 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="colaboradores">
-          <Key>
-            <PropertyRef Name="idColaborador" />
-          </Key>
-          <Property Name="idColaborador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        <EntityType Name="colaboradores" BaseType="gestor_ongd_sps_prodModel.personas">
           <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="personas" Relationship="gestor_ongd_sps_prodModel.FK_Colaboradores_Personas" FromRole="colaboradores" ToRole="personas" />
           <NavigationProperty Name="donaciones" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" FromRole="colaboradores" ToRole="donaciones" />
         </EntityType>
         <EntityType Name="donaciones">
@@ -547,24 +535,12 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="donaciones" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_periodicidad" FromRole="periodicidades" ToRole="donaciones" />
         </EntityType>
-        <Association Name="FK_Colaboradores_Personas">
-          <End Type="gestor_ongd_sps_prodModel.personas" Role="personas" Multiplicity="1" />
-          <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="personas">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="colaboradores">
-              <PropertyRef Name="idColaborador" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_donaciones_colaboradores">
           <End Type="gestor_ongd_sps_prodModel.colaboradores" Role="colaboradores" Multiplicity="1" />
           <End Type="gestor_ongd_sps_prodModel.donaciones" Role="donaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="colaboradores">
-              <PropertyRef Name="idColaborador" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="donaciones">
               <PropertyRef Name="idColaborador" />
@@ -598,7 +574,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <PropertyRef Name="CIF_NIF" />
             <PropertyRef Name="CuentaBancaria" />
             <PropertyRef Name="Perfiles" />
-            <PropertyRef Name="cantidad" />
             <PropertyRef Name="fechaAlta" />
             <PropertyRef Name="Periodicidad" />
           </Key>
@@ -617,8 +592,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
           <Property Name="Perfiles" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
-          <Property Name="cantidad" Type="Single" Nullable="false" />
           <Property Name="fechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cantidad" Type="Single" />
           <Property Name="Periodicidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
@@ -657,6 +632,13 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
                 <ScalarProperty Name="id" ColumnName="idVoluntario" />
                 <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
                 <ScalarProperty Name="sede" ColumnName="sede" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(gestor_ongd_sps_prodModel.colaboradores)">
+              <MappingFragment StoreEntitySet="colaboradores">
+                <ScalarProperty Name="id" ColumnName="idColaborador" />
+                <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />
+                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -717,15 +699,6 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="colaboradores">
-            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.colaboradores">
-              <MappingFragment StoreEntitySet="colaboradores">
-                <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
-                <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />
-                <ScalarProperty Name="idColaborador" ColumnName="idColaborador" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="donaciones">
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.donaciones">
               <MappingFragment StoreEntitySet="donaciones">
@@ -749,8 +722,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.vistaColaboradores">
               <MappingFragment StoreEntitySet="vistaColaboradores">
                 <ScalarProperty Name="Periodicidad" ColumnName="Periodicidad" />
-                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
                 <ScalarProperty Name="Perfiles" ColumnName="Perfiles" />
                 <ScalarProperty Name="CuentaBancaria" ColumnName="CuentaBancaria" />
                 <ScalarProperty Name="CIF_NIF" ColumnName="CIF_NIF" />

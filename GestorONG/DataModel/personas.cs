@@ -50,7 +50,6 @@ namespace GestorONG.DataModel
             this.email = email;
             this.fechaNacimiento = fechaNacimiento;
             this.personas_perfiles = new HashSet<personas_perfiles>();
-            this.colaboradores = new HashSet<colaboradores>();
         }
 
         #endregion
@@ -119,9 +118,6 @@ namespace GestorONG.DataModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<personas_perfiles> personas_perfiles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<colaboradores> colaboradores { get; set; }
 
         #endregion
 
