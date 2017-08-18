@@ -16,6 +16,7 @@
 <!--  FORMAT TABLE WITH JqueryDatatables-->
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -54,7 +55,27 @@
                   "targets": [13],
                   "visible": false
               }
-                ]
+                ],
+                "initComplete": function () {
+                    this.api().columns([3,5,6,12]).every(function () {
+                        var column = this;
+                        var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
             });
             $('#listado-voluntarios_length').val(10);
         });
@@ -109,7 +130,55 @@
                 @Html.DisplayNameFor(model => model.Perfiles)
             </th>
             <th>Acciones</th>
-</thead>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccionPostal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codigoPostal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.localidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.provincia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaNacimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sede)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfiles)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </tfoot>
     <tbody>
         @foreach (var item in Model)
         {
@@ -158,7 +227,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "glyphicon glyphicon-edit" })
-                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" }) 
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" })
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "glyphicon glyphicon-trash" })
                 </td>
             </tr>

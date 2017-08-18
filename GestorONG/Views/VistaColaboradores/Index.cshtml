@@ -69,7 +69,7 @@
                 "searchable": false
             }],
                 "initComplete": function () {
-                    this.api().columns().every(function () {
+                    this.api().columns([6,14,16]).every(function () {
                         var column = this;
                         var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
                         .appendTo($(column.footer()).empty())
