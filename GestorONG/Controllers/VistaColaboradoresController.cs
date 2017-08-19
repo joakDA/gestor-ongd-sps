@@ -22,16 +22,6 @@ namespace GestorONG.Controllers
             return View(db.vistaColaboradores.ToList());
         }
 
-        [HttpPost]
-        /*public ActionResult Index(string Paises)
-        {
-            //Se pasa el listado de paises en el ViewBag para poder introducir un listado de filtros.
-            var paises = new SelectList(db.vistaColaboradores.Select(p => p.pais).Distinct().ToList());
-            ViewBag.Paises = paises;
-            //Now check model.FirstName 
-            return View(db.vistaColaboradores.Where(p => p.pais == Paises).ToList());
-        }*/
-
         // GET: VistaColaboradores/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,12 +29,12 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            vistaColaboradores vistaColaboradores = db.vistaColaboradores.Find(id);
-            if (vistaColaboradores == null)
+            vistaColaboradores datosColaborador = db.vistaColaboradores.SingleOrDefault(m => m.id == id);
+            if (datosColaborador == null)
             {
                 return HttpNotFound();
             }
-            return View(vistaColaboradores);
+            return View(datosColaborador);
         }
 
         // GET: VistaColaboradores/Create
@@ -156,12 +146,13 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            vistaColaboradores vistaColaboradores = db.vistaColaboradores.Find(id);
-            if (vistaColaboradores == null)
+            // Se busca el colaborador con id
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(m => m.id == id);
+            if (colaborador == null)
             {
                 return HttpNotFound();
             }
-            return View(vistaColaboradores);
+            return View(colaborador);
         }
 
         // POST: VistaColaboradores/Delete/5
@@ -169,9 +160,23 @@ namespace GestorONG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            vistaColaboradores vistaColaboradores = db.vistaColaboradores.Find(id);
-            db.vistaColaboradores.Remove(vistaColaboradores);
+            // Se eliminan los datos del colaborador
+            colaboradores colaborador = db.colaboradores.SingleOrDefault(m => m.id == id);
+            db.colaboradores.Remove(colaborador);
             db.SaveChanges();
+
+            //Also needed to delete from personas_perfiles
+            personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id);
+            db.persona_perfil.Remove(per);
+            db.SaveChanges();
+
+            // Delete donations made from this colaborator
+            donaciones donacion = db.donaciones.SingleOrDefault(m => m.idColaborador == id);
+            db.donaciones.Remove(donacion);
+            db.SaveChanges();
+
+            TempData["Acierto"] = "El colaborador/a " + colaborador.nombre + " " + colaborador.apellidos + " ha sido eliminada del sistema correctamente.";
+
             return RedirectToAction("Index");
         }
 
