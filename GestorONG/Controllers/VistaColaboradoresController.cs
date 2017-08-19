@@ -114,12 +114,14 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            vistaColaboradores vistaColaboradores = db.vistaColaboradores.Find(id);
-            if (vistaColaboradores == null)
+            // Se busca el colaborador con id
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(m => m.id == id);
+            if (colaborador == null)
             {
                 return HttpNotFound();
             }
-            return View(vistaColaboradores);
+
+            return View(colaborador);
         }
 
         // POST: VistaColaboradores/Edit/5
@@ -127,15 +129,24 @@ namespace GestorONG.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,apellidos,direccionPostal,codigoPostal,localidad,provincia,pais,telefono1,telefono2,email,fechaNacimiento,CIF_NIF,CuentaBancaria,Perfiles,cantidad,fechaAlta,Periodicidad")] vistaColaboradores vistaColaboradores)
+        public ActionResult Edit([Bind(Include = "id,nombre,apellidos,direccionPostal,codigoPostal,localidad,provincia,pais,telefono1,telefono2,email,fechaNacimiento,CIF_NIF,CuentaBancaria,Perfiles")] vistaColaboradores modelo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vistaColaboradores).State = EntityState.Modified;
+                //Se convierten los campos de tipo fecha
+                var fechaNacimiento = Convert.ToDateTime(modelo.fechaNacimiento);
+
+                //Transform vistaColaborador class in colaborador class to allow insert, updating, deleting
+                var colaboradorActualizado = new colaboradores(modelo.id, modelo.nombre, modelo.apellidos, modelo.direccionPostal, modelo.codigoPostal, modelo.localidad, modelo.provincia, modelo.pais, modelo.telefono1, modelo.telefono2,
+                    modelo.email, fechaNacimiento, modelo.CIF_NIF, modelo.CuentaBancaria);
+
+                db.Entry(colaboradorActualizado).State = EntityState.Modified;
                 db.SaveChanges();
+                //It is no needed to update personas_perfiles because now, we do not allow to modify the profile
+                TempData["Acierto"] = "El colaborador/a " + modelo.nombre + " " + modelo.apellidos + " ha sido editado correctamente.";
                 return RedirectToAction("Index");
             }
-            return View(vistaColaboradores);
+            return View(modelo);
         }
 
         // GET: VistaColaboradores/Delete/5

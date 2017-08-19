@@ -132,7 +132,6 @@ namespace GestorONG.DataModel
         /// Indica cada cuánto tiempo se debe pasar el cargo por el importe de la donación. Utilizado para la generación de remesas bancarias.
         /// </summary>
         [DisplayName("Periodicidad")]
-        [Required]
         public string Periodicidad { get; set; }
 
         #endregion

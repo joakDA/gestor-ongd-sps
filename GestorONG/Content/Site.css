@@ -72,6 +72,11 @@ textarea {
     background-color: #e65858;
 }
 
+.navbar-inverse .navbar-nav > .open > a{
+    background-color: transparent !important;
+    text-decoration: underline;
+}
+
 /*Set menu items text color*/
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
