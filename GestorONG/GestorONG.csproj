@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
@@ -131,6 +131,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DonacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\VistaColaboradoresController.cs" />
@@ -641,6 +642,11 @@
     <Content Include="Views\VistaColaboradores\Details.cshtml" />
     <Content Include="Views\VistaColaboradores\Edit.cshtml" />
     <Content Include="Views\VistaColaboradores\Index.cshtml" />
+    <Content Include="Views\Donaciones\Create.cshtml" />
+    <Content Include="Views\Donaciones\Delete.cshtml" />
+    <Content Include="Views\Donaciones\Details.cshtml" />
+    <Content Include="Views\Donaciones\Edit.cshtml" />
+    <Content Include="Views\Donaciones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

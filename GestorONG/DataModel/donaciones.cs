@@ -46,18 +46,26 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Float que representa la cantidad de la donación.
         /// </summary>
+        [DisplayName("Cantidad")]
+        [Required]
         public Single cantidad { get; set; }
         /// <summary>
         /// Fecha de alta de la donación.
         /// </summary>
+        [DisplayName("Fecha de Alta")]
+        [Required]
         public System.DateTime fechaAlta { get; set; }
         /// <summary>
         /// Id del colaborador que ha hecho la donación.
         /// </summary>
+        [DisplayName("Colaborador")]
+        [Required]
         public int idColaborador { get; set; }
         /// <summary>
         /// Id de la periodicidad de la donación (mensual, trimestral, ...).
         /// </summary>
+        [DisplayName("Periodicidad")]
+        [Required]
         public int idPeriodicidad { get; set; }
     
         public virtual colaboradores colaboradores { get; set; }

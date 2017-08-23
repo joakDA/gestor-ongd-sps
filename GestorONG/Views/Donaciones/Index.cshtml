@@ -1,0 +1,127 @@
+﻿@model IEnumerable<GestorONG.DataModel.donaciones>
+
+@{
+    ViewBag.Title = "Listado de Donaciones";
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <p class="text-center"><span class="glyphicon glyphicon-ok"></span> @TempData["Acierto"]</p>
+        </div>
+    }
+}
+
+<h1 class="titulo-pagina text-center">Listado de Donaciones</h1>
+
+<!--  FORMAT TABLE WITH JqueryDatatables-->
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#listado-donaciones').DataTable({
+                "pageLength": 10,
+                "pagingType": "full_numbers",
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ elementos por página",
+                    "zeroRecords": "No se han encontrado resultados - lo lamentamos",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay resultados",
+                    "infoFiltered": "(total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                        "first": "Primero",
+                        "last": "Último"
+                    }
+                },
+                "initComplete": function () {
+                    this.api().columns([0,3]).every(function () {
+                        var column = this;
+                        var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+<p>
+    @Html.ActionLink("Nueva Sede", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
+</p>
+<table id="listado-donaciones" class="table table-responsive display" data-page-lenght="10">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAlta)
+            </th>
+            <th>
+                Colaborador
+            </th>
+            <th>
+                Periodicidad
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.colaboradores.nombre) @Html.DisplayNameFor(model => model.colaboradores.apellidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.periodicidades.nombre)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaAlta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.colaboradores.nombre) @Html.DisplayFor(modelItem => item.colaboradores.apellidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.periodicidades.nombre)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "glyphicon glyphicon-edit" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "glyphicon glyphicon-trash" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

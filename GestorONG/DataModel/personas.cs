@@ -2,6 +2,8 @@ namespace GestorONG.DataModel
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Clase Persona conteniendo los atributos comunes de los Voluntarios y Colaboradores. Heredarán de esta clase, la clase Voluntario y Colaborador.
@@ -64,56 +66,87 @@ namespace GestorONG.DataModel
         /// <summary>
         /// Nombre de la persona
         /// </summary>
+        [DisplayName("Nombre")]
+        [Required]
+        [StringLength(100)]
         public string nombre { get; set; }
 
         /// <summary>
         /// Apellidos de una persona
         /// </summary>
+        [DisplayName("Apellidos")]
+        [Required]
+        [StringLength(100)]
         public string apellidos { get; set; }
 
         /// <summary>
         /// Dirección postal de la persona
         /// </summary>
+        [DisplayName("Dirección")]
+        [Required]
+        [StringLength(150)]
         public string direccionPostal { get; set; }
 
         /// <summary>
         /// Codigo postal de la dirección postal de la persona
         /// </summary>
+        [DisplayName("CP")]
+        [Required]
+        [StringLength(5)]
         public string codigoPostal { get; set; }
 
         /// <summary>
         /// Localidad de la persona
         /// </summary>
+        [DisplayName("Localidad")]
+        [Required]
+        [StringLength(75)]
         public string localidad { get; set; }
 
         /// <summary>
         /// Provincia correspondiente a la localidad de una persona
         /// </summary>
+        [DisplayName("Provincia")]
+        [Required]
+        [StringLength(75)]
         public string provincia { get; set; }
 
         /// <summary>
         /// Pais de la dirección postal de la persona
         /// </summary>
+        [DisplayName("País")]
+        [Required]
+        [StringLength(100)]
         public string pais { get; set; }
 
         /// <summary>
         /// Teléfono de contacto de la persona
         /// </summary>
+        [DisplayName("Teléfono 1")]
+        [Required]
+        [StringLength(15)]
         public string telefono1 { get; set; }
 
         /// <summary>
         /// Teléfono de contacto secundario de la persona. Valor opcional y no requerido en los formularios.
         /// </summary>
+        [DisplayName("Teléfono 2")]
+        [StringLength(15)]
         public string telefono2 { get; set; }
 
         /// <summary>
         /// Dirección de correo electrónico de la persona.
         /// </summary>
+        [DisplayName("Email")]
+        [Required]
+        [StringLength(150)]
         public string email { get; set; }
 
         /// <summary>
         /// Fecha de Nacimiento de la persona. Valor opcional no requerido en los formularios.
         /// </summary>
+        [DisplayName("Fecha de Nacimiento")]
+        [Required]
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
