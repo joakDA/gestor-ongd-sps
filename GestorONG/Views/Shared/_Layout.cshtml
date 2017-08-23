@@ -37,14 +37,14 @@
                     <div class="navbar-collapse collapse col-xs-4 col-md-6">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Voluntarios<b class="caret"></b></a>
+                                @Html.ActionLink("Voluntarios", "Index", "Voluntarios", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Crear Voluntario", "Create", "Voluntarios")</li>
                                     <li>@Html.ActionLink("Listado de Voluntarios", "Index", "Voluntarios")</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Colaboradores<b class="caret"></b></a>
+                                @Html.ActionLink("Colaboradores", "Index", "Colaboradores", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Crear Colaborador", "Create", "Colaboradores")</li>
                                     <li>@Html.ActionLink("Listado de Colaboradores", "Index", "Colaboradores")</li>
@@ -52,14 +52,14 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Donaciones<b class="caret"></b></a>
+                                @Html.ActionLink("Donaciones", "Index", "Donaciones", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Nueva Donación", "Create", "Donaciones")</li>
                                     <li>@Html.ActionLink("Listado de Donaciones", "Index", "Donaciones")</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sedes<b class="caret"></b></a>
+                                @Html.ActionLink("Sedes", "Index", "Sedes", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Nueva Sede", "Create", "Sedes")</li>
                                     <li>@Html.ActionLink("Listado de Sedes", "Index", "Sedes")</li>
@@ -73,7 +73,7 @@
                                 </ul>
                             </li>-->
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOPD<b class="caret"></b></a>
+                                @Html.ActionLink("LOPD", "Index", "LOPD", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Registrar Incidencia", "Create", "LOPD")</li>
                                     <li>@Html.ActionLink("Listado de Incidencias", "Index", "LOPD")</li>

@@ -174,22 +174,9 @@ namespace GestorONG.Controllers
             //Para vistas usar Single or default
             // Get voluntarios item
             voluntarios voluntario = db.voluntarios.SingleOrDefault(m => m.id == id);
-            voluntario.telefono2 = "basura";
-            voluntario.idVoluntario = id;
-            db.voluntarios.Remove(voluntario);
-            db.SaveChanges();
-            /*try
-            {
-                db.SaveChanges();
-            }
-            catch (System.Data.Entity.Core.OptimisticConcurrencyException)
-            {
-                db.Refresh(RefreshMode.ClientWins, db.voluntarios);
-                db.SaveChanges();
-            }*/
 
             //Also needed to delete from personas_perfiles
-            personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id);
+            personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id && m.idPerfil == 1);
             db.persona_perfil.Remove(per);
             db.SaveChanges();
 

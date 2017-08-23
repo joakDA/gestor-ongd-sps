@@ -162,11 +162,9 @@ namespace GestorONG.Controllers
         {
             // Se eliminan los datos del colaborador
             colaboradores colaborador = db.colaboradores.SingleOrDefault(m => m.id == id);
-            db.colaboradores.Remove(colaborador);
-            db.SaveChanges();
 
-            //Also needed to delete from personas_perfiles
-            personas_perfiles per = db.persona_perfil.SingleOrDefault(m => m.idPersona == id);
+            //Also needed to delete from personas_perfiles when is colaborator (2)
+            personas_perfiles per = db.persona_perfil.Where(m => m.idPersona == id && m.idPerfil == 2).SingleOrDefault();
             db.persona_perfil.Remove(per);
             db.SaveChanges();
 

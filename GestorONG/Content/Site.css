@@ -93,6 +93,12 @@ header img {
     margin: 0 auto;
 }
 
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+
 
 /***********  End header styles***********/
 
@@ -133,7 +139,7 @@ th, td {
 }
 
 input, select, textarea {
-    max-width: 420px;
+    max-width: 65%;
 }
 
 .filtros-listado {
