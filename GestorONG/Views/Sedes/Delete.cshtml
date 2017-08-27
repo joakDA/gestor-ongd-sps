@@ -118,16 +118,16 @@
             </dl>
         </div>
     </div>
-</div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="row botones-inferiores">
-        <div class="col-xs-12 text-center">
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
-            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+        <div class="row botones-inferiores">
+            <div class="col-xs-12 text-center">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+                @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+            </div>
         </div>
-    </div>
-}
+    }
+</div>

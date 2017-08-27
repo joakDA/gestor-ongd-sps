@@ -1,56 +1,96 @@
-﻿@model GestorONG.DataModel.donaciones
+﻿@model GestorONG.ViewModel.DonacionesViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar una Donación";
 }
 
-<h2>Delete</h2>
+<h1 class="titulo-pagina text-center">Eliminar la Donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h2 class="confirmacion-eliminacion">¿Estás seguro de que deseas eliminar la donación?</h2>
 <div>
-    <h4>donaciones</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cantidad)
-        </dt>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.cantidad)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.cantidad)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.cantidad)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.fechaAlta)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaAlta)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.fechaAlta)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.idColaborador)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaAlta)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.periodicidades.nombre)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.colaboradores.nombre)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.periodicidades.nombre)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NIF)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.colaboradores.nombre)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.NIF)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.cuentaBancaria)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.periodicidades.nombre)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.cuentaBancaria)
+                </dd>
+            </dl>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.periodicidades.nombre)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="row botones-inferiores">
+            <div class="col-xs-12 text-center">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+                @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+            </div>
         </div>
     }
 </div>

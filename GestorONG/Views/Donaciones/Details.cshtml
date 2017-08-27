@@ -1,50 +1,89 @@
-﻿@model GestorONG.DataModel.donaciones
+﻿@model GestorONG.ViewModel.DonacionesViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de una Donación ";
 }
 
-<h2>Details</h2>
+<h1 class="titulo-pagina text-center">Detalles de la Donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
 
 <div>
-    <h4>donaciones</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cantidad)
-        </dt>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.cantidad)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.cantidad)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.cantidad)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.fechaAlta)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaAlta)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.fechaAlta)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.idColaborador)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaAlta)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.donacion.periodicidades.nombre)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.colaboradores.nombre)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.donacion.periodicidades.nombre)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NIF)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.colaboradores.nombre)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.NIF)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.cuentaBancaria)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.periodicidades.nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.periodicidades.nombre)
-        </dd>
-
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.cuentaBancaria)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row botones-inferiores">
+    <div class="col-xs-12 text-center">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.donacion.id }, new { @class = "btn btn-danger" })
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

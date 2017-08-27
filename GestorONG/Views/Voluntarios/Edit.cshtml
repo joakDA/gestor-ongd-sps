@@ -160,6 +160,28 @@
                 });
                 //$("#datepicker").datepicker($.datepicker.regional["es"]);
             })
-
+            $(document).ready(function () {
+                //Se obtiene la lista de países desde una REST API pública de internet
+                $.getJSON('https://restcountries.eu/rest/v2/all', function (result) {
+                    var dropdown = $('#pais');
+                    $.each(result, function () {
+                        //Hay algunas traducciones vacias, por lo que se omiten estos resultados
+                        if (!this.translations["es"] == "") {
+                            dropdown.append(
+                            $("<option></option>").text(this.translations["es"]).val(this.translations["es"])
+                        );
+                        }
+                    });
+                    $("#pais").append($("#pais option").remove().sort(function (a, b) {
+                        var at = $(a).text(), bt = $(b).text();
+                        return (at > bt) ? 1 : ((at < bt) ? -1 : 0);
+                    }));
+                    $('#pais').selectpicker({
+                        dropupAuto: false
+                    });
+                    $("#pais").selectpicker('refresh');
+                    $("#pais").selectpicker('val', '@Html.Raw(@Model.pais)');
+                })
+            });
     </script>
 }

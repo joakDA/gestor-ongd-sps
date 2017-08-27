@@ -6,17 +6,17 @@
     <edmx:Diagrams>
       <Diagram DiagramId="3a6a5d2d0b1c44e198308f9b5ec34dc3" Name="Diagram1" ZoomLevel="87">
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.perfiles" Width="1.5" PointX="0.75" PointY="12" />
-        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.personas" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.personas" Width="1.5" PointX="11" PointY="2.25" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.personas_perfiles" Width="1.5" PointX="3" PointY="3.75" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.sede_delegacion" Width="1.5" PointX="0.75" PointY="7.625" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.125" />
-        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.voluntarios" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.voluntarios" Width="1.5" PointX="9.125" PointY="6.375" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.voluntario" Width="1.5" PointX="2.75" PointY="7.125" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_Voluntarios_Sedes" />
         <InheritanceConnector EntityType="gestor_ongd_sps_prodModel.voluntarios" />
-        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.colaboradores" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.colaboradores" Width="1.5" PointX="12.375" PointY="6.375" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.donaciones" Width="1.5" PointX="5.25" PointY="12.5" />
         <EntityTypeShape EntityType="gestor_ongd_sps_prodModel.periodicidades" Width="1.5" PointX="3" PointY="15.875" />
         <AssociationConnector Association="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" />

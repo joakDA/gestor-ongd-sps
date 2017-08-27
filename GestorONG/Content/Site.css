@@ -154,6 +154,10 @@ input, select, textarea {
     max-width: 65%;
 }
 
+.nombre-colaborador {
+    padding: 6px 12px;
+}
+
 /******* STEP BY STEP FORM STYLES (COLABORADORES) *******/
 .stepwizard-step p {
     margin-top: 10px;

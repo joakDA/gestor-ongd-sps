@@ -30,29 +30,23 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            donaciones donaciones = db.donaciones.Find(id);
-            if (donaciones == null)
+            donaciones donacion = db.donaciones.Find(id);
+            // Se recuperan los datos del colaborador
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(x => x.id == donacion.idColaborador);
+            // Se crea el viewmodel a partir de los datos anteriores
+            DonacionesViewModel modelo = new DonacionesViewModel(donacion, colaborador.CuentaBancaria, colaborador.CIF_NIF);
+            if (donacion == null)
             {
                 return HttpNotFound();
             }
-            return View(donaciones);
+            return View(modelo);
         }
 
         // GET: Donaciones/Create
         public ActionResult Create()
         {
-            // Sólo las personas que estén en colaboradores en la tabla personas_perfiles
-            //List<personas> posiblesColaboradores = db.persona.Where(p => p.personas_perfiles.Where(x => x.idPersona == p.id && x.perfiles.nombre == "Colaborador").Any()).ToList();
-            // Se listan las personas que no son colaboradores existentes en el sistema puesto que sólo se puede hacer una única donación por usuario.
-            var perfil = db.perfil.SingleOrDefault(m => m.nombre == "Colaborador");
-            var posiblesColaboradores = db.persona.Where(u => !u.personas_perfiles.Any(r => r.idPerfil == perfil.id));
+            var colaboradores = getColaboradoresSelectList();
             
-            var colaboradores = posiblesColaboradores.Select(x => new SelectListItem
-            {
-                Text = x.nombre + " " + x.apellidos,
-                Value = x.id.ToString()
-            });
-
             ViewBag.idColaborador = colaboradores;
             ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre");
             return View();
@@ -73,34 +67,30 @@ namespace GestorONG.Controllers
                 db.donaciones.Add(modelo.donacion);
                 db.SaveChanges();
                 // Añadir al colaborador en la tabla de colaboradores.
-                var persona = db.persona.Find(modelo.donacion.idColaborador);
+                /* var persona = db.persona.Find(modelo.donacion.idColaborador);
 
-                db.Entry(persona).State = EntityState.Detached;
-                var colaborador = new colaboradores(new personas(persona),modelo.NIF,modelo.cuentaBancaria);
-                /*db.persona.Attach(persona);
-                db.Entry(colaborador).State = EntityState.Added;
-                db.Entry(persona).State = EntityState.Modified;*/
-                //colaborador.idColaborador = modelo.donacion.idColaborador;
-                //db.colaboradores.Add(colaborador);
-                persona.colaboradores.Add(colaborador);
-                db.Entry(persona).State = EntityState.Modified;
-                
-                //db.Entry(colaborador).State = EntityState.Modified;
-                //persona.colaboradores.Add(colaborador);
-                //db.Entry(persona).State = EntityState.Modified;
-                db.SaveChanges();
+                 db.Entry(persona).State = EntityState.Detached;
+                 var colaborador = new colaboradores(persona,modelo.NIF,modelo.cuentaBancaria);
 
-                //db.colaboradores.Add(colaborador);
-                
-                //db.Entry(persona).State = EntityState.Unchanged;
-                
+                 colaborador.personas = persona;
+                 colaborador.idColaborador = persona.id;
+                 //db.colaboradores.Add(colaborador);
+                 db.Entry(colaborador).State = EntityState.Modified;
+                 //db.Entry(persona).State = EntityState.Unchanged;
 
-                //db.SaveChanges();
+                 db.SaveChanges();*/
+
+                var existingcolaborador = db.colaboradores.Where(x => x.id == modelo.donacion.idColaborador).FirstOrDefault();
+                existingcolaborador.idColaborador = modelo.donacion.idColaborador;
+                existingcolaborador.CIF_NIF = modelo.NIF;
+                existingcolaborador.CuentaBancaria = modelo.cuentaBancaria;
+                db.Entry(existingcolaborador).State = EntityState.Modified;
+
                 // Añadir la relación entre personas y perfiles en la tabla personas_perfiles
                 var personas_perfiles = new personas_perfiles(0, modelo.donacion.idColaborador, 2);
                 db.persona_perfil.Add(personas_perfiles);
                 db.SaveChanges();
-                TempData["Acierto"] = "La donación creada por el colaborador " + persona.nombre + " " + persona.apellidos + " con un valor de " + modelo.donacion.cantidad + "€ ha sido realizada correctamente";
+                //TempData["Acierto"] = "La donación creada por el colaborador " + persona.nombre + " " + persona.apellidos + " con un valor de " + modelo.donacion.cantidad + "€ ha sido realizada correctamente";
                 return RedirectToAction("Index");
             }else
             {
@@ -109,14 +99,7 @@ namespace GestorONG.Controllers
             }
 
             // Se listan las personas que no son colaboradores existentes en el sistema puesto que sólo se puede hacer una única donación por usuario.
-            var perfil = db.perfil.SingleOrDefault(m => m.nombre == "Colaborador");
-            var posiblesColaboradores = db.persona.Where(u => !u.personas_perfiles.Any(r => r.idPerfil == perfil.id));
-
-            var colaboradores = posiblesColaboradores.Select(x => new SelectListItem
-            {
-                Text = x.nombre + " " + x.apellidos,
-                Value = x.id.ToString()
-            });
+            var colaboradores = getColaboradoresSelectList();
 
             ViewBag.idColaborador = colaboradores;
             ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre", modelo.donacion.idPeriodicidad);
@@ -130,14 +113,19 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            donaciones donaciones = db.donaciones.Find(id);
-            if (donaciones == null)
+            donaciones donacion = db.donaciones.Find(id);
+            // Se recuperan los datos del colaborador
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(x => x.id == donacion.idColaborador);
+            // Se crea el viewmodel a partir de los datos anteriores
+            DonacionesViewModel modelo = new DonacionesViewModel(donacion, colaborador.CuentaBancaria,colaborador.CIF_NIF);
+            if (donacion == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idColaborador = new SelectList(db.persona, "id", "nombre", donaciones.idColaborador);
-            ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre", donaciones.idPeriodicidad);
-            return View(donaciones);
+            // Se cargan los desplegables con datos
+            ViewBag.colaborador = colaborador.nombre + " " + colaborador.apellidos;
+            ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre", donacion.idPeriodicidad);
+            return View(modelo);
         }
 
         // POST: Donaciones/Edit/5
@@ -145,17 +133,20 @@ namespace GestorONG.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,cantidad,fechaAlta,idColaborador,idPeriodicidad")] donaciones donaciones)
+        public ActionResult Edit(DonacionesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(donaciones).State = EntityState.Modified;
+                db.Entry(model.donacion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idColaborador = new SelectList(db.persona, "id", "nombre", donaciones.idColaborador);
-            ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre", donaciones.idPeriodicidad);
-            return View(donaciones);
+            // Se recuperan los datos del colaborador
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(x => x.id == model.donacion.idColaborador);
+            ViewBag.colaborador = colaborador.nombre + " " + colaborador.apellidos;
+            // Se cargan los desplegables con datos
+            ViewBag.idPeriodicidad = new SelectList(db.periodicidades, "id", "nombre", model.donacion.idPeriodicidad);
+            return View(model);
         }
 
         // GET: Donaciones/Delete/5
@@ -165,12 +156,16 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            donaciones donaciones = db.donaciones.Find(id);
-            if (donaciones == null)
+            donaciones donacion = db.donaciones.Find(id);
+            // Se recuperan los datos del colaborador
+            vistaColaboradores colaborador = db.vistaColaboradores.SingleOrDefault(x => x.id == donacion.idColaborador);
+            // Se crea el viewmodel a partir de los datos anteriores
+            DonacionesViewModel modelo = new DonacionesViewModel(donacion, colaborador.CuentaBancaria, colaborador.CIF_NIF);
+            if (donacion == null)
             {
                 return HttpNotFound();
             }
-            return View(donaciones);
+            return View(modelo);
         }
 
         // POST: Donaciones/Delete/5
@@ -178,8 +173,12 @@ namespace GestorONG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // Se elimina la donación
             donaciones donaciones = db.donaciones.Find(id);
             db.donaciones.Remove(donaciones);
+            // Se elimina al colaborador de la tabla personas_perfiles
+            personas_perfiles per = db.persona_perfil.Where(m => m.idPersona == donaciones.idColaborador && m.idPerfil == 2).SingleOrDefault();
+            db.persona_perfil.Remove(per);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -192,5 +191,30 @@ namespace GestorONG.Controllers
             }
             base.Dispose(disposing);
         }
+
+        #region PRIVATE_MEMBER_METHODS
+
+        /// <summary>
+        /// Devuelve una lista para crear un desplegable con el nombre y apellidos de las personas existentes en el sistema.
+        /// </summary>
+        /// <returns>IQueriable<SelectListItem> lista para construir el dropwdown con los candidatos a ser colaboradores.</returns>
+        private object getColaboradoresSelectList()
+        {
+            // Sólo las personas que estén en colaboradores en la tabla personas_perfiles
+            //List<personas> posiblesColaboradores = db.persona.Where(p => p.personas_perfiles.Where(x => x.idPersona == p.id && x.perfiles.nombre == "Colaborador").Any()).ToList();
+            // Se listan las personas que no son colaboradores existentes en el sistema puesto que sólo se puede hacer una única donación por usuario.
+            var perfil = db.perfil.SingleOrDefault(m => m.nombre == "Colaborador");
+            var posiblesColaboradores = db.persona.Where(u => !u.personas_perfiles.Any(r => r.idPerfil == perfil.id));
+
+            var colaboradores = posiblesColaboradores.Select(x => new SelectListItem
+            {
+                Text = x.nombre + " " + x.apellidos,
+                Value = x.id.ToString()
+            });
+
+            return colaboradores;
+        }
+
+        #endregion
     }
 }
