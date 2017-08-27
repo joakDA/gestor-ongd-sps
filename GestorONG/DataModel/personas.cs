@@ -19,6 +19,8 @@ namespace GestorONG.DataModel
         public personas()
         {
             this.personas_perfiles = new HashSet<personas_perfiles>();
+            this.colaboradores = new HashSet<colaboradores>();
+            this.voluntarios = new HashSet<voluntarios>();
         }
 
         /// <summary>
@@ -52,6 +54,31 @@ namespace GestorONG.DataModel
             this.email = email;
             this.fechaNacimiento = fechaNacimiento;
             this.personas_perfiles = new HashSet<personas_perfiles>();
+            this.colaboradores = new HashSet<colaboradores>();
+            this.voluntarios = new HashSet<voluntarios>();
+        }
+
+        /// <summary>
+        /// Constructor que crea una persona a partir de una ya existente.
+        /// </summary>
+        /// <param name="persona">Objeto de la clase personas a copiar</param>
+        public personas(personas persona)
+        {
+            this.id = persona.id;
+            this.nombre = persona.nombre;
+            this.apellidos = persona.apellidos;
+            this.direccionPostal = persona.direccionPostal;
+            this.codigoPostal = persona.codigoPostal;
+            this.localidad = persona.localidad;
+            this.provincia = persona.provincia;
+            this.pais = persona.pais;
+            this.telefono1 = persona.telefono1;
+            this.telefono2 = persona.telefono2;
+            this.email = persona.email;
+            this.fechaNacimiento = persona.fechaNacimiento;
+            this.personas_perfiles = persona.personas_perfiles;
+            this.colaboradores = persona.colaboradores;
+            this.voluntarios = persona.voluntarios;
         }
 
         #endregion
@@ -151,6 +178,10 @@ namespace GestorONG.DataModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<personas_perfiles> personas_perfiles { get; set; }
+
+        public virtual ICollection<colaboradores> colaboradores { get; set; }
+
+        public virtual ICollection<voluntarios> voluntarios { get; set; }
 
         #endregion
 

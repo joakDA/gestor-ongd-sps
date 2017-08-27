@@ -54,6 +54,7 @@ namespace GestorONG.DataModel
         /// </summary>
         [DisplayName("Fecha de Alta")]
         [Required]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaAlta { get; set; }
         /// <summary>
         /// Id del colaborador que ha hecho la donación.

@@ -47,6 +47,18 @@ namespace GestorONG.DataModel
             this.CuentaBancaria = cuentaBancaria;
         }
 
+        /// <summary>
+        /// Constructor con parámetros para crear el colaborador cuando existe la donación.
+        /// </summary>
+        /// <param name="persona">Objeto de la clase persona.</param>
+        /// <param name="CIF_NIF">CIF o NIF de la persona que realiza la donación (se convierte en colaborador).</param>
+        /// <param name="cuentaBancaria">Cuenta bancaria a la que se emitirán las remesas bancarias</param>
+        public colaboradores(personas persona, string CIF_NIF, string cuentaBancaria) : base(persona)
+        {
+            this.CIF_NIF = CIF_NIF;
+            this.CuentaBancaria = cuentaBancaria;
+        }
+
         #endregion
 
         #region PUBLIC_MEMBER_VARIABLES
