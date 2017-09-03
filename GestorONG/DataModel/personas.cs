@@ -8,7 +8,7 @@ namespace GestorONG.DataModel
     /// <summary>
     /// Clase Persona conteniendo los atributos comunes de los Voluntarios y Colaboradores. Heredarán de esta clase, la clase Voluntario y Colaborador.
     /// </summary>
-    public class personas
+    public abstract partial class personas
     {
         #region PUBLIC_MEMBER_METHODS
 
@@ -19,8 +19,6 @@ namespace GestorONG.DataModel
         public personas()
         {
             this.personas_perfiles = new HashSet<personas_perfiles>();
-            this.colaboradores = new HashSet<colaboradores>();
-            this.voluntarios = new HashSet<voluntarios>();
         }
 
         /// <summary>

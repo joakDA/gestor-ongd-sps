@@ -67,20 +67,42 @@ namespace GestorONG.Controllers
                 db.donaciones.Add(modelo.donacion);
                 db.SaveChanges();
                 // Añadir al colaborador en la tabla de colaboradores.
-                /* var persona = db.persona.Find(modelo.donacion.idColaborador);
-
-                 db.Entry(persona).State = EntityState.Detached;
-                 var colaborador = new colaboradores(persona,modelo.NIF,modelo.cuentaBancaria);
-
-                 colaborador.personas = persona;
-                 colaborador.idColaborador = persona.id;
-                 //db.colaboradores.Add(colaborador);
-                 db.Entry(colaborador).State = EntityState.Modified;
-                 //db.Entry(persona).State = EntityState.Unchanged;
+                
+                /*persona.colaboradores.Add(colaborador);
+                persona.colaboradores.First().CIF_NIF = modelo.NIF;
+                persona.colaboradores.First().CuentaBancaria = modelo.cuentaBancaria;
+                 db.Entry(persona).State = EntityState.Modified;
 
                  db.SaveChanges();*/
+                 using (var context = new GestorONGDContext())
+                {
+                    var persona = context.persona.Find(modelo.donacion.idColaborador);
+                    var colaborador = new colaboradores(persona, modelo.NIF, modelo.cuentaBancaria);
 
-                var existingcolaborador = db.colaboradores.Where(x => x.id == modelo.donacion.idColaborador).FirstOrDefault();
+                    personas_perfiles per_perfiles = new personas_perfiles()
+                    {
+                        idPersona = modelo.donacion.idColaborador,
+                        idPerfil = 2
+                        //personas = colaborador
+                    };
+                    /*persona.colaboradores = new HashSet<colaboradores>();
+                    persona.colaboradores.Add(colaborador);*/
+                    /*var colaborador = new colaboradores()
+                    {
+                        CIF_NIF = modelo.NIF,
+                        CuentaBancaria = modelo.cuentaBancaria
+                    };*/
+                    context.colaboradores.Add(colaborador);
+                    context.SaveChanges();
+                    colaborador.idColaborador = modelo.donacion.idColaborador;
+                    context.Entry(colaborador).State = EntityState.Modified;
+                    context.persona.Remove(persona);
+                    context.persona_perfil.Add(per_perfiles);
+                    context.SaveChanges();
+                }
+                //db.Entry(persona).State = EntityState.Detached;
+                
+                /*var existingcolaborador = db.colaboradores.Where(x => x.id == modelo.donacion.idColaborador).FirstOrDefault();
                 existingcolaborador.idColaborador = modelo.donacion.idColaborador;
                 existingcolaborador.CIF_NIF = modelo.NIF;
                 existingcolaborador.CuentaBancaria = modelo.cuentaBancaria;
@@ -89,8 +111,12 @@ namespace GestorONG.Controllers
                 // Añadir la relación entre personas y perfiles en la tabla personas_perfiles
                 var personas_perfiles = new personas_perfiles(0, modelo.donacion.idColaborador, 2);
                 db.persona_perfil.Add(personas_perfiles);
-                db.SaveChanges();
+                db.SaveChanges();*/
                 //TempData["Acierto"] = "La donación creada por el colaborador " + persona.nombre + " " + persona.apellidos + " con un valor de " + modelo.donacion.cantidad + "€ ha sido realizada correctamente";
+
+
+
+
                 return RedirectToAction("Index");
             }else
             {

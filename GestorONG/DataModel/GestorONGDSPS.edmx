@@ -383,7 +383,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_perfiles" FromRole="perfiles" ToRole="personas_perfiles" />
         </EntityType>
-        <EntityType Name="personas">
+        <EntityType Name="personas" Abstract="true">
           <Key>
             <PropertyRef Name="id" />
           </Key>

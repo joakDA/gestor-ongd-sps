@@ -21,7 +21,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#listado-colaboradores').DataTable({
-                "pageLength": 10,
+                "pageLength": 5,
                 "pagingType": "full_numbers",
                 "language": {
                     "lengthMenu": "Mostrando _MENU_ elementos por página",
@@ -71,7 +71,7 @@
                 "initComplete": function () {
                     this.api().columns([6,14,16]).every(function () {
                         var column = this;
-                        var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
+                        var select = $('<select class="selectpicker" data-live-search="true" data-show-tick="true"><option value="" selected>Selecciona un valor</option></select>')
                         .appendTo($(column.footer()).empty())
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
@@ -89,15 +89,17 @@
                     });
                 }
             });
-            $('#listado-colaboradores_length').val(10);
+            $('#listado-colaboradores_length').val(5);
         });
     </script>
 }
 
-<p>
+<p class="botones-header">
     @Html.ActionLink("Nuevo Colaborador", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
+    @Html.ActionLink("Generar Certificados", "Certificados", null, null, new { @class = "glyphicon glyphicon-file btn btn-default" })
+    @Html.ActionLink("Emitir Remesas", "Remesas", null, null, new { @class = "glyphicon glyphicon-list-alt btn btn-success" })
 </p>
-    <table id="listado-colaboradores" class="table table-responsive display" data-page-length='10'>
+    <table id="listado-colaboradores" class="table table-responsive display" data-page-length='5'>
         <thead>
             <tr>
                 <th>

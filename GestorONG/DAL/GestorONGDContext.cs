@@ -32,6 +32,8 @@ namespace GestorONG.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<voluntarios>().ToTable("voluntarios");
+            modelBuilder.Entity<colaboradores>().ToTable("colaboradores");
         }
 
         #endregion

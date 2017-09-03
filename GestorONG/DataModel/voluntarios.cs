@@ -2,10 +2,12 @@ namespace GestorONG.DataModel
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Clase que hereda de persona para almacenar la información de un voluntario
     /// </summary>
+    [Table("voluntarios")]
     public partial class voluntarios : personas
     {
         #region PUBLIC_MEMBER_VARIABLES

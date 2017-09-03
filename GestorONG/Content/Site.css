@@ -42,16 +42,15 @@ h6{
 .body-content {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -142px; 
+  margin-bottom: -100px; 
 }
 .body-content:after {
   content: "";
   display: block;
 }
 footer, .body-content:after {
-  height: 142px; 
+  height: 100px; 
 }
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -99,6 +98,16 @@ header img {
   }
 }
 
+.link-logo{
+    max-height: 50px;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #e65858;
+}
+
 
 /***********  End header styles***********/
 
@@ -118,6 +127,10 @@ header img {
 
 .footer a{
     color: #ffffff;
+}
+
+.logos-usa-acc{
+    padding-top: 5px;
 }
 
 /***********  End footer styles***********/
@@ -156,6 +169,15 @@ input, select, textarea {
 
 .nombre-colaborador {
     padding: 6px 12px;
+}
+
+.bs-searchbox input{
+    max-width:100%;
+}
+
+.botones-header .btn {
+    padding: 1em;
+    text-transform: uppercase;
 }
 
 /******* STEP BY STEP FORM STYLES (COLABORADORES) *******/

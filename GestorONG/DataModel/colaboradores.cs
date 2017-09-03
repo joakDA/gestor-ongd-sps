@@ -4,10 +4,12 @@ namespace GestorONG.DataModel
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Clase que hereda de persona para almacenar la información de un colaborador
     /// </summary>
+    [Table("colaboradores")]
     public partial class colaboradores : personas
     {
         #region PUBLIC_MEMBER_METHODS
@@ -45,6 +47,7 @@ namespace GestorONG.DataModel
         {
             this.CIF_NIF = CIF_NIF;
             this.CuentaBancaria = cuentaBancaria;
+            this.donaciones = new HashSet<donaciones>();
         }
 
         /// <summary>
@@ -53,8 +56,27 @@ namespace GestorONG.DataModel
         /// <param name="persona">Objeto de la clase persona.</param>
         /// <param name="CIF_NIF">CIF o NIF de la persona que realiza la donación (se convierte en colaborador).</param>
         /// <param name="cuentaBancaria">Cuenta bancaria a la que se emitirán las remesas bancarias</param>
-        public colaboradores(personas persona, string CIF_NIF, string cuentaBancaria) : base(persona)
+        /*public colaboradores(personas persona, string CIF_NIF, string cuentaBancaria) : base(persona)
         {
+            this.CIF_NIF = CIF_NIF;
+            this.CuentaBancaria = cuentaBancaria;
+            this.donaciones = new HashSet<donaciones>();
+        }*/
+
+        public colaboradores (personas persona, string CIF_NIF, string cuentaBancaria)
+        {
+            this.id = persona.id;
+            this.nombre = persona.nombre;
+            this.apellidos = persona.apellidos;
+            this.direccionPostal = persona.direccionPostal;
+            this.codigoPostal = persona.codigoPostal;
+            this.localidad = persona.localidad;
+            this.provincia = persona.provincia;
+            this.pais = persona.pais;
+            this.telefono1 = persona.telefono1;
+            this.telefono2 = persona.telefono2;
+            this.email = persona.email;
+            this.fechaNacimiento = persona.fechaNacimiento;
             this.CIF_NIF = CIF_NIF;
             this.CuentaBancaria = cuentaBancaria;
         }
