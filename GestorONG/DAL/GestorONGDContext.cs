@@ -107,8 +107,9 @@ namespace GestorONG.DAL
             }
         }
 
+
         #endregion
 
-
+        public System.Data.Entity.DbSet<GestorONG.ViewModel.CertificadoViewModel> CertificadoViewModels { get; set; }
     }
 }

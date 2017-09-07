@@ -33,6 +33,39 @@ h6{
 }
 
 
+/**FONTS SPS****/
+@font-face {
+font-family: 'Champagne & Limousines';
+font-style: normal;
+font-weight: normal;
+src: local('Champagne_Limousines'), url('../fonts/Champagne_Limousines.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Champagne & Limousines Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Champagne & Limousines Italic'), url('Champagne & Limousines Italic.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Champagne & Limousines Bold';
+font-style: normal;
+font-weight: normal;
+src: local('Champagne & Limousines Bold'), url('Champagne & Limousines Bold.woff') format('woff');
+}
+
+
+@font-face {
+font-family: 'Champagne & Limousines Bold Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Champagne & Limousines Bold Italic'), url('Champagne & Limousines Bold Italic.woff') format('woff');
+}
+
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

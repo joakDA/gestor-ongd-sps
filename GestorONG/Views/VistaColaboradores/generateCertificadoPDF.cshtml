@@ -1,0 +1,144 @@
+﻿@model GestorONG.ViewModel.CertificadoViewModel
+@using System;
+@using System.Globalization;
+@using System.Threading;
+
+@{
+    Layout = null;
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES");
+    var dia = DateTime.Now.ToString("dd");
+    var mes = DateTime.Now.ToString("MMMM");
+    var year = DateTime.Now.ToString("yyyy");
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Certificado + @Model.nombreApellidos</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    <style>
+        .row{
+            padding: 0 100px;
+        }
+
+        .row.cuerpo-certificado {
+            margin-top: 100px;
+        }
+
+        .footer-certificado{
+            margin-top: 200px;
+        }
+
+        .container-certifica, .certificado-footer {
+            margin-top: 50px;
+        }
+
+        .texto-encabezado, .certifica {
+            text-indent: 50px;
+        }
+
+        .certifica {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        p {
+            font-family: 'Champagne & Limousines';
+            text-align: justify;
+        }
+
+        .lead{
+            font-size: 20px !important;
+        }
+
+        .firma {
+            margin-left: 60%;
+            width: 40%;
+        }
+
+        .firma .img-responsive {
+            max-width: 30%;
+        }
+
+        .nombre-fundacion {
+            text-transform: uppercase;
+        }
+
+        .firma{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row header">
+            <div class="col-xs-12">
+                <img class="img-responsive" src="~/Content/Images/common/logoSPSCertificado.jpg" alt="Logo SPS Alternativo" style="max-width: 45%" />
+            </div>
+        </div>
+        <div class="row cuerpo-certificado">
+            <div class="col-xs-12 encabezado-cert">
+                <p class="texto-encabezado lead">
+                    Dña. <strong>Rebeca Collado Pérez</strong> con DNI <strong>12345678-A</strong>, como Directora de la <strong>
+                        FUNDACION
+                        SPINOLA SOLIDARIA
+                    </strong>, con CIF: G85289999 y sede en la C/ Cardenal Marcelo Spínola, nº 34,
+                    28016 de MADRID,
+                </p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+        <div class="row container-certifica">
+            <div class="col-xs-12">
+                <p class="certifica lead">Certifica:</p>
+                <p class="lead">
+                    1º.- Que la Fundación SPINOLA SOLIDARIA se encuentra incluida entre las entidades
+                    reguladas en el Capítulo 1º Título III de la Ley 49/2002 de régimen fiscal de las
+                    entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo.
+                </p>
+                <p class="lead">
+                    2º.- Que ha recibido de DON/DOÑA @Model.nombreApellidos con NIF @Model.CIF_NIF,
+                    la cantidad de @Model.cantidadTotal €, en el año 2016, como donación. Dicha cantidad fue entregada
+                    con carácter irrevocable.
+                </p>
+                <p class="lead">
+                    3º.- Que el importe donado se destina al cumplimiento de los fines específicos de la
+                    Fundación.
+                </p>
+            </div>
+        </div>
+        <div class="certificado-footer row">
+            <div class="col-xs-12">
+                <p class="texto-encabezado lead">
+                    El presente certificado se emite a los efectos previstos en el art. 55 de la Ley 40/1998,
+                    de 9 de diciembre, del impuesto sobre la Renta de las Personas Físicas y a los de los artículos
+                    17, 18, 19 y 24 de la Ley 49/2002, de 23 de diciembre, régimen fiscal de las entidades sin
+                    fines lucrativos y de los incentivos fiscales al mecenazgo.
+                </p>
+                <p></p>
+                <p class="texto-encabezado lead" style="margin-top: 50px;">
+                    Y para que así conste, expido la presente certificación en Madrid a @dia de @mes de @year.
+                </p>
+                <div class="firma">
+                    <img class="img-responsive" src="~/Content/Images/common/ejemploFirma.png" alt="Firma Certificado" />
+                    <p class="lead">Dña. Rebeca Collado Pérez</p>
+                    <p class="lead">Directora</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-certificado row">
+            <div class="col-xs-12">
+                <p class="nombre-fundacion">
+                    Fundación Spínola Solidaria
+                </p>
+                <p>C/Cardenal Marcelo Spínola nº34/28016/Madrid/ Tel. 91 827 66 81/670 913 507/email: info@spinolasolidaria.org</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

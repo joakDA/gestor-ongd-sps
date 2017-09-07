@@ -10,8 +10,8 @@
             <PropertyRef Name="idColaborador" />
           </Key>
           <Property Name="idColaborador" Type="int" Nullable="false" />
-          <Property Name="CIF_NIF" Type="nvarchar" MaxLength="9" Nullable="false" />
-          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="CIF_NIF" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CuentaBancaria" Type="nvarchar" MaxLength="40" Nullable="false" />
         </EntityType>
         <EntityType Name="donaciones">
           <Key>
@@ -22,6 +22,48 @@
           <Property Name="fechaAlta" Type="datetime" Nullable="false" />
           <Property Name="idColaborador" Type="int" Nullable="false" />
           <Property Name="idPeriodicidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="apellidos" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="entradasSalidasInformacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoDocumento" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="emisor" Type="nvarchar" MaxLength="200" />
+          <Property Name="numDocumentos" Type="int" Nullable="false" />
+          <Property Name="tipoDatos" Type="int" Nullable="false" />
+          <Property Name="formaEnvio" Type="int" Nullable="false" />
+          <Property Name="personaResponsable" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="formasEnvio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="incidenciasSeguridad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaIncidencia" Type="datetime" Nullable="false" />
+          <Property Name="idTipoIncidencia" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="efectosDerivados" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="medidasCorrectoras" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="idComunicante" Type="int" Nullable="false" />
+          <Property Name="idReceptor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="perfiles">
           <Key>
@@ -45,12 +87,12 @@
           <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="apellidos" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="direccionPostal" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="codigoPostal" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="localidad" Type="nvarchar" MaxLength="75" Nullable="false" />
-          <Property Name="provincia" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="provincia" Type="nvarchar" MaxLength="75" />
           <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="telefono1" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="telefono2" Type="nvarchar" MaxLength="15" />
+          <Property Name="telefono1" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefono2" Type="nvarchar" MaxLength="20" />
           <Property Name="email" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="fechaNacimiento" Type="datetime" />
         </EntityType>
@@ -69,7 +111,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="direccion" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="codigoPostal" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="codigoPostal" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="localidad" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="provincia" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="pais" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -86,6 +128,27 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tipoDocumento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tiposDatos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tiposIncidencias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreIncidencia" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="voluntarios">
           <Key>
@@ -169,9 +232,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="Sede" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_colaboradores_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="1" />
           <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -183,9 +244,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_donaciones_colaboradores">
-          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="colaboradores" Type="Self.colaboradores" Multiplicity="1" />
           <End Role="donaciones" Type="Self.donaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="colaboradores">
@@ -208,6 +267,90 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_entradasSalidasInformacion_empleados">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="1" />
+          <End Role="entradasSalidasInformacion" Type="Self.entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="personaResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_formasEnvio">
+          <End Role="formasEnvio" Type="Self.formasEnvio" Multiplicity="1" />
+          <End Role="entradasSalidasInformacion" Type="Self.entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formasEnvio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="formaEnvio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_tipoDocumento">
+          <End Role="tipoDocumento" Type="Self.tipoDocumento" Multiplicity="1" />
+          <End Role="entradasSalidasInformacion" Type="Self.entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoDocumento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="tipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_tiposDatos">
+          <End Role="tiposDatos" Type="Self.tiposDatos" Multiplicity="1" />
+          <End Role="entradasSalidasInformacion" Type="Self.entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposDatos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="tipoDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridad_empleados">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="1" />
+          <End Role="incidenciasSeguridad" Type="Self.incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idComunicante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridad_tiposIncidencias">
+          <End Role="tiposIncidencias" Type="Self.tiposIncidencias" Multiplicity="1" />
+          <End Role="incidenciasSeguridad" Type="Self.incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposIncidencias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idTipoIncidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridadReceptor_empleado">
+          <End Role="empleados" Type="Self.empleados" Multiplicity="1" />
+          <End Role="incidenciasSeguridad" Type="Self.incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_personas-perfiles_perfiles">
           <End Role="perfiles" Type="Self.perfiles" Multiplicity="0..1" />
           <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
@@ -221,9 +364,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_personas-perfiles_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
           <End Role="personas_perfiles" Type="Self.personas_perfiles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -235,9 +376,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_voluntarios_personas">
-          <End Role="personas" Type="Self.personas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="personas" Type="Self.personas" Multiplicity="1" />
           <End Role="voluntarios" Type="Self.voluntarios" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="personas">
@@ -263,12 +402,19 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
         <EntityContainer Name="gestor_ongd_sps_prodModelStoreContainer">
           <EntitySet Name="colaboradores" EntityType="Self.colaboradores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="donaciones" EntityType="Self.donaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleados" EntityType="Self.empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="entradasSalidasInformacion" EntityType="Self.entradasSalidasInformacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="formasEnvio" EntityType="Self.formasEnvio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="incidenciasSeguridad" EntityType="Self.incidenciasSeguridad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="perfiles" EntityType="Self.perfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="periodicidades" EntityType="Self.periodicidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personas_perfiles" EntityType="Self.personas_perfiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sede_delegacion" EntityType="Self.sede_delegacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoDocumento" EntityType="Self.tipoDocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposDatos" EntityType="Self.tiposDatos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposIncidencias" EntityType="Self.tiposIncidencias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="voluntarios" EntityType="Self.voluntarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vistaColaboradores" EntityType="Self.vistaColaboradores" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -323,6 +469,34 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="periodicidades" EntitySet="periodicidades" />
             <End Role="donaciones" EntitySet="donaciones" />
           </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_empleados" Association="Self.FK_entradasSalidasInformacion_empleados">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_formasEnvio" Association="Self.FK_entradasSalidasInformacion_formasEnvio">
+            <End Role="formasEnvio" EntitySet="formasEnvio" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_tipoDocumento" Association="Self.FK_entradasSalidasInformacion_tipoDocumento">
+            <End Role="tipoDocumento" EntitySet="tipoDocumento" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_tiposDatos" Association="Self.FK_entradasSalidasInformacion_tiposDatos">
+            <End Role="tiposDatos" EntitySet="tiposDatos" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridad_empleados" Association="Self.FK_incidenciasSeguridad_empleados">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridad_tiposIncidencias" Association="Self.FK_incidenciasSeguridad_tiposIncidencias">
+            <End Role="tiposIncidencias" EntitySet="tiposIncidencias" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridadReceptor_empleado" Association="Self.FK_incidenciasSeguridadReceptor_empleado">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
           <AssociationSet Name="FK_personas-perfiles_perfiles" Association="Self.FK_personas-perfiles_perfiles">
             <End Role="perfiles" EntitySet="perfiles" />
             <End Role="personas_perfiles" EntitySet="personas_perfiles" />
@@ -374,6 +548,41 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
             <End Role="donaciones" EntitySet="donaciones" />
           </AssociationSet>
           <EntitySet Name="vistaColaboradores" EntityType="gestor_ongd_sps_prodModel.vistaColaboradores" />
+          <EntitySet Name="empleados" EntityType="gestor_ongd_sps_prodModel.empleados" />
+          <EntitySet Name="entradasSalidasInformacion" EntityType="gestor_ongd_sps_prodModel.entradasSalidasInformacion" />
+          <EntitySet Name="formasEnvio" EntityType="gestor_ongd_sps_prodModel.formasEnvio" />
+          <EntitySet Name="incidenciasSeguridad" EntityType="gestor_ongd_sps_prodModel.incidenciasSeguridad" />
+          <EntitySet Name="tipoDocumento" EntityType="gestor_ongd_sps_prodModel.tipoDocumento" />
+          <EntitySet Name="tiposDatos" EntityType="gestor_ongd_sps_prodModel.tiposDatos" />
+          <EntitySet Name="tiposIncidencias" EntityType="gestor_ongd_sps_prodModel.tiposIncidencias" />
+          <AssociationSet Name="FK_entradasSalidasInformacion_empleados" Association="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_empleados">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridad_empleados" Association="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_empleados">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridadReceptor_empleado" Association="gestor_ongd_sps_prodModel.FK_incidenciasSeguridadReceptor_empleado">
+            <End Role="empleados" EntitySet="empleados" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_formasEnvio" Association="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_formasEnvio">
+            <End Role="formasEnvio" EntitySet="formasEnvio" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_tipoDocumento" Association="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tipoDocumento">
+            <End Role="tipoDocumento" EntitySet="tipoDocumento" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_entradasSalidasInformacion_tiposDatos" Association="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tiposDatos">
+            <End Role="tiposDatos" EntitySet="tiposDatos" />
+            <End Role="entradasSalidasInformacion" EntitySet="entradasSalidasInformacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_incidenciasSeguridad_tiposIncidencias" Association="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_tiposIncidencias">
+            <End Role="tiposIncidencias" EntitySet="tiposIncidencias" />
+            <End Role="incidenciasSeguridad" EntitySet="incidenciasSeguridad" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="perfiles">
           <Key>
@@ -391,12 +600,12 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="apellidos" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="direccionPostal" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
-          <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="telefono2" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="telefono1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="telefono2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
           <NavigationProperty Name="personas_perfiles" Relationship="gestor_ongd_sps_prodModel.FK_personas_perfiles_personas" FromRole="personas" ToRole="personas_perfiles" />
@@ -418,7 +627,7 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="direccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="localidad" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="provincia" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="pais" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -511,8 +720,8 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           </ReferentialConstraint>
         </Association>
         <EntityType Name="colaboradores" BaseType="gestor_ongd_sps_prodModel.personas">
-          <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="CIF_NIF" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CuentaBancaria" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="donaciones" Relationship="gestor_ongd_sps_prodModel.FK_donaciones_colaboradores" FromRole="colaboradores" ToRole="donaciones" />
         </EntityType>
         <EntityType Name="donaciones">
@@ -596,6 +805,167 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
           <Property Name="cantidad" Type="Single" />
           <Property Name="Periodicidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="empleados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="entradasSalidasInformacion" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_empleados" FromRole="empleados" ToRole="entradasSalidasInformacion" />
+          <NavigationProperty Name="incidenciasSeguridad" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_empleados" FromRole="empleados" ToRole="incidenciasSeguridad" />
+          <NavigationProperty Name="incidenciasSeguridad1" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridadReceptor_empleado" FromRole="empleados" ToRole="incidenciasSeguridad" />
+        </EntityType>
+        <EntityType Name="entradasSalidasInformacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="emisor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="numDocumentos" Type="Int32" Nullable="false" />
+          <Property Name="tipoDatos" Type="Int32" Nullable="false" />
+          <Property Name="formaEnvio" Type="Int32" Nullable="false" />
+          <Property Name="personaResponsable" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleados" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_empleados" FromRole="entradasSalidasInformacion" ToRole="empleados" />
+          <NavigationProperty Name="formasEnvio" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_formasEnvio" FromRole="entradasSalidasInformacion" ToRole="formasEnvio" />
+          <NavigationProperty Name="tipoDocumento1" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tipoDocumento" FromRole="entradasSalidasInformacion" ToRole="tipoDocumento" />
+          <NavigationProperty Name="tiposDatos" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tiposDatos" FromRole="entradasSalidasInformacion" ToRole="tiposDatos" />
+        </EntityType>
+        <EntityType Name="formasEnvio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="entradasSalidasInformacion" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_formasEnvio" FromRole="formasEnvio" ToRole="entradasSalidasInformacion" />
+        </EntityType>
+        <EntityType Name="incidenciasSeguridad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaIncidencia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idTipoIncidencia" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="efectosDerivados" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="medidasCorrectoras" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idComunicante" Type="Int32" Nullable="false" />
+          <Property Name="idReceptor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleados" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_empleados" FromRole="incidenciasSeguridad" ToRole="empleados" />
+          <NavigationProperty Name="empleados1" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridadReceptor_empleado" FromRole="incidenciasSeguridad" ToRole="empleados" />
+          <NavigationProperty Name="tiposIncidencias" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_tiposIncidencias" FromRole="incidenciasSeguridad" ToRole="tiposIncidencias" />
+        </EntityType>
+        <EntityType Name="tipoDocumento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="entradasSalidasInformacion" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tipoDocumento" FromRole="tipoDocumento" ToRole="entradasSalidasInformacion" />
+        </EntityType>
+        <EntityType Name="tiposDatos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="entradasSalidasInformacion" Relationship="gestor_ongd_sps_prodModel.FK_entradasSalidasInformacion_tiposDatos" FromRole="tiposDatos" ToRole="entradasSalidasInformacion" />
+        </EntityType>
+        <EntityType Name="tiposIncidencias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreIncidencia" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="incidenciasSeguridad" Relationship="gestor_ongd_sps_prodModel.FK_incidenciasSeguridad_tiposIncidencias" FromRole="tiposIncidencias" ToRole="incidenciasSeguridad" />
+        </EntityType>
+        <Association Name="FK_entradasSalidasInformacion_empleados">
+          <End Type="gestor_ongd_sps_prodModel.empleados" Role="empleados" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.entradasSalidasInformacion" Role="entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="personaResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridad_empleados">
+          <End Type="gestor_ongd_sps_prodModel.empleados" Role="empleados" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.incidenciasSeguridad" Role="incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idComunicante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridadReceptor_empleado">
+          <End Type="gestor_ongd_sps_prodModel.empleados" Role="empleados" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.incidenciasSeguridad" Role="incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_formasEnvio">
+          <End Type="gestor_ongd_sps_prodModel.formasEnvio" Role="formasEnvio" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.entradasSalidasInformacion" Role="entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formasEnvio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="formaEnvio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_tipoDocumento">
+          <End Type="gestor_ongd_sps_prodModel.tipoDocumento" Role="tipoDocumento" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.entradasSalidasInformacion" Role="entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoDocumento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="tipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_entradasSalidasInformacion_tiposDatos">
+          <End Type="gestor_ongd_sps_prodModel.tiposDatos" Role="tiposDatos" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.entradasSalidasInformacion" Role="entradasSalidasInformacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposDatos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="entradasSalidasInformacion">
+              <PropertyRef Name="tipoDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_incidenciasSeguridad_tiposIncidencias">
+          <End Type="gestor_ongd_sps_prodModel.tiposIncidencias" Role="tiposIncidencias" Multiplicity="1" />
+          <End Type="gestor_ongd_sps_prodModel.incidenciasSeguridad" Role="incidenciasSeguridad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposIncidencias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="incidenciasSeguridad">
+              <PropertyRef Name="idTipoIncidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -738,6 +1108,76 @@ advertencia 6002: La tabla o vista 'gestor_ongd_sps_prod.dbo.voluntario' no tien
                 <ScalarProperty Name="direccionPostal" ColumnName="direccionPostal" />
                 <ScalarProperty Name="apellidos" ColumnName="apellidos" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleados">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.empleados">
+              <MappingFragment StoreEntitySet="empleados">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="entradasSalidasInformacion">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.entradasSalidasInformacion">
+              <MappingFragment StoreEntitySet="entradasSalidasInformacion">
+                <ScalarProperty Name="personaResponsable" ColumnName="personaResponsable" />
+                <ScalarProperty Name="formaEnvio" ColumnName="formaEnvio" />
+                <ScalarProperty Name="tipoDatos" ColumnName="tipoDatos" />
+                <ScalarProperty Name="numDocumentos" ColumnName="numDocumentos" />
+                <ScalarProperty Name="emisor" ColumnName="emisor" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formasEnvio">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.formasEnvio">
+              <MappingFragment StoreEntitySet="formasEnvio">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="incidenciasSeguridad">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.incidenciasSeguridad">
+              <MappingFragment StoreEntitySet="incidenciasSeguridad">
+                <ScalarProperty Name="idReceptor" ColumnName="idReceptor" />
+                <ScalarProperty Name="idComunicante" ColumnName="idComunicante" />
+                <ScalarProperty Name="medidasCorrectoras" ColumnName="medidasCorrectoras" />
+                <ScalarProperty Name="efectosDerivados" ColumnName="efectosDerivados" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idTipoIncidencia" ColumnName="idTipoIncidencia" />
+                <ScalarProperty Name="fechaIncidencia" ColumnName="fechaIncidencia" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoDocumento">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.tipoDocumento">
+              <MappingFragment StoreEntitySet="tipoDocumento">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposDatos">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.tiposDatos">
+              <MappingFragment StoreEntitySet="tiposDatos">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposIncidencias">
+            <EntityTypeMapping TypeName="gestor_ongd_sps_prodModel.tiposIncidencias">
+              <MappingFragment StoreEntitySet="tiposIncidencias">
+                <ScalarProperty Name="nombreIncidencia" ColumnName="nombreIncidencia" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

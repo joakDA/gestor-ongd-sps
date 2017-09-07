@@ -34,5 +34,12 @@ namespace GestorONG.DataModel
         public virtual DbSet<donaciones> donaciones { get; set; }
         public virtual DbSet<periodicidades> periodicidades { get; set; }
         public virtual DbSet<vistaColaboradores> vistaColaboradores { get; set; }
+        public virtual DbSet<empleados> empleados { get; set; }
+        public virtual DbSet<entradasSalidasInformacion> entradasSalidasInformacion { get; set; }
+        public virtual DbSet<formasEnvio> formasEnvio { get; set; }
+        public virtual DbSet<incidenciasSeguridad> incidenciasSeguridad { get; set; }
+        public virtual DbSet<tipoDocumento> tipoDocumento { get; set; }
+        public virtual DbSet<tiposDatos> tiposDatos { get; set; }
+        public virtual DbSet<tiposIncidencias> tiposIncidencias { get; set; }
     }
 }
