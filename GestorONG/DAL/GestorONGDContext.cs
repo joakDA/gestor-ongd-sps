@@ -111,5 +111,7 @@ namespace GestorONG.DAL
         #endregion
 
         public System.Data.Entity.DbSet<GestorONG.ViewModel.CertificadoViewModel> CertificadoViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<GestorONG.DataModel.tiposIncidencias> tiposIncidencias { get; set; }
     }
 }

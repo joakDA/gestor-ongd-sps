@@ -81,7 +81,26 @@
                                     <li>@Html.ActionLink("Listado de Entradas/Salidas Información", "EntradaSalidaIndex", "LOPD")</li>
                                 </ul>
                             </li>
-                            <li>@Html.ActionLink("Configuración", "Configuracion", "Home")</li>
+                            <li class="dropdown">
+                                @Html.ActionLink("Configuración", "Configuracion", "Home")
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-submenu">
+                                        @Html.ActionLink("Periodicidades", "Index", "Periodicidades")
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Nueva Periodicidad", "Create", "Periodicidades")</li>
+                                            <li>@Html.ActionLink("Listado de Periodicidades", "Index", "Periodicidades")</li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        @Html.ActionLink("Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias")
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Nuevo Tipo de Incidencia de Seguridad", "Create", "TiposIncidencias")</li>
+                                            <li>@Html.ActionLink("Listado de Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias")</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </div>
                     <!--<div class="col-xs-12 col-md-3">

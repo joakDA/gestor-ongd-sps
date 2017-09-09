@@ -137,7 +137,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DonacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PeriodicidadesController.cs" />
     <Compile Include="Controllers\SedesController.cs" />
+    <Compile Include="Controllers\TiposIncidenciasController.cs" />
     <Compile Include="Controllers\VistaColaboradoresController.cs" />
     <Compile Include="Controllers\VoluntariosController.cs" />
     <Compile Include="DAL\GestorONGDContext.cs" />
@@ -680,6 +682,15 @@
     <Content Include="Views\Donaciones\Edit.cshtml" />
     <Content Include="Views\Donaciones\Index.cshtml" />
     <Content Include="Views\VistaColaboradores\generateCertificadoPDF.cshtml" />
+    <Content Include="Views\Periodicidades\Create.cshtml" />
+    <Content Include="Views\Periodicidades\Delete.cshtml" />
+    <Content Include="Views\Periodicidades\Edit.cshtml" />
+    <Content Include="Views\Periodicidades\Index.cshtml" />
+    <Content Include="Views\TiposIncidencias\Create.cshtml" />
+    <Content Include="Views\TiposIncidencias\Delete.cshtml" />
+    <Content Include="Views\TiposIncidencias\Details.cshtml" />
+    <Content Include="Views\TiposIncidencias\Edit.cshtml" />
+    <Content Include="Views\TiposIncidencias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

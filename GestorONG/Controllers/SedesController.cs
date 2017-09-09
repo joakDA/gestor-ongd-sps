@@ -56,7 +56,7 @@ namespace GestorONG.Controllers
                 TempData["Acierto"] = "La sede " + sede_delegacion.nombre + " ha sido añadida correctamente al sistema.";
                 return RedirectToAction("Index");
             }
-
+            TempData["Error"] = "Ha habido un error al crear la sede. Por favor, inténtalo de nuevo";
             return View(sede_delegacion);
         }
 
@@ -89,6 +89,7 @@ namespace GestorONG.Controllers
                 TempData["Acierto"] = "La sede " + sede_delegacion.nombre + " ha sido editada correctamente.";
                 return RedirectToAction("Index");
             }
+            TempData["Error"] = "Ha habido un error al editar la sede. Por favor, inténtalo de nuevo";
             return View(sede_delegacion);
         }
 
