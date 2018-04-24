@@ -1,0 +1,74 @@
+﻿@model GestorONG.DataModel.incidenciasSeguridad
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>incidenciasSeguridad</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaIncidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaIncidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idTipoIncidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idTipoIncidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.efectosDerivados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.efectosDerivados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.medidasCorrectoras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medidasCorrectoras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idComunicante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idComunicante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idReceptor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idReceptor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

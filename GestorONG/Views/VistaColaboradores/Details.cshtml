@@ -4,7 +4,7 @@
     ViewBag.Title = "Detalles de Colaborador";
 }
 
-<h1 class="titulo-pagina text-center">Detalles del Colaborador/a @Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)</h1>
+<h2 class="titulo-pagina text-center">@Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)</h2>
 
 <div>
     <hr />
@@ -222,7 +222,7 @@
     </div>
 </div>
 <div class="row botones-inferiores">
-    <div class="col-xs-12 text-center">
+    <div class="col-xs-12 col-md-12 text-center">
         @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-danger" })
         @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
     </div>

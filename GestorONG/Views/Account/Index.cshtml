@@ -1,0 +1,55 @@
+﻿@model GestorONG.ViewModel.UsersViewModel
+@{
+    ViewBag.Title = "Listado de usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-check"></span> @TempData["Acierto"]</p>
+        </div>
+    }
+
+    int i = 0; //To retrieve users and roles
+}
+
+<div class="table-responsive">
+    <table id="listado-usuarios" class="table user-list" data-page-length="10">
+        <thead>
+            <tr>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Correo electrónico
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.users)
+            {
+                <tr class="mx-auto">
+                    <td class="username">
+                        <i class="fas fa-user fa-2x"></i>
+                        <span class="username-value align-middle">@Html.DisplayFor(modelItem => item.UserName)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Email)
+                    </td>
+                    <td>
+                        <a class="" href="@Url.Action("Delete", "Account", new {id = item.Id})">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>

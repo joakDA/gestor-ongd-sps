@@ -19,17 +19,11 @@
         </div>
     }
 }
-}
-
-<h1 class="titulo-pagina text-center">Crear Nueva Sede o Delegación</h1>
-
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row fila-form">
             <div class="form-group col-xs-12 col-md-6">
@@ -95,8 +89,8 @@
             </div>
         </div>
         <div class="row botones-formulario">
-            <div class="form-group col-xs-12">
-                <div class="col-xs-12 text-center">
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-12 text-center">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                     @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
                 </div>

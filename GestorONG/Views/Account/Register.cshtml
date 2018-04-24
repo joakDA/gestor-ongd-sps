@@ -1,0 +1,63 @@
+﻿@model GestorONG.ViewModel.RegisterViewModel
+@{
+    ViewBag.Title = "Registrar nuevo usuario";
+
+    if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-times"></span> @TempData["Error"]</p>
+        </div>
+    }
+}
+
+<div class="row register" id="register">
+    <div class="col-xs-12 offset-md-4 col-md-4" id="register-form">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger text-center" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                @Html.EditorFor(model => model.UserName, new { Title = "Introduzca el nombre de usuario", htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger text-center" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", data_toggle = "password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger text-center" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", data_toggle = "password" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger text-center" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Roles asignados", new { @class = "control-label" })
+                @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, new { @class = "form-control selectpicker", data_live_search = "true", data_size = 5 })
+                @Html.ValidationMessage("UserRoles", "", new { @class = "text-danger text-center" })
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary" value="Register" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+}
+
+@section Styles{
+    @Styles.Render("~/Content/boostrapSelectCSS")
+}

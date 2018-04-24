@@ -20,12 +20,23 @@ namespace GestorONG
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/site.css"));
+
+            // Font awesome
+            bundles.Add(new ScriptBundle("~/bundles/FontAwesomeJS").Include(
+                     "~/Scripts/FontAwesome/fontawesome-all.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/FontAwesomeCSS").Include(
+                      "~/Content/FontAwesome/fa-svg-with-js.css"));
+
+            bundles.Add(new StyleBundle("~/Content/FontAwesomeLegacyCSS").Include(
+                      "~/Content/font-awesome.min.css"));
+
             // Se incluye JQuery Datatables from CDN
 
             bundles.Add( new ScriptBundle("~/bundles/jqueryDataTables").Include("~/Scripts/DataTables/jquery.dataTables.min.js"));
@@ -41,6 +52,23 @@ namespace GestorONG
             bundles.Add(new ScriptBundle("~/bundles/boostrapSelectJS").Include("~/Scripts/bootstrap-select.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/boostrapSelectCSS").Include("~/Content/bootstrap-select.min.css"));
+
+            // Se incluye DatatablesBootstrap 4
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryDataTablesBootstrapJS").Include("~/Scripts/DataTables/dataTables.bootstrap4.min.js"));
+            bundles.Add(new StyleBundle("~/bundles/jqueryDataTablesBootstrapCSS").Include("~/Content/DataTables/css/dataTables.bootstrap4.min.css"));
+
+            //Custom JS
+            bundles.Add(new ScriptBundle("~/bundles/CollaboratorsJS").Include("~/Scripts/collaborators.js"));
+
+
+            //Popper JS
+            bundles.Add(new ScriptBundle("~/bundles/PopperJS").Include(
+                     "~/Scripts/umd/popper.min.js"));
+
+            //Tether JS to display bootstrap tooltips. Is a prerequesite of bootstrap and must be included before it.
+
+            bundles.Add(new ScriptBundle("~/bundles/TetherJS").Include("~/Scripts/tether.min.js"));
         }
     }
 }

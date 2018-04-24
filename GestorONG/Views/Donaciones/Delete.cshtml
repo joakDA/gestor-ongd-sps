@@ -3,10 +3,7 @@
 @{
     ViewBag.Title = "Eliminar una Donación";
 }
-
-<h1 class="titulo-pagina text-center">Eliminar la Donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
-
-<h2 class="confirmacion-eliminacion">¿Estás seguro de que deseas eliminar la donación?</h2>
+<h2 class="confirmacion-eliminacion">¿Estás seguro de que deseas eliminar la donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)?</h2>
 <div>
     <hr />
     <div class="row fila-form">
@@ -87,7 +84,7 @@
         @Html.AntiForgeryToken()
 
         <div class="row botones-inferiores">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 col-md-12 text-center">
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
                 @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
             </div>

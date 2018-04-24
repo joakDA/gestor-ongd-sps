@@ -4,7 +4,7 @@
     ViewBag.Title = "Detalles de una Donación ";
 }
 
-<h1 class="titulo-pagina text-center">Detalles de la Donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
+<h1 class="titulo-pagina text-center">@Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
 
 <div>
     <hr />
@@ -82,7 +82,7 @@
     </div>
 </div>
 <div class="row botones-inferiores">
-    <div class="col-xs-12 text-center">
+    <div class="col-xs-12 col-md-12 text-center">
         @Html.ActionLink("Editar", "Edit", new { id = Model.donacion.id }, new { @class = "btn btn-danger" })
         @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
     </div>

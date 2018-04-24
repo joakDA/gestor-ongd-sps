@@ -1,68 +1,64 @@
-﻿html, body {
-    height: 100%;
-}
-
-h1,h2,h3,h4,h5,h6{
-    color: #e65858;
+﻿h1, h2, h3, h4, h5, h6 {
+    color: #C8102E;
     text-align: center;
 }
 
 /*Font-size-relative*/
-h1{
+h1 {
     font-size: 2.5em;
 }
 
-h2{
-    font-size: 2.3em
+h2 {
+    font-size: 2.3em;
 }
 
-h3{
+h3 {
     font-size: 2.1em;
 }
 
-h4{
+h4 {
     font-size: 1.9em;
 }
 
-h5{
+h5 {
     font-size: 1.7em;
 }
 
-h6{
+h6 {
     font-size: 1.5em;
 }
 
 
 /**FONTS SPS****/
 @font-face {
-font-family: 'Champagne & Limousines';
-font-style: normal;
-font-weight: normal;
-src: local('Champagne_Limousines'), url('../fonts/Champagne_Limousines.woff') format('woff');
+    font-family: 'Champagne & Limousines';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Champagne_Limousines'), url('../fonts/Champagne_Limousines.woff') format('woff');
 }
 
 
 @font-face {
-font-family: 'Champagne & Limousines Italic';
-font-style: normal;
-font-weight: normal;
-src: local('Champagne & Limousines Italic'), url('../fonts/Champagne_Limousines_Italic.woff') format('woff');
+    font-family: 'Champagne & Limousines Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Champagne & Limousines Italic'), url('../fonts/Champagne_Limousines_Italic.woff') format('woff');
 }
 
 
 @font-face {
-font-family: 'Champagne & Limousines Bold';
-font-style: normal;
-font-weight: normal;
-src: local('Champagne & Limousines Bold'), url('../fonts/Champagne_Limousines_Bold.woff') format('woff');
+    font-family: 'Champagne & Limousines Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Champagne & Limousines Bold'), url('../fonts/Champagne_Limousines_Bold.woff') format('woff');
 }
 
 
 @font-face {
-font-family: 'Champagne & Limousines Bold Italic';
-font-style: normal;
-font-weight: normal;
-src: local('Champagne & Limousines Bold Italic'), url('../fonts/Champagne_Limousines_Bold_Italic.woff') format('woff');
+    font-family: 'Champagne & Limousines Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Champagne & Limousines Bold Italic'), url('../fonts/Champagne_Limousines_Bold_Italic.woff') format('woff');
 }
 
 
@@ -70,19 +66,6 @@ src: local('Champagne & Limousines Bold Italic'), url('../fonts/Champagne_Limous
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-.body-content {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -100px; 
-}
-.body-content:after {
-  content: "";
-  display: block;
-}
-footer, .body-content:after {
-  height: 100px; 
 }
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -99,94 +82,63 @@ textarea {
 }*/
 
 /************ Set header styles***********/
-/*Set background color*/
-.navbar-inverse{
-    background-color: #e65858;
-}
 
-.navbar-inverse .navbar-nav > .open > a{
-    background-color: transparent !important;
-    text-decoration: underline;
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 }
-
-/*Set menu items text color*/
-.navbar-inverse .navbar-nav > li > a {
-    color: #ffffff;
-}
-
-/*Set styles for user-text header*/
-.user-header {
-    color: #ffffff !important;
-    width: 100%;
-    display: block;
-}
-
-header img {
-    margin: 0 auto;
-}
-
-@media (min-width: 979px) {
-  ul.nav li.dropdown:hover > ul.dropdown-menu {
-    display: block;
-  }
-}
-
-.link-logo{
-    max-height: 50px;
-}
-
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-    color: #fff;
-    text-decoration: none;
-    background-color: #e65858;
-}
-
 
 /***********  End header styles***********/
 
-/***********  Set footer styles***********/
-
-/* Set footer container styles */
-.container-fluid.footer {
-    background-color: #e65858;
-    color: #ffffff;
+/********Sticky footer styles*******/
+html {
+    position: relative;
+    min-height: 100%;
 }
 
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+/*body > .container-fluid{
+    padding: 60px 0 0;
+}*/
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: auto;
+    background-color: #C8102E;
+}
+
+/***********  Set footer styles***********/
 /* Set styles for logo on the righ*/
 .logo-footer .img-logo {
     margin: 0 auto;
 }
 
 
-.footer a{
+.footer a {
     color: #ffffff;
 }
 
-.logos-usa-acc{
-    padding-top: 5px;
+.footer-text {
+    color: #ffffff;
 }
 
 /***********  End footer styles***********/
 
 /***********  body-content *************/
 
-.relleno-superior{
-    padding-top: 4em;
-}
-
-@media (max-width: 767px){
-    .relleno-superior{
-        padding-top: 8em;
-    }
-}
-
 th, td {
     text-align: center;
 }
 
-input, select, textarea {
+/*input, select, textarea {
     max-width: 65%;
-}
+}*/
 
 .filtros-listado {
     padding-bottom: 1em;
@@ -196,16 +148,16 @@ input, select, textarea {
     width: 100% !important;
 }
 
-.btn-group.bootstrap-select.form-control.col-xs-12.col-md-8 {
+/*.btn-group.bootstrap-select.form-control.col-xs-12.col-md-8 {
     max-width: 65%;
-}
+}*/
 
 .nombre-colaborador {
     padding: 6px 12px;
 }
 
-.bs-searchbox input{
-    max-width:100%;
+.bs-searchbox input {
+    max-width: 100%;
 }
 
 .botones-header .btn {
@@ -217,18 +169,22 @@ input, select, textarea {
 .stepwizard-step p {
     margin-top: 10px;
 }
+
 .stepwizard-row {
     display: table-row;
 }
+
 .stepwizard {
     display: table;
     width: 50%;
     position: relative;
 }
+
 .stepwizard-step button[disabled] {
     opacity: 1 !important;
     filter: alpha(opacity=100) !important;
 }
+
 .stepwizard-row:before {
     top: 14px;
     bottom: 0;
@@ -239,11 +195,13 @@ input, select, textarea {
     background-color: #ccc;
     z-order: 0;
 }
+
 .stepwizard-step {
     display: table-cell;
     text-align: center;
     position: relative;
 }
+
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -258,59 +216,124 @@ input, select, textarea {
 /**********     End body content*/
 
 /*********      Index styles *********/
-
-.img-responsive.imagen-menu {
-    max-height: 200px;
-    margin: 0 auto;
-    padding-bottom: 10px;
+.row-main-menu .card {
+    text-align: center;
+    padding: 1em 0;
 }
 
+.row-main-menu .svg-inline--fa {
+    margin: 0 auto;
+}
+
+.row-main-menu .svg-inline--fa {
+    fill: #C8102E;
+    color: #C8102E;
+}
+
+#Menu_Principal .card-text {
+    padding: 0 4em;
+}
 /*********       End Index styles*******/
 
-/********SUBMENU STYLES**********/
-.dropdown-submenu {
-    position: relative;
+/*********COMMON STYLES********/
+.btn-sps {
+    color: #C8102E;
+    background-color: #fff;
+    border-color: #C8102E;
 }
 
-.dropdown-submenu .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-    margin-left:-1px;
-    -webkit-border-radius:0 6px 6px 6px;
-    -moz-border-radius:0 6px 6px 6px;
-    border-radius:0 6px 6px 6px;
+.bg-sps {
+    background-color: #c8102e;
 }
 
-
-.dropdown-submenu:hover>.dropdown-menu {
-    display:block;
-}
-.dropdown-submenu>a:after {
-    display:block;
-    content:" ";
-    float:right;
-    width:0;
-    height:0;
-    border-color:transparent;
-    border-style:solid;
-    border-width:5px 0 5px 5px;
-    border-left-color:#cccccc;
-    margin-top:5px;
-    margin-right:-10px;
-}
-.dropdown-submenu:hover>a:after {
-    border-left-color:#ffffff;
-}
-.dropdown-submenu.pull-left {
-    float:none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-    left:-100%;
-    margin-left:10px;
-    -webkit-border-radius:6px 0 6px 6px;
-    -moz-border-radius:6px 0 6px 6px;
-    border-radius:6px 0 6px 6px;
+.navbar a {
+    color: #ffffff;
 }
 
-/*******END SUBMENU STYLES********/
+.dropdown-menu .nav-link {
+    color: #c8102e;
+}
+
+.jumbotron {
+    background-image: url("Images/common/header-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+    .jumbotron h1 {
+        color: #ffffff;
+    }
+
+/**********MEDIA QUERIES**********/
+/*Extra small devices (portrait phones, less than 576px)
+     No media query since this is the default in Bootstrap*/
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (max-width: 575px) {
+    body {
+        margin-bottom: 118px;
+    }
+
+    .img-users {
+        padding-top: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .row.botones-formulario {
+        padding-bottom: 2rem;
+    }
+
+    .nav-item.dropdown{
+        text-align: center !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 4em 0;
+        margin: 0 -15px 2em;
+    }
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    .user-intro {
+        padding-right: 1em;
+    }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    .user-intro {
+        padding-right: 1em;
+    }
+}
+
+/*******REGISTER PAGE*******/
+#Registrar_nuevo_usuario {
+    background-image: url(Images/background/camisetas-sps-background.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+    #Registrar_nuevo_usuario .jumbotron {
+        background: none;
+        padding: 2em 0;
+    }
+
+#register-form {
+    background-color: #fff;
+    padding: 2em;
+    border: 1px solid #122b40;
+}
+
+/*****USER LIST******/
+.table > tbody > tr > td {
+     vertical-align: middle;
+}

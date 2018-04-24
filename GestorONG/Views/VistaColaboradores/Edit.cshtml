@@ -19,9 +19,8 @@
         </div>
     }
 }
-}
 
-<h1 class="titulo-pagina text-center">Editar el Colaborador @Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)</h1>
+<h2 class="titulo-pagina text-center">@Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)</h2>
 
 @using (Html.BeginForm())
 {
@@ -127,8 +126,8 @@
                 </div>
             </div>
             <div class="row botones-formulario">
-                <div class="form-group col-xs-12">
-                    <div class="col-xs-12 text-center">
+                <div class="form-group col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-md-12 text-center">
                         <input type="submit" value="Guardar" class="btn btn-primary" />
                         @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
                     </div>

@@ -1,0 +1,13 @@
+﻿@using GestorONG.ViewModel
+<div class="row">
+    <div class="col-xs-12 col-md-8 order-1 order-md-8 login-google-help-container">
+        <p class="lead login-google-help">Para acceder a las funcionalidades de la aplicación, debes iniciar sesión con tu <strong>cuenta corporativa de correo electrónico de la Fundación Spínola Solidaria</strong> pulsando en el botón de la parte inferior. Al pulsar el botón, se te redirigirá a una ventana de Google para que introduzcas la dirección de correo electrónico y su contraseña correspondiente.</p>
+        <p class="lead login-google-help">Si no recuerdas la contraseña del correo, ponte en contacto con el <strong>Administrador</strong> mediante el correo electrónico <a href="mailto:informatica@spinolasolidaria.org" title="Contacta con el Administrador" target="_blank">informatica@spinolasolidaria.org</a> y se pondrá en contacto contigo para enviarte una nueva contraseña.</p>
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+    <div class="col-xs-12 col-md-4 order-8 order-md-1 text-center img-users">
+        <img class="img-fluid" src="~/Content/Images/common/users.jpg" alt="Usuarios de la aplicación" title="Usuarios" />
+    </div>
+</div>

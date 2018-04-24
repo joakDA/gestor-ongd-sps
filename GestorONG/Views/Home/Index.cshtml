@@ -1,41 +1,65 @@
 ﻿@{
     ViewBag.Title = "Menú Principal";
 }
-
-<h1 class="titulo-pagina text-center">Menú Principal del Gestor de ONGD de la Fundación Spínola Solidaria</h1>
-
-<div class="row">
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Gestión de Voluntarios</h2>
-        <img src="~/Content/Images/menu/gestionVoluntarios.png" class="img-responsive imagen-menu" alt="Gestión de Voluntarios" />
-        <a href='@Url.Action("Index", "Voluntarios")' class="btn btn-primary" target="_parent" title="Gestión de Voluntarios">Gestión de Voluntarios</a>
-    </div>
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Gestión de Colaboradores</h2>
-        <img src="~/Content/Images/menu/gestionColaboradores.png" class="img-responsive imagen-menu" alt="Gestión de Colaboradores" />
-        <a href='@Url.Action("Index", "Colaboradores")' class="btn btn-primary" target="_parent" title="Gestión de Colaboradores">Gestión de Colaboradores</a>
-    </div>
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Gestión de Donaciones</h2>
-        <img src="~/Content/Images/menu/gestionDonaciones.png" class="img-responsive imagen-menu" alt="Gestión de Donaciones" />
-        <a href='@Url.Action("Index", "Donaciones")' class="btn btn-primary" target="_parent" title="Gestión de Donaciones">Gestión de Donaciones</a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Gestión de Sedes</h2>
-        <img src="~/Content/Images/menu/gestionSedes.jpg" class="img-responsive imagen-menu" alt="Gestión de Sedes" />
-        <a href='@Url.Action("Index", "Sedes")' class="btn btn-primary" target="_parent" title="Gestión de Sedes">Gestión de Sedes</a>
-    </div>
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Gestión LOPD</h2>
-        <img src="~/Content/Images/menu/LOPD.png" class="img-responsive imagen-menu" alt="Gestión LOPD" />
-        <a href='@Url.Action("Index", "LOPD")' class="btn btn-primary" target="_parent" title="Gestión LOPD">Gestión LOPD</a>
-    </div>
-    <div class="col-md-4 text-center">
-        <h2 class="titulo-item-menu text-center">Configuración</h2>
-        <img src="~/Content/Images/menu/Configuracion.png" class="img-responsive imagen-menu" alt="Configuración" />
-        <a href='@Url.Action("Index", "Configuracion")' class="btn btn-primary" target="_parent" title="Configuración">Configuración</a>
+@if (Request.IsAuthenticated)
+{
+<div class="row row-main-menu">
+    <div class="card-group">
+        <div class="card">
+            <i class="fas fa-user fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Voluntarios</h5>
+                <p class="card-text">Esta página permite consultar, modificar e introducir información sobre un voluntario de la organización.</p>
+                <a href='@Url.Action("Index", "Voluntarios")' class="btn btn-sps" target="_parent" title="Gestión de Voluntarios">Gestión de Voluntarios</a>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-user fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Colaboradores</h5>
+                <p class="card-text">Gestiona la información de las personas y entidades que colaboran con Spínola Solidaria.</p>
+                <a href='@Url.Action("Index", "Colaboradores")' class="btn btn-sps" target="_parent" title="Gestión de Colaboradores">Gestión de Colaboradores</a>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-euro-sign fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Donaciones</h5>
+                <p class="card-text">A través de este módulo se permite visualizar, modificar o eliminar una donación de un colaborador.</p>
+                <a href='@Url.Action("Index", "Donaciones")' class="btn btn-sps" target="_parent" title="Gestión de Donaciones">Gestión de Donaciones</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="row row-main-menu">
+    <div class="card-group">
+        <div class="card">
+            <i class="fas fa-home fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Sedes</h5>
+                <p class="card-text">Esta página permite crear, editar, visualizar y eliminar las sedes o delegaciones de la fundación.</p>
+                <a href='@Url.Action("Index", "Sedes")' class="btn btn-sps" target="_parent" title="Gestión de Sedes">Gestión de Sedes</a>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-lock fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Gestión LOPD</h5>
+                <p class="card-text">Esta página permite visualizar y registrar las entradas y salidas de registros, así como las incidencias de seguridad de datos.</p>
+                <a href='@Url.Action("Index", "LOPD")' class="btn btn-sps" target="_parent" title="Gestión LOPD">Gestión LOPD</a>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fas fa-cogs fa-5x"></i>
+            <div class="card-body">
+                <h5 class="card-title">Configuración</h5>
+                <p class="card-text">A través de este módulo se permite cambiar la configuración del sistema, así como gestionar los usuarios de la aplicación .</p>
+                <a href='@Url.Action("Index", "Configuracion")' class="btn btn-sps" target="_parent" title="Configuración">Configuración</a>
+            </div>
+        </div>
+    </div>
+</div>
+}else{
+    @Html.Partial("_LoginIntroPartial")
+}

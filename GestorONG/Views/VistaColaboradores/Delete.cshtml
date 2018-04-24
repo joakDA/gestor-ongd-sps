@@ -4,9 +4,7 @@
     ViewBag.Title = "Eliminar un Colaborador";
 }
 
-<h1 class="titulo-pagina text-center">Eliminación del Voluntario @Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)</h1>
-
-<h2 class="confirmacion-eliminacion">¿Estás seguro de que deseas eliminar el colaborador?</h2>
+<h2 class="confirmacion-eliminacion">¿Estás seguro de que deseas eliminar el colaborador @Html.DisplayFor(model => model.nombre) @Html.DisplayFor(model => model.apellidos)?</h2>
 <p class="lead text-center">Atención: ¡Se eliminarán también todas las donaciones asociadas al colaborador!</p>
 <div>
     <hr />
@@ -227,7 +225,7 @@
         @Html.AntiForgeryToken()
 
         <div class="row botones-inferiores">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 col-md-12 text-center">
                 <input type="submit" value="Eliminar" class="btn btn-danger" />
                 @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary" })
             </div>

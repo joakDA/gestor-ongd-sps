@@ -21,7 +21,7 @@
 }
 }
 
-<h1 class="titulo-pagina text-center">Editar la Donación del Colaborador @Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
+<h1 class="titulo-pagina text-center">@Html.DisplayFor(model => model.donacion.colaboradores.nombre) @Html.DisplayFor(model => model.donacion.colaboradores.apellidos)</h1>
 
 
 @using (Html.BeginForm(null, null, new { @id = string.Empty }, FormMethod.Post,
@@ -79,8 +79,8 @@
         </div>
 
         <div class="row botones-formulario">
-            <div class="form-group col-xs-12">
-                <div class="col-xs-12 text-center">
+            <div class="form-group col-xs-12 col-md-12">
+                <div class="col-xs-12 col-md-12 text-center">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                     @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
                 </div>

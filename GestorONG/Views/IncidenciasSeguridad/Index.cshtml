@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GestorONG.DataModel.incidenciasSeguridad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaIncidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idTipoIncidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.efectosDerivados)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.medidasCorrectoras)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idComunicante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idReceptor)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaIncidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idTipoIncidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.efectosDerivados)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.medidasCorrectoras)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idComunicante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idReceptor)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

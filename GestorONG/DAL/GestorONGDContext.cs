@@ -113,5 +113,9 @@ namespace GestorONG.DAL
         public System.Data.Entity.DbSet<GestorONG.ViewModel.CertificadoViewModel> CertificadoViewModels { get; set; }
 
         public System.Data.Entity.DbSet<GestorONG.DataModel.tiposIncidencias> tiposIncidencias { get; set; }
+
+        public System.Data.Entity.DbSet<GestorONG.DataModel.incidenciasSeguridad> incidenciasSeguridads { get; set; }
+
+        public System.Data.Entity.DbSet<GestorONG.DataModel.entradasSalidasInformacion> entradasSalidasInformacions { get; set; }
     }
 }

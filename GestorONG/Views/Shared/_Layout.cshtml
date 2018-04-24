@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title - Gestor ONGD Fundación Spínola Solidaria</title>
     <!--@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")-->
     @Styles.Render("~/Content/css")
@@ -10,121 +10,125 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/bundles/jqueryUICSS")
     @Styles.Render("~/bundles/boostrapSelectCSS")
+    @Styles.Render("~/Content/FontAwesomeCSS")
+    @{
+        var id = ViewBag.Title;
+        id = id.Replace(' ', '_');
 
-    <!--<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />-->
+        string con = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
+        string sin = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+        for (int i = 0; i < con.Length; i++)
+        {
+            id = id.Replace(con[i], sin[i]);
+        }
+    }
+
 </head>
-<body>
+<body id="@id">
     <header>
-
-
-        <div id="header" class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-8 col-md-3 link-logo">
-                        <a href='@Url.Action("Index", "Home", new {@class="navbar-brand"})'>
-                            <img alt="Logo FundacióN Spínola Solidaria" src='@Url.Content("~/Content/Images/common/logo.png")' class="img-responsive img-logo" />'
+        <nav class="navbar bg-inverse navbar-expand-md bg-sps">
+            <a class="navbar-brand mx-auto" href="/Home/Index">
+                <img src="~/Content/Images/common/logo.png" width="60" height="30" class="d-inline-block align-top" alt="Logo Tradesegur">
+                Gestor WEB SPS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainMenu">
+                @if (Request.IsAuthenticated)
+                {
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Voluntarios
                         </a>
-                    </div>
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse col-xs-4 col-md-6">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                @Html.ActionLink("Voluntarios", "Index", "Voluntarios", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Crear Voluntario", "Create", "Voluntarios")</li>
-                                    <li>@Html.ActionLink("Listado de Voluntarios", "Index", "Voluntarios")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                @Html.ActionLink("Colaboradores", "Index", "Colaboradores", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Crear Colaborador", "Create", "Colaboradores")</li>
-                                    <li>@Html.ActionLink("Listado de Colaboradores", "Index", "Colaboradores")</li>
-                                    <li>@Html.ActionLink("Emitir Certificados Renta", "Certificados", "Colaboradores")</li>
-                                    <li>@Html.ActionLink("Generar Remesas Bancarias", "Remesas", "Colaboradores")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                @Html.ActionLink("Donaciones", "Index", "Donaciones", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Nueva Donación", "Create", "Donaciones")</li>
-                                    <li>@Html.ActionLink("Listado de Donaciones", "Index", "Donaciones")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                @Html.ActionLink("Sedes", "Index", "Sedes", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Nueva Sede", "Create", "Sedes")</li>
-                                    <li>@Html.ActionLink("Listado de Sedes", "Index", "Sedes")</li>
-                                </ul>
-                            </li>
-                            <!--<li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Correspondencia<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Nueva Sede", "Create", "Sedes")</li>
-                                    <li>@Html.ActionLink("Listado de Sedes", "Index", "Sedes")</li>
-                                </ul>
-                            </li>-->
-                            <li class="dropdown">
-                                @Html.ActionLink("LOPD", "Index", "LOPD", new { @class = "dropdown-toggle", data_toggle = "dropdown" })
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Registrar Incidencia", "Create", "LOPD")</li>
-                                    <li>@Html.ActionLink("Listado de Incidencias", "Index", "LOPD")</li>
-                                    <li>@Html.ActionLink("Registrar Entrada/Salida Información", "EntradaSalidaCreate", "LOPD")</li>
-                                    <li>@Html.ActionLink("Listado de Entradas/Salidas Información", "EntradaSalidaIndex", "LOPD")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                @Html.ActionLink("Configuración", "Configuracion", "Home")
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-submenu">
-                                        @Html.ActionLink("Periodicidades", "Index", "Periodicidades")
-                                        <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Nueva Periodicidad", "Create", "Periodicidades")</li>
-                                            <li>@Html.ActionLink("Listado de Periodicidades", "Index", "Periodicidades")</li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu">
-                                        @Html.ActionLink("Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias")
-                                        <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Nuevo Tipo de Incidencia de Seguridad", "Create", "TiposIncidencias")</li>
-                                            <li>@Html.ActionLink("Listado de Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias")</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <!--<div class="col-xs-12 col-md-3">
-                        <span class="nav navbar-text user-header text-center">¡Hola, @User.Identity.Name!</span>
-                    </div>-->
-                </div>
+                        <div class="dropdown-menu" aria-labelledby="VoluntariosDropdown">
+                            @Html.ActionLink("Crear Voluntario", "Create", "Voluntarios", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Voluntarios", "Index", "Voluntarios", null, new { @class = "nav-link" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Colaboradores
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="ColaboradoresDropdown">
+                            @Html.ActionLink("Crear Colaborador", "Create", "Colaboradores", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Colaboradores", "Index", "Colaboradores", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Emitir Certificados Renta", "Certificados", "Colaboradores", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Generar Remesas Bancarias", "Remesas", "Colaboradores", null, new { @class = "nav-link" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Donaciones
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="DonacionesDropdown">
+                            @Html.ActionLink("Nueva Donación", "Create", "Donaciones", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Donaciones", "Index", "Donaciones", null, new { @class = "nav-link" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sedes
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="SedesDropdown">
+                            @Html.ActionLink("Nueva Sede", "Create", "Sedes", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Sedes", "Index", "Sedes", null, new { @class = "nav-link" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            LOPD
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="LOPDDropdown">
+                            @Html.ActionLink("Registrar Incidencia", "Create", "IncidenciasSeguridad", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Incidencias", "Index", "IncidenciasSeguridad", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Registrar Entrada/Salida Información", "Create", "ControlDatosLOPD", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Entradas/Salidas Información", "Index", "ControlDatosLOPD", null, new { @class = "nav-link" })
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Configuración
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="AdminSettingsDropdown">
+                            <h6 class="dropdown-header">Periodicidades</h6>
+                            @Html.ActionLink("Nueva Periodicidad", "Create", "Periodicidades", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Periodicidades", "Index", "Periodicidades", null, new { @class = "nav-link" })
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">Tipos de Incidencias de Seguridad</h6>
+                            @Html.ActionLink("Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Nuevo Tipo de Incidencia de Seguridad", "Create", "TiposIncidencias", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Listado de Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias", null, new { @class = "nav-link" })
+                            <div class="dropdown-divider"></div>
+                            <h6 class="dropdown-header">Gestión de Usuarios</h6>
+                            @Html.ActionLink("Crear nuevo usuario", "Register", "Account", null, new { id = "registerLink", @class = "nav-link" })
+                            @Html.ActionLink("Listado de usuarios", "Index", "Account", null, new { id = "usersLinkLink", @class = "nav-link" })
+                        </div>
+                    </li>
+                </ul>
+                }
             </div>
-        </div>
+            @Html.Partial("_LoginPartial")
+        </nav>
     </header>
-    <div class="container-fluid body-content relleno-superior">
-        @RenderBody()
-        <hr />
-    </div>
-    <footer>
-        <div class="container-fluid footer">
-            <div class="row">
-                <div class="navigation-menu col-xs-12 col-md-4">
-                    <ul class="navigation-menu-list">
-                        <li><a href="https://www.spinolasolidaria.org" target="_blank" title="Página Web Fundación Spínola Solidaria">Página Web SPS</a></li>
-                        <li><a href="http://webmail.spinolasolidaria.org" target="_blank" title="Correo Corporativo Fundación Spínola Solidaria">Correo Corporativo SPS</a></li>
-                        <li><a href="http://formacion.spinolasolidaria.org" target="_blank" title="Formación Voluntariado Internacional">Formación Voluntariado Internacional</a></li>
-                    </ul>
+    <div id="alert_placeholder"></div>
+    <div id="spinner" style="display: none;"><div class="fa-10x"><i class="fas fa-spinner fa-spin"></i></div></div>
+    <main class="container-fluid">
+        <div class="jumbotron">
+            <h1 class="text-center">@ViewBag.Title</h1>
+        </div>
+        <div class="body-content">
+            @RenderBody()
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row footer-row align-items-center">
+                <div class="col-xs-12 col-md-5 text-center copyright-text mx-auto">
+                    <span class="text-center footer-text">&copy; @DateTime.Now.Year - Gestor ONGD Fundación Spínola Solidaria - Desarrollado por Joaquín A. Duro Arribas</span>
                 </div>
-                <div class="col-xs-12 col-md-4 text-center logos-usa-acc">
+                <div class="col-xs-12 col-md-4 text-center logos-usa-acc mx-auto">
                     <a href="http://css-validator.org/check/referer">
                         <img style="border:0;width:88px;height:31px"
                              src="http://css-validator.org/images/vcss.png"
@@ -139,29 +143,32 @@
                         <img height="32" width="88"
                              src="http://www.w3.org/WAI/wcag2AAA"
                              alt="Level Triple-A conformance,
-          W3C WAI Web Content Accessibility Guidelines 2.0">
+            W3C WAI Web Content Accessibility Guidelines 2.0">
                     </a>
                 </div>
-                <div class="logo-footer col-xs-12 col-md-4">
-                    <img alt="Logo FundacióN Spínola Solidaria" src='@Url.Content("~/Content/Images/common/logo.png")' class="img-responsive img-logo" />
+                <div class="col-xs-12 col-md-3 logo-footer mx-auto text-center">
+                    <img alt="Logo Fundación Spínola Solidaria" src='@Url.Content("~/Content/Images/common/logo.png")' class="img-fluid img-logo mx-auto d-block" />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 copyright">
-                    <p class="text-center footer-text">&copy; @DateTime.Now.Year - Gestor ONGD Fundación Spínola Solidaria - Desarrollado por Joaquín A. Duro Arribas</p>
-                </div>
-            </div>
+            <!--<div class="navigation-menu col-xs-12 col-md-4">
+                          <ul class="navigation-menu-list">
+                              <li><a href="https://www.spinolasolidaria.org" target="_blank" title="Página Web Fundación Spínola Solidaria">Página Web SPS</a></li>
+                              <li><a href="http://webmail.spinolasolidaria.org" target="_blank" title="Correo Corporativo Fundación Spínola Solidaria">Correo Corporativo SPS</a></li>
+                              <li><a href="http://formacion.spinolasolidaria.org" target="_blank" title="Formación Voluntariado Internacional">Formación Voluntariado Internacional</a></li>
+                          </ul>
+                      </div>
+                      <div class="logo-footer col-xs-12 col-md-4">
+
+                      </div>-->
         </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/PopperJS")
+    @Scripts.Render("~/bundles/TetherJS")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/bundles/FontAwesomeJS")
     @RenderSection("scripts", required: false)
-    <script type="text/javascript">
-        $('ul.nav li.dropdown').hover(function () {
-            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-        }, function () {
-            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-        });
-    </script>
+    @RenderSection("styles", required: false)
 </body>
 </html>

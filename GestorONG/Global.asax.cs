@@ -16,6 +16,8 @@ namespace GestorONG
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Require https in entire site
+            GlobalFilters.Filters.Add(new RequireHttpsAttribute());
         }
 
     }
