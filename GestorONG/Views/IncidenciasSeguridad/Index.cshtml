@@ -1,69 +1,120 @@
-﻿@model IEnumerable<GestorONG.DataModel.incidenciasSeguridad>
+﻿@model IEnumerable<GestorONG.ViewModel.SecurityIncidentView>
 
 @{
-    ViewBag.Title = "Index";
-}
+    ViewBag.Title = "Listado de Incidencias de Seguridad (LOPD)";
 
-<h2>Index</h2>
+    if (TempData["Acierto"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-check"></span> @TempData["Acierto"]</p>
+        </div>
+    }
+
+    if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-times"></span> @TempData["Error"]</p>
+        </div>
+    }
+}
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nueva Incidencia de Seguridad", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-outline-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaIncidencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idTipoIncidencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.efectosDerivados)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.medidasCorrectoras)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idComunicante)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idReceptor)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaIncidencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idTipoIncidencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.efectosDerivados)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.medidasCorrectoras)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idComunicante)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idReceptor)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+<table id="incidencias-seguridad" class="table display">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th class="filterhead">
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th class="filterhead">
+            </th>
+            <th class="filterhead">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.incidentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.incidentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.derivedEffects)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correctiveMeasures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.comunicant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.receptor)
+            </th>
+        </tr>
+    </thead>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="rowSelectedModal" tabindex="-1" role="dialog" aria-labelledby="rowSelectedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rowSelectedModalLabel">¿Qué deseas hacer con el registro seleccionado?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="btn-group mx-auto d-block text-center" role="group" aria-label="Basic example">
+                    <button id="Details" type="button" class="btn btn-outline-primary">Detalles</button>
+                    <button id="Edit" type="button" class="btn btn-outline-success">Editar</button>
+                    <button id="Delete" type="button" class="btn btn-outline-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/momentJS")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+    @Scripts.Render("~/bundles/JSZIP")
+    @Scripts.Render("~/bundles/jqueryDataTablesBootstrapJS")
+    @Scripts.Render("~/bundles/jqueryDataTablesButtonsJS")
+    @Scripts.Render("~/bundles/jqueryDataTablesButtonsHTML5JS")
+    @Scripts.Render("~/bundles/jqueryDataTablesReorder")
+    @Scripts.Render("~/bundles/SecurityIssuesJS")
+    @Scripts.Render("~/bundles/Select2JS")
+    @Scripts.Render("~/bundles/Select2JSES")
 }
 
-</table>
+@section Styles{
+    @Styles.Render("~/bundles/jqueryDataTablesCSS")
+    @Styles.Render("~/bundles/jqueryDataTablesButtonsCSS")
+    @Styles.Render("~/bundles/jqueryDataTablesCSSReorder")
+    @Styles.Render("~/bundles/Select2CSS")
+}

@@ -50,7 +50,7 @@ namespace GestorONG.DataModel
 
         [Display(Name = "Receptor de la incidencia")]
         public int idReceptor { get; set; }
-    
+        
         public virtual empleados empleados { get; set; }
         public virtual empleados empleados1 { get; set; }
         public virtual tiposIncidencias tiposIncidencias { get; set; }

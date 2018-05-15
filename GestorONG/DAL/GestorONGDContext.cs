@@ -73,6 +73,8 @@ namespace GestorONG.DAL
 
         public DbSet<donaciones> donaciones { get; set; }
 
+        public DbSet<empleados> empleados { get; set; }
+
         public System.Data.Entity.DbSet<GestorONG.DataModel.voluntario> voluntario { get; set; }
 
         #endregion

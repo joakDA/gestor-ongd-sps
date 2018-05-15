@@ -1,74 +1,102 @@
 ﻿@model GestorONG.DataModel.incidenciasSeguridad
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de la Incidencia de Seguridad";
 }
 
-<h2>Details</h2>
+<h2 class="titulo-pagina text-center">@Html.DisplayFor(model => model.descripcion)</h2>
 
 <div>
-    <h4>incidenciasSeguridad</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.fechaIncidencia)
-        </dt>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.fechaIncidencia)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.fechaIncidencia)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.fechaIncidencia)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.tiposIncidencias.nombreIncidencia)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.idTipoIncidencia)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.tiposIncidencias.nombreIncidencia)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.descripcion)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.idTipoIncidencia)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.descripcion)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.efectosDerivados)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.efectosDerivados)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.medidasCorrectoras)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.medidasCorrectoras)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.idComunicante)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.efectosDerivados)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.empleados.nombre) @Html.DisplayFor(model => model.empleados.apellidos)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row fila-form">
+        <div class="col-xs-12 col-md-6 text-center">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.idReceptor)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.efectosDerivados)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.medidasCorrectoras)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.medidasCorrectoras)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.idComunicante)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.idComunicante)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.idReceptor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.idReceptor)
-        </dd>
-
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.empleados1.nombre) @Html.DisplayFor(model => model.empleados1.apellidos)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row botones-inferiores">
+    <div class="col-xs-12 col-md-12 text-center">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id }, new { @class = "btn btn-outline-primary" })
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-primary btn-outline-danger" })
+    </div>
+</div>

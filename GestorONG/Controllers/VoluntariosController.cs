@@ -10,6 +10,8 @@ using GestorONG.DAL;
 using GestorONG.DataModel;
 using GestorONG.ViewModel;
 using System.Data.Entity.Core.Objects;
+using GestorONG.Models;
+using Newtonsoft.Json;
 
 namespace GestorONG.Controllers
 {
@@ -17,10 +19,96 @@ namespace GestorONG.Controllers
     {
         private GestorONGDContext db = new GestorONGDContext();
 
+        #region INDEX_METHODS
+
         // GET: Voluntarios
         public ActionResult Index()
         {
             return View(db.voluntario.ToList());
+        }
+
+        /// <summary>
+        /// Load data from server.
+        /// </summary>
+        /// <returns>List of collaborators to show in JQuery Datatable.</returns>
+        [HttpPost]
+        [Authorize]
+        public ActionResult LoadData()
+        {
+            string state = "";
+            string country = "";
+            string location = "";
+
+            string draw = "";
+            int start = 0;
+            int length = 0;
+            int totalRecords = 0;
+            int recordsFiltered = 0;
+            //To save collaborator filtered.
+            IQueryable<voluntario> volunteers;
+            try
+            {
+                var search = Request["search[value]"];
+                //jQuery DataTables Param
+                draw = Request.Form.GetValues("draw").FirstOrDefault();
+                //Find paging info
+                start = Convert.ToInt32(Request.Form.GetValues("start").FirstOrDefault());
+                length = Convert.ToInt32(Request.Form.GetValues("length").FirstOrDefault());
+
+                //Filter
+                state = Request.Form.GetValues("columns[6][search][value]").FirstOrDefault();
+                country = Request.Form.GetValues("columns[7][search][value]").FirstOrDefault();
+                location = Request.Form.GetValues("columns[13][search][value]").FirstOrDefault();
+
+
+                //Sort
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+
+
+                volunteers = new VolunteersRepository().GetPaginated(search, start, length, out totalRecords, out recordsFiltered, sortColumn,
+                    sortColumnDir, state, country, location);
+            }
+            catch (Exception)
+            {
+                volunteers = db.voluntario.AsQueryable();
+                recordsFiltered = volunteers.Count();
+                totalRecords = recordsFiltered;
+            }
+            //Returning Json Data
+            var jsonResult = Json(new { draw = draw, recordsFiltered = recordsFiltered, recordsTotal = totalRecords, data = volunteers });
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        /// <summary>
+        /// Retrieve unique values for each filter field.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        public string GetSelectData()
+        {
+            Dictionary<string, List<object>> jsonToSerialize = new Dictionary<string, List<object>>();
+
+            //State
+            IQueryable<object> values = db.voluntario.Select(x => x.provincia).Distinct();
+            jsonToSerialize.Add("State", values.ToList());
+
+            //Country
+            values = db.voluntario.Select(x => x.pais).Distinct();
+            jsonToSerialize.Add("Country", values.ToList());
+
+            //Location
+            values = db.voluntario.Select(x => x.Sede.ToString()).Distinct();
+            jsonToSerialize.Add("Location", values.ToList());
+
+            //Periodicity
+
+            string jsonSerialized = JsonConvert.SerializeObject(jsonToSerialize, Formatting.Indented);
+
+            return jsonSerialized;
         }
 
         // GET: Voluntarios/listadoVoluntarios
@@ -33,6 +121,8 @@ namespace GestorONG.Controllers
             };
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
 
         // GET: Voluntarios/Details/5
         public ActionResult Details(int? id)
@@ -92,7 +182,7 @@ namespace GestorONG.Controllers
                 var perPerfilNew = new personas_perfiles(0, voluntariosNuevo.id, 1);
                 db.persona_perfil.Add(perPerfilNew);
                 db.SaveChanges();
-                TempData["Acierto"] = "El voluntario/a " + model.nombre + " " + model.apellidos + " ha sido añadida correctamente al sistema.";
+                TempData["Acierto"] = "El voluntario/a " + model.nombre + " " + model.apellidos + " ha sido añadido/a correctamente al sistema.";
                 return RedirectToAction("Index");
             }
 

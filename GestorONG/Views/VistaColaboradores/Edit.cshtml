@@ -5,17 +5,21 @@
 
     if (TempData["Acierto"] != null)
     {
-        <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <p class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span> @TempData["Acierto"]</p>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-check"></span> @TempData["Acierto"]</p>
         </div>
     }
+
     if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <p class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span> @TempData["Error"]</p>
-
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-times"></span> @TempData["Error"]</p>
         </div>
     }
 }
@@ -31,14 +35,14 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.apellidos, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.apellidos, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.apellidos, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.apellidos, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.apellidos, "", new { @class = "text-danger col-xs-12 text-center" })
 
                 </div>
@@ -46,90 +50,93 @@
 
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.direccionPostal, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.direccionPostal, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.direccionPostal, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.direccionPostal, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.direccionPostal, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.codigoPostal, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.codigoPostal, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.codigoPostal, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.codigoPostal, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.codigoPostal, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
 
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.localidad, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.localidad, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.localidad, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.localidad, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.localidad, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.provincia, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.provincia, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.provincia, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
 
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.DropDownListFor(model => model.pais, Enumerable.Empty<SelectListItem>(), new { @class = "form-control selectpicker col-xs-12 col-md-8" })
+                    @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.DropDownListFor(model => model.pais, Enumerable.Empty<SelectListItem>(), new { @class = "form-control selectpicker col-xs-12" })
                     @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.telefono1, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.telefono1, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.telefono1, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.telefono1, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.telefono1, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
 
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.telefono2, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.telefono2, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.telefono2, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.telefono2, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.telefono2, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
 
             <div class="row fila-form">
-                <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.fechaNacimiento, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.fechaNacimiento, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8 date-picker" } })
+                <div class="form-group col-xs-12 col-md-6 dates-row">
+                    @Html.LabelFor(model => model.fechaNacimiento, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-11", data_toggle = "datetimepicker", data_target = "#fechaNacimiento" } })
+                    <div class="input-group-append" data-target="#fechaNacimiento" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
                     @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.Perfiles, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.Perfiles, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8", disabled = "disabled", @readonly = "readonly", @Value = "Colaborador" } })
+                    @Html.LabelFor(model => model.Perfiles, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.Perfiles, new { htmlAttributes = new { @class = "form-control col-xs-12", @readonly = "readonly", @Value = "Colaborador" } })
                     @Html.ValidationMessageFor(model => model.Perfiles, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
             <div class="row fila-form">
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.CIF_NIF, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.CIF_NIF, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.CIF_NIF, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.CIF_NIF, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.CIF_NIF, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
 
                 <div class="form-group col-xs-12 col-md-6">
-                    @Html.LabelFor(model => model.CuentaBancaria, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                    @Html.EditorFor(model => model.CuentaBancaria, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                    @Html.LabelFor(model => model.CuentaBancaria, htmlAttributes: new { @class = "control-label col-xs-12" })
+                    @Html.EditorFor(model => model.CuentaBancaria, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                     @Html.ValidationMessageFor(model => model.CuentaBancaria, "", new { @class = "text-danger col-xs-12 text-center" })
                 </div>
             </div>
             <div class="row botones-formulario">
                 <div class="form-group col-xs-12 col-md-12">
                     <div class="col-xs-12 col-md-12 text-center">
-                        <input type="submit" value="Guardar" class="btn btn-primary" />
-                        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
+                        <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-outline-danger" })
                     </div>
                 </div>
             </div>
@@ -138,42 +145,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryUI")
+    @Scripts.Render("~/bundles/momentJS")
+    @Scripts.Render("~/bundles/CustomJS")
     @Scripts.Render("~/bundles/boostrapSelectJS")
+    @Scripts.Render("~/bundles/BootstrapDatetimePickerTDJS")
     <!-- Code to wire up your DatePicker -->
     <script type="text/javascript">
-        $(function () {
-            $.datepicker.regional['es'] = {
-                closeText: 'Cerrar',
-                prevText: '< Ant',
-                nextText: 'Sig >',
-                currentText: 'Hoy',
-                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['es']);
-            // This will make every element with the class "date-picker" into a DatePicker element
-            $('.date-picker').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+0"
-            });
-            $('.date-picker-2').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-10:+0"
-            });
-            //$("#datepicker").datepicker($.datepicker.regional["es"]);
-        })
         /*****MULTISTEP FORM JQUERY*******/
         $(document).ready(function () {
             //Se obtiene la lista de países desde una REST API pública de internet
@@ -195,8 +172,38 @@
                     dropupAuto: false
                 });
                 $("#pais").selectpicker('refresh');
-                $("#pais").selectpicker('val','@Html.Raw(@Model.pais)');
-            })
-       });
+                $("#pais").selectpicker('val', '@Html.Raw(@Model.pais)');
+            });
+            InitializeDatepickers();
+        });
+
+/*
+* Initialize datepickers depending the language.
+*/
+        function InitializeDatepickers() {
+            var aux = null;
+            var format = '';
+            var picker = null;
+            var date = null;
+            var locale = '';
+
+            format = 'DD/MM/YYYY';
+            locale = 'es';
+
+            picker = $('#fechaNacimiento');
+            date = moment(picker.val(), format).toDate();
+            picker.datetimepicker({ format: format, locale: locale });
+            picker.datetimepicker({ 'date': date });
+        }
+
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
     </script>
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/BootstrapDatetimePickerTDCSS")
 }

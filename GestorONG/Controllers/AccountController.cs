@@ -121,7 +121,7 @@ namespace GestorONG.Controllers
                     return this.RedirectToLocal(returnUrl);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Info    
                 //Config.Func_WriteEventInLogFile(DateTime.Now.ToLocalTime(), enum_EventTypes.Error, "Login", ex.Message);

@@ -93,8 +93,8 @@ namespace GestorONG.DataModel
         /// Fecha de Nacimiento de la persona. Valor opcional no requerido en los formularios.
         /// </summary>
         [DisplayName("Fecha Nacimiento")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Text)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
         /// <summary>
         /// Número de identificación fiscal de la persona o empresa que es colaborador.

@@ -11,6 +11,8 @@ using GestorONG.DataModel;
 using System.Globalization;
 using GestorONG.ViewModel;
 using System.IO;
+using GestorONG.Models;
+using Newtonsoft.Json;
 
 namespace GestorONG.Controllers
 {
@@ -20,12 +22,106 @@ namespace GestorONG.Controllers
 
         private DonacionesController donacionesContr = new DonacionesController();
 
+        #region INDEX_METHODS
+
         // GET: VistaColaboradores
         public ActionResult Index()
         {
             return View(db.vistaColaboradores.ToList());
         }
 
+        /// <summary>
+        /// Load data from server.
+        /// </summary>
+        /// <returns>List of collaborators to show in JQuery Datatable.</returns>
+        [HttpPost]
+        [Authorize]
+        public ActionResult LoadData()
+        {
+            string country = "";
+            string CIF_NIF = "";
+            Single quantity = 0;
+            string periodicity = "";
+
+            string draw = "";
+            int start = 0;
+            int length = 0;
+            int totalRecords = 0;
+            int recordsFiltered = 0;
+            //To save collaborator filtered.
+            IQueryable<vistaColaboradores> collaborators;
+            try
+            {
+                var search = Request["search[value]"];
+                //jQuery DataTables Param
+                draw = Request.Form.GetValues("draw").FirstOrDefault();
+                //Find paging info
+                start = Convert.ToInt32(Request.Form.GetValues("start").FirstOrDefault());
+                length = Convert.ToInt32(Request.Form.GetValues("length").FirstOrDefault());
+
+                //Filter
+                country = Request.Form.GetValues("columns[7][search][value]").FirstOrDefault();
+                CIF_NIF = Request.Form.GetValues("columns[12][search][value]").FirstOrDefault();
+                periodicity = Request.Form.GetValues("columns[17][search][value]").FirstOrDefault();
+                
+                if (Request.Form.GetValues("columns[15][search][value]").FirstOrDefault() != "N/A")
+                {
+                    Single.TryParse(Request.Form.GetValues("columns[15][search][value]").FirstOrDefault(), out quantity);
+                }
+                
+                //Sort
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+
+
+                collaborators = new CollaboratorsRepository().GetPaginated(search, start, length, out totalRecords, out recordsFiltered, sortColumn,
+                    sortColumnDir, country, CIF_NIF, quantity, periodicity);
+            }
+            catch (Exception)
+            {
+                collaborators = db.vistaColaboradores.AsQueryable();
+                recordsFiltered = collaborators.Count();
+                totalRecords = recordsFiltered;
+            }
+            //Returning Json Data
+            var jsonResult = Json(new { draw = draw, recordsFiltered = recordsFiltered, recordsTotal = totalRecords, data = collaborators });
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        /// <summary>
+        /// Retrieve unique values for each filter field.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        public string GetSelectData()
+        {
+            Dictionary<string, List<object>> jsonToSerialize = new Dictionary<string, List<object>>();
+
+            //Country
+            IQueryable<object> values = db.vistaColaboradores.Select(x => x.pais).Distinct();
+            jsonToSerialize.Add("Country", values.ToList());
+
+            //CIF_NIF
+            values = db.vistaColaboradores.Select(x => x.CIF_NIF).Distinct();
+            jsonToSerialize.Add("CIF_NIFs", values.ToList());
+
+            //Quantity
+            values = db.vistaColaboradores.Select(x => x.cantidad.ToString()).Distinct();
+            jsonToSerialize.Add("Quantity", values.ToList());
+
+            //Periodicity
+            values = db.vistaColaboradores.Select(x => x.Periodicidad).Distinct();
+            jsonToSerialize.Add("Periodicity", values.ToList());
+
+            string jsonSerialized = JsonConvert.SerializeObject(jsonToSerialize, Formatting.Indented);
+
+            return jsonSerialized;
+        }
+
+        #endregion
         // GET: VistaColaboradores/Details/5
         public ActionResult Details(int? id)
         {

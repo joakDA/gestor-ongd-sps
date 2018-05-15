@@ -97,7 +97,6 @@
                             @Html.ActionLink("Listado de Periodicidades", "Index", "Periodicidades", null, new { @class = "nav-link" })
                             <div class="dropdown-divider"></div>
                             <h6 class="dropdown-header">Tipos de Incidencias de Seguridad</h6>
-                            @Html.ActionLink("Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias", null, new { @class = "nav-link" })
                             @Html.ActionLink("Nuevo Tipo de Incidencia de Seguridad", "Create", "TiposIncidencias", null, new { @class = "nav-link" })
                             @Html.ActionLink("Listado de Tipos de Incidencias de Seguridad", "Index", "TiposIncidencias", null, new { @class = "nav-link" })
                             <div class="dropdown-divider"></div>
@@ -167,6 +166,7 @@
     @Scripts.Render("~/bundles/PopperJS")
     @Scripts.Render("~/bundles/TetherJS")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/CustomJS")
     @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/bundles/FontAwesomeJS")
     @RenderSection("scripts", required: false)
     @RenderSection("styles", required: false)

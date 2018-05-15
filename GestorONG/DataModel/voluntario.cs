@@ -53,16 +53,17 @@ namespace GestorONG.DataModel
         [StringLength(15)]
         public string telefono2 { get; set; }
         [DisplayName("E-mail")]
+        [DataType(DataType.EmailAddress)]
         [Required]
         [StringLength(150)]
         public string email { get; set; }
         [DisplayName("Fecha Nacimiento")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Text)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> fechaNacimiento { get; set; }
         [DisplayName("Fecha Alta")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Text)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime fechaAlta { get; set; }
         public string Sede { get; set; }
         public string Perfiles { get; set; }
