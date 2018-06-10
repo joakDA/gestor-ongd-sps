@@ -42,6 +42,7 @@
 /// <reference path="datatables/responsive.foundation.min.js" />
 /// <reference path="datatables/responsive.jqueryui.min.js" />
 /// <reference path="datatables/responsive.semanticui.min.js" />
+/// <reference path="donations.js" />
 /// <reference path="esm/popper.min.js" />
 /// <reference path="esm/popper-utils.min.js" />
 /// <reference path="fontawesome/fa-brands.js" />

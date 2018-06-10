@@ -6,8 +6,6 @@ using GestorONG.DAL;
 using GestorONG.DataModel;
 using System.Collections.Generic;
 using GestorONG.Models;
-using Microsoft.AspNet.Identity;
-using GestorONG.App_Start;
 using GestorONG.ViewModel;
 using System;
 using Newtonsoft.Json;
@@ -145,7 +143,7 @@ namespace GestorONG.Controllers
         }
 
         /// <summary>
-        /// Convert sortColumn from SecurityIncidentView property name to incidenciasSeguridad property name to make sort work.
+        /// Convert sortColumn from SecurityIncidentView property name to incidenciasSeguridad property name to make sorting work.
         /// </summary>
         /// <param name="sortColumn">sortColumn from SecurityIncidentView property name</param>
         /// <returns></returns>

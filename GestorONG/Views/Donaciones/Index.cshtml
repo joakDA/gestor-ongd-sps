@@ -1,124 +1,114 @@
-﻿@model IEnumerable<GestorONG.DataModel.donaciones>
+﻿@model IEnumerable<GestorONG.ViewModel.DonationsViewModel>
 
 @{
     ViewBag.Title = "Listado de Donaciones";
     if (TempData["Acierto"] != null)
     {
-        <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <p class="text-center"><span class="glyphicon glyphicon-ok"></span> @TempData["Acierto"]</p>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-check"></span> @TempData["Acierto"]</p>
+        </div>
+    }
+
+    if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-times"></span> @TempData["Error"]</p>
         </div>
     }
 }
-<!--  FORMAT TABLE WITH JqueryDatatables-->
-@section Scripts{
-    @Scripts.Render("~/bundles/jqueryDataTables")
-    @Scripts.Render("~/bundles/boostrapSelectJS")
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#listado-donaciones').DataTable({
-                "pageLength": 10,
-                "pagingType": "full_numbers",
-                "language": {
-                    "lengthMenu": "Mostrando _MENU_ elementos por página",
-                    "zeroRecords": "No se han encontrado resultados - lo lamentamos",
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No hay resultados",
-                    "infoFiltered": "(total de _MAX_ registros)",
-                    "search": "Buscar:",
-                    "paginate": {
-                        "next": "Siguiente",
-                        "previous": "Anterior",
-                        "first": "Primero",
-                        "last": "Último"
-                    }
-                },
-                "initComplete": function () {
-                    this.api().columns([0,3]).every(function () {
-                        var column = this;
-                        var select = $('<select class="selectpicker"><option value="" selected>Selecciona un valor</option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-
-                        column.data().unique().sort().each(function (d, j) {
-                            select.append('<option value="' + d + '">' + d + '</option>')
-                        });
-                    });
-                }
-            });
-        });
-    </script>
-}
-
-<!--<p>
-    @Html.ActionLink("Nueva Sede", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-primary" })
-</p>-->
-<table id="listado-donaciones" class="table table-responsive display" data-page-lenght="10">
+<p>
+    @Html.ActionLink("Nueva Donación", "Create", null, null, new { @class = "glyphicon glyphicon-plus btn btn-outline-primary" })
+</p>
+<table id="donations-list" class="table display">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th class="filterhead">
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fechaAlta)
+            </th>
+            <th class="filterhead">
+            </th>
+            <th class="filterhead">
             </th>
             <th>
-                Colaborador
             </th>
-            <th>
-                Periodicidad
+            <th class="filterhead">
             </th>
-            <th>Acciones</th>
         </tr>
-    </thead>
-    <tfoot>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.cantidad)
+                @Html.DisplayNameFor(model => model.id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fechaAlta)
+                @Html.DisplayNameFor(model => model.amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.colaboradores.nombre) @Html.DisplayNameFor(model => model.colaboradores.apellidos)
+                @Html.DisplayNameFor(model => model.donationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.periodicidades.nombre)
+                @Html.DisplayNameFor(model => model.bankAccount)
             </th>
-            <th>Acciones</th>
+            <th>
+                @Html.DisplayNameFor(model => model.NIF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.collaborator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.periodicity)
+            </th>
         </tr>
-    </tfoot>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cantidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaAlta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.colaboradores.nombre) @Html.DisplayFor(modelItem => item.colaboradores.apellidos)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.periodicidades.nombre)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.id }, new { @class = "glyphicon glyphicon-edit" })
-                    @Html.ActionLink("Detalle", "Details", new { id = item.id }, new { @class = "glyphicon glyphicon-info-sign" })
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id }, new { @class = "glyphicon glyphicon-trash" })
-                </td>
-            </tr>
-        }
-    </tbody>
+    </thead>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="rowSelectedModal" tabindex="-1" role="dialog" aria-labelledby="rowSelectedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rowSelectedModalLabel">¿Qué deseas hacer con el registro seleccionado?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="btn-group mx-auto d-block text-center" role="group" aria-label="Basic example">
+                    <button id="Details" type="button" class="btn btn-outline-primary">Detalles</button>
+                    <button id="Edit" type="button" class="btn btn-outline-success">Editar</button>
+                    <button id="Delete" type="button" class="btn btn-outline-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+    @Scripts.Render("~/bundles/jqueryDataTables")
+    @Scripts.Render("~/bundles/momentJS")
+    @Scripts.Render("~/bundles/boostrapSelectJS")
+    @Scripts.Render("~/bundles/JSZIP")
+    @Scripts.Render("~/bundles/jqueryDataTablesBootstrapJS")
+    @Scripts.Render("~/bundles/jqueryDataTablesButtonsJS")
+    @Scripts.Render("~/bundles/jqueryDataTablesButtonsHTML5JS")
+    @Scripts.Render("~/bundles/jqueryDataTablesReorder")
+    @Scripts.Render("~/bundles/DonationsJS")
+    @Scripts.Render("~/bundles/Select2JS")
+    @Scripts.Render("~/bundles/Select2JSES")
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/jqueryDataTablesCSS")
+    @Styles.Render("~/bundles/jqueryDataTablesButtonsCSS")
+    @Styles.Render("~/bundles/jqueryDataTablesCSSReorder")
+    @Styles.Render("~/bundles/Select2CSS")
+}

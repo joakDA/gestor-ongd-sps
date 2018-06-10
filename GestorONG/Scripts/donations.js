@@ -1,5 +1,5 @@
-﻿$(document).ready(function(){
-    window.table = $('#listado-colaboradores').DataTable({
+﻿$(document).ready(function () {
+    window.table = $('#donations-list').DataTable({
         dom: 'lBrtip',
         "processing": true, //for showing progress indicator
         "searching": true,
@@ -9,7 +9,7 @@
         "orderCellsTop": false,
         "ordering": true,
         "ajax": { // server side url
-            "url": "/VistaColaboradores/LoadData",
+            "url": "/Donaciones/LoadData",
             "type": "POST",
             "datatype": "json"
         },
@@ -26,7 +26,7 @@
                 "previous": "Anterior",
                 "first": "Primero",
                 "last": "Último"
-            },"aria": {
+            }, "aria": {
                 "sortAscending": "Presiona para ordenar esta columna en orden ascendente",
                 "sortDescending": "Presiona para ordenar esta columna en orden descendente"
             }
@@ -34,60 +34,13 @@
         //show data and how to render value
         "columns": [
             {
-                "data": "id", "name": "id", "autoWidth": true, "class": "id hidden", "title" : "Id"
+                "data": "id", "name": "id", "autoWidth": true, "class": "id hidden", "title": "Id"
             },
             {
-                "data": "nombre", "name": "nombre", "autoWidth": true, "title": "Nombre"
+                "data": "amount", "name": "amount", "autoWidth": true, "title": "Cantidad"
             },
             {
-                "data": "apellidos", "name": "apellidos", "autoWidth": true, "title": "Apellidos"
-            },
-            {
-                "data": "direccionPostal", "name": "direccionPostal", "autoWidth": true, "title": "Dirección Postal"
-            },
-            {
-                "data": "codigoPostal", "name": "codigoPostal", "autoWidth": true, "title": "Código Postal"
-            },
-            {
-                "data": "localidad", "name": "localidad", "autoWidth": true, "title": "Localidad"
-            },
-            {
-                "data": "provincia", "name": "provincia", "autoWidth": true, "title": "Provincia"
-            },
-            {
-                "data": "pais", "name": "pais", "autoWidth": true, "title": "Pais"
-            },
-            {
-                "data": "telefono1", "name": "telefono1", "autoWidth": true, "title": "Teléfono 1"
-            },
-            {
-                "data": "telefono2", "name": "telefono2", "autoWidth": true, "title": "Teléfono 2"
-            },
-            {
-                "data": "email", "name": "email", "autoWidth": true, "title": "Correo Electrónico"
-            },
-            {
-                "data": "fechaNacimiento", "name": "fechaNacimiento", "autoWidth": true,
-                "render": function (data, type, row) {
-                    var date = moment(data);
-                    return data !== null ? date.format("DD-MM-YYYY") : "";
-                },
-                "title": "Fecha de Nacimiento"
-            },
-            {
-                "data": "CIF_NIF", "name": "CIF_NIF", "autoWidth": true, "title": "CIF_NIF"
-            },
-            {
-                "data": "CuentaBancaria", "name": "CuentaBancaria", "autoWidth": true, "title": "Cuenta Bancaria"
-            },
-            {
-                "data": "Perfiles", "name": "Perfiles", "autoWidth": true, "title": "Perfiles"
-            },
-            {
-                "data": "cantidad", "name": "cantidad", "autoWidth": true, "title": "Cantidad"
-            },
-            {
-                "data": "fechaAlta", "name": "fechaAlta", "autoWidth": true,
+                "data": "donationDate", "name": "donationDate", "autoWidth": true,
                 "render": function (data, type, row) {
                     var date = moment(data);
                     return data !== null ? date.format("DD-MM-YYYY") : "";
@@ -95,15 +48,28 @@
                 "title": "Fecha de Alta"
             },
             {
-                "data": "Periodicidad", "name": "Periodicidad", "autoWidth": true, "title": "Periodicidad"
+                "data": "NIF", "name": "NIF", "autoWidth": true, "title": "CIF_NIF"
+            },
+            {
+                "data": "collaborator", "name": "collaborator", "autoWidth": true, "title": "Colaborador"
+            },
+            {
+                "data": "bankAccount", "name": "bankAccount", "autoWidth": true, "title": "Cuenta Bancaria"
+            },
+            {
+                "data": "periodicity", "name": "periodicity", "autoWidth": true, "title": "Periodicidad"
             },
         ],
-        "order": [[1, 'asc']],
+        "order": [[2, 'desc']],
         "colReorder": false,
         "columnDefs": [
             {
-                "targets": [0,2,3,4,5,8,10],
+                "targets": [0],
                 "visible": false
+            },
+            {
+                "targets": [3,4,5,6],
+                "orderable": false
             }
         ],
         "responsive": true,
@@ -121,7 +87,7 @@
                 "text": '<i class="fas fa-file-excel" aria-hidden="true"></i> ' + "Excel",
                 "filename": function () {
                     var d = getFecha();
-                    return 'Collaborators' + d;
+                    return 'Donations' + d;
                 },
                 "exportOptions": {
                     "modifier": {
@@ -141,9 +107,9 @@
             $('#ajax-loader').hide();
 
             //RESET FILTERS
-            $('.dt-buttons').append('<a type="button" onclick="var table1 = $(\'#listado-colaboradores\').DataTable(); table1.search(\'\').columns().search(\'\').draw();ResetSelect();" value="" class="btn btn-primary delete-filters"><i class="fas fa-filter"></i> ' + "Borrar Filtros" + '</a>')
+            $('.dt-buttons').append('<a type="button" onclick="var table1 = $(\'#donations-list\').DataTable(); table1.search(\'\').columns().search(\'\').draw();ResetSelect();" value="" class="btn btn-primary delete-filters"><i class="fas fa-filter"></i> ' + "Borrar Filtros" + '</a>')
 
-            this.api().columns([7, 12, 15, 17]).every(function (index) {
+            this.api().columns([1,3,4,6]).every(function (index) {
                 var column = this;
                 var title = $(column.header()).text().replace(/[\n\r]/g, '').replace(/\s/g, '');
                 var elem = $('.filterhead').first();
@@ -162,7 +128,7 @@
 
                     });
             });
-            $('#listado-colaboradores_processing').removeClass('card');
+            $('#donations-list_processing').removeClass('card');
             LoadSelectData(); //Load unique values on the select data making an Ajax request.
             $('.filter-select').select2({ width: 'resolve', allowClear: false });
         }
@@ -171,7 +137,7 @@
         $('#ajax-loader').show();
     })
     .on('processing.dt', function (e, settings, processing) {
-        $('#listado-colaboradores_processing').removeClass('card');
+        $('#donations-list_processing').removeClass('card');
         if (processing) {
             $('#ajax-loader').show();    // **I do not get this**
         } else {
@@ -197,7 +163,7 @@ function ResetSelect() {
 */
 function LoadSelectData() {
     $.ajax({
-        url: '/VistaColaboradores/GetSelectData',
+        url: '/Donaciones/GetSelectData',
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         beforeSend: function () {
@@ -224,18 +190,18 @@ function LoadSelectDataSuccess(response) {
 
     var table2 = window.table;
 
-    $.each(data.Country, function (val, text) {
-        var column = table2.column(2);
+    $.each(data.Amount, function (val, text) {
+        var column = table2.column(1);
         if (column
                         .search(this.value) === text && column.search(this.value) !== "") {
-            $('#Pais').append('<option value="' + text + '" selected>' + text + '</option>')
+            $('#Cantidad').append('<option value="' + text + '" selected>' + text + '</option>')
         }
         else {
-            $('#Pais').append('<option value="' + text + '">' + text + '</option>')
+            $('#Cantidad').append('<option value="' + text + '">' + text + '</option>')
         }
     });
 
-    $.each(data.CIF_NIFs, function (val, text) {
+    $.each(data.NIF, function (val, text) {
         var column = table2.column(3);
         if (column
                         .search(this.value) === text && column.search(this.value) !== "") {
@@ -245,18 +211,18 @@ function LoadSelectDataSuccess(response) {
         }
     });
 
-    $.each(data.Quantity, function (val, text) {
-        var column = table2.column(7);
+    $.each(data.Collaborator, function (val, text) {
+        var column = table2.column(4);
         if (column
                         .search(this.value) === text && column.search(this.value) !== "") {
-            $('#Cantidad').append('<option value="' + text + '" selected>' + text + '</option>')
+            $('#Colaborador').append('<option value="' + text + '" selected>' + text + '</option>')
         } else {
-            $('#Cantidad').append('<option value="' + text + '">' + text + '</option>')
+            $('#Colaborador').append('<option value="' + text + '">' + text + '</option>')
         }
     });
 
     $.each(data.Periodicity, function (val, text) {
-        var column = table2.column(8);
+        var column = table2.column(6);
         if (column
                         .search(this.value) === text && column.search(this.value) !== "") {
             $('#Periodicidad').append('<option value="' + text + '" selected>' + text + '</option>')
@@ -276,8 +242,8 @@ function LoadSelectDataFail(response) {
 
 function RegisterCustomEvents() {
     //Row selected
-    $('#listado-colaboradores tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected-row') ) {
+    $('#donations-list tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected-row')) {
             $(this).removeClass('selected-row');
         }
         else {
@@ -297,18 +263,18 @@ function RegisterCustomEvents() {
     $('#Details').on('click', function (e) {
         e.preventDefault();
         var idSelected = window.table.row('.selected-row').data().id;
-        window.location.href = '/VistaColaboradores/Details/' + idSelected;
+        window.location.href = '/Donaciones/Details/' + idSelected;
     });
 
     $('#Edit').on('click', function (e) {
         e.preventDefault();
         var idSelected = window.table.row('.selected-row').data().id;
-        window.location.href = '/VistaColaboradores/Edit/' + idSelected;
+        window.location.href = '/Donaciones/Edit/' + idSelected;
     });
 
     $('#Delete').on('click', function (e) {
         e.preventDefault();
         var idSelected = window.table.row('.selected-row').data().id;
-        window.location.href = '/VistaColaboradores/Delete/' + idSelected;
+        window.location.href = '/Donaciones/Delete/' + idSelected;
     });
 }

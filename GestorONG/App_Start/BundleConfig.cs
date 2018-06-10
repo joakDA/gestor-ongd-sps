@@ -110,6 +110,8 @@ namespace GestorONG
 
             bundles.Add(new ScriptBundle("~/bundles/SecurityIssuesTypesJS").Include("~/Scripts/security-issues-types.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/DonationsJS").Include("~/Scripts/donations.js"));
+
             //TEMPUS DOMINUS BOOTSTRAP 4 DATEPICKER FOR CONFIGURATION FORM https://tempusdominus.github.io/bootstrap-4/
             bundles.Add(new ScriptBundle("~/bundles/BootstrapDatetimePickerTDJS").Include("~/Scripts/tempusdominus-bootstrap-4.min.js"));
 

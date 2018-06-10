@@ -9,19 +9,165 @@ using System.Web.Mvc;
 using GestorONG.DAL;
 using GestorONG.DataModel;
 using GestorONG.ViewModel;
+using GestorONG.Models;
+using Newtonsoft.Json;
+using System.Globalization;
 
 namespace GestorONG.Controllers
 {
+    [Authorize]
     public class DonacionesController : Controller
     {
+        #region PRIVATE_MEMBER_PROPERTIES
+
         private GestorONGDContext db = new GestorONGDContext();
+
+        #endregion
+
+        #region INDEX_METHODS
 
         // GET: Donaciones
         public ActionResult Index()
         {
-            var donaciones = db.donaciones.Include(d => d.colaboradores).Include(d => d.periodicidades);
-            return View(donaciones.ToList());
+            List<DonationsViewModel> donations = ConvertDonationsFromDBToView(db.donaciones.Include(x => x.colaboradores).Include(x => x.periodicidades).ToList());
+            return View(donations);
         }
+
+        /// <summary>
+        /// Load data from server.
+        /// </summary>
+        /// <returns>List of collaborators to show in JQuery Datatable.</returns>
+        [HttpPost]
+        public ActionResult LoadData()
+        {
+            JsonResult jsonResult;
+            Single amount;
+            string nif = "";
+            string collaborator = "";
+            string periodicity = "";
+
+            string draw = "";
+            int start = 0;
+            int length = 0;
+            int totalRecords = 0;
+            int recordsFiltered = 0;
+            //To save collaborator filtered.
+            IQueryable<donaciones> donations;
+            try
+            {
+                var search = Request["search[value]"];
+                //jQuery DataTables Param
+                draw = Request.Form.GetValues("draw").FirstOrDefault();
+                //Find paging info
+                start = Convert.ToInt32(Request.Form.GetValues("start").FirstOrDefault());
+                length = Convert.ToInt32(Request.Form.GetValues("length").FirstOrDefault());
+
+                //Filter
+                string amountStr = Request.Form.GetValues("columns[1][search][value]").FirstOrDefault();
+                Single.TryParse(amountStr, NumberStyles.Any, CultureInfo.InvariantCulture, out amount);
+                nif = Request.Form.GetValues("columns[3][search][value]").FirstOrDefault();
+                collaborator = Request.Form.GetValues("columns[4][search][value]").FirstOrDefault();
+                periodicity = Request.Form.GetValues("columns[6][search][value]").FirstOrDefault();
+
+                //Sort
+                var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][data]").FirstOrDefault();
+                sortColumn = ConvertSortColumn(sortColumn);
+                var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+
+                donations = new DonationsRepository().GetPaginated(search, start, length, out totalRecords, out recordsFiltered, sortColumn,
+                    sortColumnDir, amount, nif, collaborator, periodicity);
+            }
+            catch (Exception)
+            {
+                donations = db.donaciones.AsQueryable();
+                recordsFiltered = donations.Count();
+                totalRecords = recordsFiltered;
+            }
+
+            List<DonationsViewModel> viewData = ConvertDonationsFromDBToView(donations.ToList());
+            //Returning Json Data
+            jsonResult = Json(new { draw = draw, recordsFiltered = recordsFiltered, recordsTotal = totalRecords, data = viewData });
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
+        /// <summary>
+        /// Retrieve unique values for each filter field.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public string GetSelectData()
+        {
+            Dictionary<string, List<object>> jsonToSerialize = new Dictionary<string, List<object>>();
+
+            //Amounts
+            IQueryable<object> values = db.donaciones.Select(x => x.cantidad.ToString()).Distinct();
+            jsonToSerialize.Add("Amount", values.ToList());
+
+            //NIF
+            values = db.colaboradores.Select(x => x.CIF_NIF).Distinct();
+            jsonToSerialize.Add("NIF", values.ToList());
+
+            //Collaborator
+            values = db.colaboradores.Select(x => x.nombre + " " + x.apellidos).Distinct();
+            jsonToSerialize.Add("Collaborator", values.ToList());
+
+            //Periodicity
+            values = db.periodicidades.Select(x => x.nombre).Distinct();
+            jsonToSerialize.Add("Periodicity", values.ToList());
+
+            string jsonSerialized = JsonConvert.SerializeObject(jsonToSerialize, Formatting.Indented);
+
+            return jsonSerialized;
+        }
+
+        /// <summary>
+        /// Convert a list of <c>donaciones</c> with data retrieved from database to a list of <c>DonationsViewModel</c> to display data on view.
+        /// </summary>
+        /// <param name="list">List of <c>donaciones</c> with data retrieved from database.</param>
+        /// <returns>List of <c>DonationsViewModel</c> with data to show on view.</returns>
+        private List<DonationsViewModel> ConvertDonationsFromDBToView(List<donaciones> list)
+        {
+            List<DonationsViewModel> result = list.Select(item => new DonationsViewModel()
+            {
+                id = item.id,
+                amount = item.cantidad,
+                donationDate = item.fechaAlta,
+                bankAccount = item.colaboradores.CuentaBancaria,
+                NIF = item.colaboradores.CIF_NIF,
+                collaborator = string.Format("{0} {1}", item.colaboradores.nombre, item.colaboradores.apellidos),
+                periodicity = item.periodicidades.nombre
+            }).ToList();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Convert sortColumn from <c>DonationsViewModel</c> property name to <c>donaciones</c> property name to make sorting work.
+        /// </summary>
+        /// <param name="sortColumn">sortColumn from <c>DonationsViewModel</c> property name</param>
+        /// <returns>sortColumn from <c>donaciones</c> property name</returns>
+        private string ConvertSortColumn(string sortColumn)
+        {
+            string sResult = "";
+
+            switch (sortColumn)
+            {
+                case "amount":
+                    sResult = "cantidad";
+                    break;
+                case "donationDate":
+                    sResult = "fechaAlta";
+                    break;
+                default:
+                    sResult = "id";
+                    break;
+            }
+
+            return sResult;
+        }
+
+        #endregion
 
         // GET: Donaciones/Details/5
         public ActionResult Details(int? id)

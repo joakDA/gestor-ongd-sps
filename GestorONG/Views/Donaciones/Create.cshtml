@@ -5,17 +5,21 @@
 
     if (TempData["Acierto"] != null)
     {
-        <div class="alert alert-success fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <p class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span> @TempData["Acierto"]</p>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-check"></span> @TempData["Acierto"]</p>
         </div>
     }
+
     if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <p class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span> @TempData["Error"]</p>
-
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p class="text-center align-middle"><span class="fa fa-times"></span> @TempData["Error"]</p>
         </div>
     }
 }
@@ -29,42 +33,44 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row fila-form">
             <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.donacion.cantidad, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.EditorFor(model => model.donacion.cantidad, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                @Html.LabelFor(model => model.donacion.cantidad, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.EditorFor(model => model.donacion.cantidad, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                 @Html.ValidationMessageFor(model => model.donacion.cantidad, "", new { @class = "text-danger col-xs-12 text-center" })
             </div>
-
-            <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.donacion.fechaAlta, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.EditorFor(model => model.donacion.fechaAlta, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8 date-picker", @type = "datetime" } })
+            <div class="form-group col-xs-12 col-md-6 dates-row">
+                @Html.LabelFor(model => model.donacion.fechaAlta, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.EditorFor(model => model.donacion.fechaAlta, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-11", data_toggle = "datetimepicker", data_target = "#donacion_fechaAlta" } })
+                <div class="input-group-append" data-target="#donacion_fechaAlta" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
                 @Html.ValidationMessageFor(model => model.donacion.fechaAlta, "", new { @class = "text-danger col-xs-12 text-center" })
 
             </div>
         </div>
         <div class="row fila-form">
             <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.donacion.idColaborador, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.DropDownListFor(model => model.donacion.idColaborador, ViewBag.idColaborador as IEnumerable<SelectListItem>, new { @class = "form-control selectpicker col-xs-12 col-md-8" })
+                @Html.LabelFor(model => model.donacion.idColaborador, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.DropDownListFor(model => model.donacion.idColaborador, ViewBag.idColaborador as IEnumerable<SelectListItem>, new { @class = "form-control selectpicker col-xs-12" })
                 @Html.ValidationMessageFor(model => model.donacion.idColaborador, "", new { @class = "text-danger col-xs-12 text-center" })
             </div>
 
             <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.donacion.idPeriodicidad, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.DropDownListFor(model => model.donacion.idPeriodicidad,ViewBag.idPeriodicidad as IEnumerable<SelectListItem>, new { @class = "form-control selectpicker col-xs-12 col-md-8" })
+                @Html.LabelFor(model => model.donacion.idPeriodicidad, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.DropDownListFor(model => model.donacion.idPeriodicidad,ViewBag.idPeriodicidad as IEnumerable<SelectListItem>, new { @class = "form-control selectpicker col-xs-12" })
                 @Html.ValidationMessageFor(model => model.donacion.idPeriodicidad, "", new { @class = "text-danger col-xs-12 text-center" })
             </div>
         </div>
 
         <div class="row fila-form">
             <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.NIF, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.EditorFor(model => model.NIF, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                @Html.LabelFor(model => model.NIF, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.EditorFor(model => model.NIF, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                 @Html.ValidationMessageFor(model => model.NIF, "", new { @class = "text-danger col-xs-12 text-center" })
             </div>
 
             <div class="form-group col-xs-12 col-md-6">
-                @Html.LabelFor(model => model.cuentaBancaria, htmlAttributes: new { @class = "control-label col-xs-12 col-md-4" })
-                @Html.EditorFor(model => model.cuentaBancaria, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-8" } })
+                @Html.LabelFor(model => model.cuentaBancaria, htmlAttributes: new { @class = "control-label col-xs-12" })
+                @Html.EditorFor(model => model.cuentaBancaria, new { htmlAttributes = new { @class = "form-control col-xs-12" } })
                 @Html.ValidationMessageFor(model => model.cuentaBancaria, "", new { @class = "text-danger col-xs-12 text-center" })
             </div>
         </div>
@@ -72,8 +78,8 @@
         <div class="row botones-formulario">
             <div class="form-group col-xs-12 col-md-12">
                 <div class="col-xs-12 col-md-12 text-center">
-                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
+                    <input type="submit" value="Guardar" class="btn btn-outline-success" />
+                    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-outline-danger" })
                 </div>
             </div>
         </div>
@@ -82,41 +88,43 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryUI")
+    @Scripts.Render("~/bundles/momentJS")
+    @Scripts.Render("~/bundles/CustomJS")
     @Scripts.Render("~/bundles/boostrapSelectJS")
+    @Scripts.Render("~/bundles/BootstrapDatetimePickerTDJS")
 
     <script type="text/javascript">
         $(document).ready(function () {
+            InitializeDatepickers();
+        })
+        
+        /*
+        * Initialize datepickers depending the language.
+        */
+        function InitializeDatepickers() {
+            var aux = null;
+            var format = '';
+            var picker = null;
+            var date = null;
+            var locale = '';
 
-        })
-        $("#nuevaDonacion").validate({
-            ignore: "#fechaAlta"
-        });
+            format = 'DD/MM/YYYY';
+            locale = 'es';
+
+            picker = $('#donacion_fechaAlta');
+            date = moment(picker.val(), format).toDate();
+            picker.datetimepicker({ format: format, locale: locale });
+            picker.datetimepicker({ 'date': date });
+        }
+
         $(function () {
-            $.datepicker.regional['es'] = {
-                closeText: 'Cerrar',
-                prevText: '< Ant',
-                nextText: 'Sig >',
-                currentText: 'Hoy',
-                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd-MM-yy',
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['es']);
-            // This will make every element with the class "date-picker" into a DatePicker element
-            $('.date-picker').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+0"
-            });
-        })
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+            }
+        });
     </script>
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/BootstrapDatetimePickerTDCSS")
 }

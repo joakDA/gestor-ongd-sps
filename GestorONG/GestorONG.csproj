@@ -269,8 +269,10 @@
     </Compile>
     <Compile Include="Controllers\IncidenciasSeguridadController.cs" />
     <Compile Include="Models\CollaboratorsRepository.cs" />
+    <Compile Include="Models\DonationsRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IPaginationCollaborators.cs" />
+    <Compile Include="Models\IPaginationDonations.cs" />
     <Compile Include="Models\IPaginationSecurityIncidents.cs" />
     <Compile Include="Models\IPaginationVolunteers.cs" />
     <Compile Include="Models\SecurityIncidentsRepository.cs" />
@@ -280,6 +282,7 @@
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\CertificadoViewModel.cs" />
     <Compile Include="ViewModel\DonacionesViewModel.cs" />
+    <Compile Include="ViewModel\DonationsViewModel.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="ViewModel\SecurityIncidentView.cs" />
     <Compile Include="ViewModel\VoluntariosViewModel.cs" />
@@ -630,6 +633,7 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\gestorsps - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Sobremesa-Joaquin.pubxml" />
+    <Content Include="Scripts\donations.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />

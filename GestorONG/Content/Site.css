@@ -237,7 +237,7 @@ th, td {
 
 /*******CREATE/EDIT STYLES*******/
 
-#fechaNacimiento, #fechaAlta, #fechaIncidencia{
+#fechaNacimiento, #fechaAlta, #fechaIncidencia, #donacion_fechaAlta{
     display: inline-block;
     padding: 0.375rem 0 0.375rem 0.75rem;
 }
@@ -433,6 +433,9 @@ table.dataTable tbody tr.selected {
     vertical-align: middle;
 }
 
+table.dataTable{
+    margin: 0 !important;
+}
 
 /**********MEDIA QUERIES**********/
 /*Extra small devices (portrait phones, less than 576px)
@@ -623,6 +626,30 @@ table.dataTable tbody tr.selected {
 }
 
 #incidencias-seguridad{
+    padding-top: 1em;
+}
+
+/******DONATIONS********/
+#donations-list_wrapper .dt-buttons {
+    float: none;
+    text-align: center;
+    display: inline-block;
+    width: 60%;
+}
+
+#donations-list_length, #donations-list_filter {
+    width: 20%;
+}
+
+#donations-list_length, #donations-list_filter {
+    height: 50px;
+}
+
+#donations-list_length select {
+    display: inline-block;
+}
+
+#donations-list{
     padding-top: 1em;
 }
 

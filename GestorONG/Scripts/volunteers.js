@@ -70,7 +70,7 @@
                 "data": "fechaNacimiento", "name": "fechaNacimiento", "autoWidth": true,
                 "render": function (data, type, row) {
                     var date = moment(data);
-                    return data !== null ? date.format("DD-MM-YYYY HH:mm:ss.SSS") : "";
+                    return data !== null ? date.format("DD-MM-YYYY") : "";
                 },
                 "title": "Fecha de Nacimiento"
             },
@@ -78,7 +78,7 @@
                 "data": "fechaAlta", "name": "fechaAlta", "autoWidth": true,
                 "render": function (data, type, row) {
                     var date = moment(data);
-                    return data !== null ? date.format("DD-MM-YYYY HH:mm:ss.SSS") : "";
+                    return data !== null ? date.format("DD-MM-YYYY") : "";
                 },
                 "title": "Fecha de Alta"
             },

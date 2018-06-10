@@ -131,7 +131,7 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            voluntario voluntario = db.voluntario.SingleOrDefault(m => m.id == id);
+            voluntario voluntario = db.voluntario.FirstOrDefault(m => m.id == id);
             if (voluntario == null)
             {
                 return HttpNotFound();
@@ -196,7 +196,7 @@ namespace GestorONG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            voluntario voluntario = db.voluntario.SingleOrDefault(m => m.id == id);
+            voluntario voluntario = db.voluntario.FirstOrDefault(m => m.id == id);
             if (voluntario == null)
             {
                 return HttpNotFound();
@@ -248,7 +248,7 @@ namespace GestorONG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            voluntario voluntario = db.voluntario.SingleOrDefault(m => m.id == id);
+            voluntario voluntario = db.voluntario.FirstOrDefault(m => m.id == id);
             if (voluntario == null)
             {
                 return HttpNotFound();
